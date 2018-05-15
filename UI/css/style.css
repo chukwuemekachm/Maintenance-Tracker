@@ -18,7 +18,7 @@ h4,
 h5,
 hr,
 h6 {
-    color: #737373!important;
+    color: #252525!important;
 }
 
 body {
@@ -201,11 +201,11 @@ button.ch-btn:hover {
 
 a.ch-link {
     text-decoration: none;
-    color: #585656;
+    color: #3f3e3e;
 }
 
 a.ch-link:hover {
-    color: #252525;
+    color: #161616;
 }
 
 
@@ -256,7 +256,7 @@ a.ch-link:hover {
     text-transform: capitalize;
     font-size: 1em;
     font-weight: 600;
-    color: #949393;
+    color: #252525;
 }
 
 .ch-input-check {
@@ -346,8 +346,9 @@ table.ch-table {
 table.ch-table th,
 table.ch-table td {
     padding: .7em;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
+    color: #252525;
 }
 
 

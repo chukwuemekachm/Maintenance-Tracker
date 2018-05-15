@@ -2,10 +2,15 @@ const toggleModal = (id, me) => {
     if (document.getElementById('modal').style.display === 'block') {
         document.getElementById('modal').style.display = 'none';
         document.getElementById(id).style.display = 'none';
-        me.innerHTML = 'New Request';
+        if (me) me.innerHTML = 'New Request';
     } else {
+        if (id === 'add-request') {
+            document.getElementById('modal').style.top = '12em';
+        } else {
+            document.getElementById('modal').style.top = '3.8em';
+        }
         document.getElementById('modal').style.display = 'block';
         document.getElementById(id).style.display = 'block';
-        me.innerHTML = 'Cancel Request';
+        if (me) me.innerHTML = 'Cancel Request';
     }
 };

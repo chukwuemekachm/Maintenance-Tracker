@@ -128,6 +128,7 @@ body {
     width: 100%;
     margin: 0;
     top: 0;
+    overflow: auto;
     position: fixed;
     height: 100%;
     background-size: 100% 100%;
@@ -140,6 +141,7 @@ body {
     top: 0;
     position: fixed;
     height: 100%;
+    overflow: auto;
     background-size: 100% 100%;
 }
 
@@ -238,6 +240,13 @@ a.ch-link:hover {
     margin-top: .09em
 }
 
+.ch-input-search {
+    height: 2.2em;
+    width: 100%;
+    border-radius: .2em;
+    border: .8px solid #737373!important;
+}
+
 .ch-input-desc {
     height: 5em;
 }
@@ -289,8 +298,6 @@ ul.ch-nav li a.active {
 ul.ch-nav li.right {
     float: right;
     font-size: .9em;
-    margin-right: 3em;
-    margin-top: 1.2em;
 }
 
 #ch-nav-hide {
@@ -327,7 +334,7 @@ ul.ch-nav li.right {
 /* Tables */
 
 div.ch-table {
-    overflow-x: auto;
+    overflow-x: auto!important;
 }
 
 table.ch-table {
@@ -369,5 +376,15 @@ tr:nth-child(even) {
     }
     .ch-modal-section {
         width: 80%;
+        margin-top: 2em;
+    }
+    ul.ch-nav li.right,
+    ul.ch-nav li {
+        float: none;
+    }
+    ul.ch-nav li.right,
+    ul.ch-nav li {
+        flex: block;
+        width: 100%;
     }
 }

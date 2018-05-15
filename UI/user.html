@@ -12,13 +12,15 @@
 <body>
     <div class="ch-wrapper">
         <div class="ch-aside">
-            <div class="">
+            <div id="ch-nav">
                 <ul class="ch-nav ch-card-1">
                     <li>
                         <h2><a href="">Maintenance Tracker</a></h2>
                     </li>
+                    <li class="right"><a href="index.html"><button class="ch-btn-sm" onclick="window.location.replace(index.html)">log out</button></a></li>
+                    <li class="right"><a><button class="ch-btn-sm" onclick="toggleModal('add-request',this)">New Request</button></a></li>
                     <li class="right">
-                        <button class="ch-btn-sm" onclick="toggleModal('add-request',this)">New Request</button>
+                        <a><input placeholder="Search" class="ch-input-search" /></a>
                     </li>
                 </ul>
             </div>
@@ -26,7 +28,7 @@
                 <h1 class="ch-padding">My Requests</h1>
                 <div class="ch-row">
                     <div class="ch-col-1"></div>
-                    <div class="ch-col-8 ch-padding ch-card-0 ch-padding-2">
+                    <div class="ch-col-10 ch-padding ch-card-0 ch-padding-2">
                         <div class="ch-table">
                             <table class="ch-table">
                                 <thead>

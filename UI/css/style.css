@@ -124,7 +124,7 @@ body {
 /* wrapper */
 
 .ch-wrapper {
-    background-image: url('/UI/img/img4.jpg');
+    background-image: url('../img/img4.jpg');
     width: 100%;
     margin: 0;
     top: 0;

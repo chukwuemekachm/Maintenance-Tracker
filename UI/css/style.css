@@ -1,0 +1,351 @@
+/* Google fonts Varela Round */
+
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Varela Round';
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h3,
+h1,
+h2,
+h4,
+h5,
+hr,
+h6 {
+    color: #737373!important;
+}
+
+body {
+    margin: 0;
+}
+
+
+/* Row Declaration */
+
+.ch-row {
+    padding-top: 1em;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.ch-col-1 {
+    width: 8.33%;
+}
+
+.ch-col-2 {
+    width: 16.66%;
+}
+
+.ch-col-3 {
+    width: 25%;
+}
+
+.ch-col-4 {
+    width: 33.33%;
+}
+
+.ch-col-5 {
+    width: 41.66%;
+}
+
+.ch-col-6 {
+    width: 50%;
+}
+
+.ch-col-7 {
+    width: 58.33%;
+}
+
+.ch-col-8 {
+    width: 66.66%;
+}
+
+.ch-col-9 {
+    width: 75%;
+}
+
+.ch-col-10 {
+    width: 83.33%;
+}
+
+.ch-col-11 {
+    width: 91.66%;
+}
+
+.ch-col-12 {
+    width: 100%;
+}
+
+[class*="ch-col"] {
+    margin: auto;
+}
+
+
+/*	padding  */
+
+.ch-padding {
+    padding: .5em!important;
+}
+
+.ch-padding-2 {
+    padding: 1em!important;
+}
+
+.ch-padding-3 {
+    padding: 1.5em!important;
+}
+
+.ch-padding-4 {
+    padding: 2em!important;
+}
+
+.ch-padding-8 {
+    padding: 4em!important;
+}
+
+.fa {
+    margin-right: .4em;
+    font-size: 1em;
+}
+
+
+/* wrapper */
+
+.ch-wrapper {
+    background-image: url('/UI/img/img4.jpg');
+    width: 100%;
+    margin: 0;
+    top: 0;
+    position: fixed;
+    height: 100%;
+    background-size: 100% 100%;
+}
+
+.ch-aside {
+    background-color: rgba(223, 221, 221, 0.9);
+    width: 100%;
+    margin: 0;
+    top: 0;
+    position: fixed;
+    height: 100%;
+    background-size: 100% 100%;
+}
+
+
+/*	Buttons */
+
+button.ch-btn {
+    border-radius: .2em;
+    border: none;
+    padding: .8em 1.1em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button.ch-btn-sm {
+    border-radius: .2em;
+    border: none;
+    padding: .4em .6em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button.ch-btn-update {
+    border-radius: .2em;
+    border: none;
+    padding: .4em .6em;
+    font-size: 1em;
+    cursor: pointer;
+    color: #f2f2f2;
+    background-color: #00b33c;
+}
+
+button.ch-btn-delete {
+    border-radius: .2em;
+    border: none;
+    padding: .4em .6em;
+    font-size: 1em;
+    cursor: pointer;
+    color: #f2f2f2;
+    background-color: #ff471a;
+}
+
+button.ch-btn-create {
+    border-radius: .2em;
+    border: none;
+    padding: .4em .6em;
+    font-size: .5em;
+    cursor: pointer;
+    color: #f2f2f2;
+    background-color: rgba(255, 153, 51, 1);
+}
+
+button.ch-btn-delete:hover,
+button.ch-btn-update:hover,
+button.ch-btn-create:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.ch-btn-flat {
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    padding: .6em 1em;
+    font-size: 1em;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: rgb(0, 153, 153);
+}
+
+.ch-btn-sign {
+    border-radius: .4em;
+    border: none;
+    padding: .6em 0;
+    font-size: 1.1em;
+    cursor: pointer;
+    color: #ffffff;
+    margin: .4em 0em;
+    width: 100%;
+    background-color: rgb(0, 128, 128);
+}
+
+button.ch-btn-order:hover,
+button.ch-btn-flat:hover {
+    background-color: rgb(0, 128, 128);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.ch-btn-lg {
+    border-radius: .2em;
+    border: none;
+    padding: .5em .7em;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+a.ch-link {
+    text-decoration: none;
+    color: #585656;
+}
+
+a.ch-link:hover {
+    color: #252525;
+}
+
+
+/*	Cards	*/
+
+.ch-card-2 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ch-card-1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.ch-card {
+    -webkit-box-shadow: 0 7px 6px -6px #777;
+    -moz-box-shadow: 0 7px 6px -6px #777;
+    box-shadow: 0 7px 6px -6px #777;
+}
+
+.ch-card-0 {
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+/* Inputs */
+
+.ch-input {
+    height: 2.2em;
+    width: 100%;
+    border-radius: .2em;
+    border: .8px solid #737373!important;
+    margin-bottom: 1em;
+    margin-top: .09em
+}
+
+.ch-label {
+    text-transform: capitalize;
+    font-size: 1em;
+    font-weight: 600;
+    color: #949393;
+}
+
+.ch-input-check {
+    height: 1.5em;
+    margin-right: .5em;
+    width: 40%;
+}
+
+
+/*	Navigation	*/
+
+ul.ch-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(242, 242, 242);
+}
+
+ul.ch-nav li {
+    float: left;
+}
+
+ul.ch-nav li a {
+    display: block;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    color: rgb(0, 153, 153);
+}
+
+ul.ch-nav li a:hover:not(.active) {
+    background-color: rgb(243, 241, 241);
+}
+
+ul.ch-nav li a.active {
+    background-color: rgb(243, 241, 241);
+}
+
+ul.ch-nav li.right {
+    float: right;
+    font-size: .9em;
+}
+
+#ch-nav-hide {
+    display: none;
+}
+
+
+/* Media Queries */
+
+@media only screen and (max-width: 769px) {
+    .ch-row {
+        -webkit-flex-direction: column;
+        display: flex;
+        flex-direction: column;
+    }
+    [class*="ch-col-"] {
+        width: 100%;
+        margin: auto!important;
+        -webkit-justify-content: center;
+        justify-content: center;
+        padding: 0em 2em;
+    }
+}

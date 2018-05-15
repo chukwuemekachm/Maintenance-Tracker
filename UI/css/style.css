@@ -135,7 +135,7 @@ body {
 }
 
 .ch-aside {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.85);
     width: 100%;
     margin: 0;
     top: 0;
@@ -154,7 +154,7 @@ button.ch-btn {
     padding: .8em 1.1em;
     font-size: 1em;
     cursor: pointer;
-    background-color: rgb(0, 153, 153);
+    background-color: #4d79ff;
 }
 
 button.ch-btn-sm {
@@ -163,6 +163,7 @@ button.ch-btn-sm {
     padding: .4em .6em;
     font-size: 1em;
     cursor: pointer;
+    background-color: #cfcfcf;
 }
 
 button.ch-btn-view {
@@ -171,8 +172,8 @@ button.ch-btn-view {
     padding: .3em .5em;
     font-size: 1em;
     cursor: pointer;
-    background-color: rgb(0, 153, 153);
-    color: #f2f2f2;
+    background-color: #4d79ff;
+    color: #ffffff;
 }
 
 button.ch-btn-sm:hover {
@@ -188,13 +189,13 @@ button.ch-btn-flat {
     font-size: 1em;
     cursor: pointer;
     color: #ffffff;
-    background-color: rgb(0, 153, 153);
+    background-color: #4d79ff;
 }
 
 button.ch-btn-flat:hover,
 button.ch-btn-view:hover,
 button.ch-btn:hover {
-    background-color: rgb(0, 128, 128);
+    background-color: #1a53ff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -272,7 +273,7 @@ ul.ch-nav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgb(242, 242, 242);
+    background-color: rgb(255, 255, 255);
 }
 
 ul.ch-nav li {
@@ -284,7 +285,7 @@ ul.ch-nav li a {
     text-align: center;
     padding: 18px 16px;
     text-decoration: none;
-    color: rgb(0, 153, 153);
+    color: #4d79ff;
 }
 
 ul.ch-nav li a:hover:not(.active) {

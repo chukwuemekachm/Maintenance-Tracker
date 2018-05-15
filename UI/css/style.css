@@ -128,18 +128,20 @@ body {
     width: 100%;
     margin: 0;
     top: 0;
+    overflow: auto;
     position: fixed;
     height: 100%;
     background-size: 100% 100%;
 }
 
 .ch-aside {
-    background-color: rgba(223, 221, 221, 0.9);
+    background-color: rgba(255, 255, 255, 0.8);
     width: 100%;
     margin: 0;
     top: 0;
     position: fixed;
     height: 100%;
+    overflow: auto;
     background-size: 100% 100%;
 }
 
@@ -152,6 +154,7 @@ button.ch-btn {
     padding: .8em 1.1em;
     font-size: 1em;
     cursor: pointer;
+    background-color: rgb(0, 153, 153);
 }
 
 button.ch-btn-sm {
@@ -162,40 +165,19 @@ button.ch-btn-sm {
     cursor: pointer;
 }
 
-button.ch-btn-update {
+button.ch-btn-view {
     border-radius: .2em;
     border: none;
-    padding: .4em .6em;
+    padding: .3em .5em;
     font-size: 1em;
     cursor: pointer;
+    background-color: rgb(0, 153, 153);
     color: #f2f2f2;
-    background-color: #00b33c;
 }
 
-button.ch-btn-delete {
-    border-radius: .2em;
-    border: none;
-    padding: .4em .6em;
-    font-size: 1em;
-    cursor: pointer;
-    color: #f2f2f2;
-    background-color: #ff471a;
-}
-
-button.ch-btn-create {
-    border-radius: .2em;
-    border: none;
-    padding: .4em .6em;
-    font-size: .5em;
-    cursor: pointer;
-    color: #f2f2f2;
-    background-color: rgba(255, 153, 51, 1);
-}
-
-button.ch-btn-delete:hover,
-button.ch-btn-update:hover,
-button.ch-btn-create:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+button.ch-btn-sm:hover {
+    background-color: #c7c3c3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 button.ch-btn-flat {
@@ -209,32 +191,11 @@ button.ch-btn-flat {
     background-color: rgb(0, 153, 153);
 }
 
-.ch-btn-sign {
-    border-radius: .4em;
-    border: none;
-    padding: .6em 0;
-    font-size: 1.1em;
-    cursor: pointer;
-    color: #ffffff;
-    margin: .4em 0em;
-    width: 100%;
-    background-color: rgb(0, 128, 128);
-}
-
-button.ch-btn-order:hover,
-button.ch-btn-flat:hover {
+button.ch-btn-flat:hover,
+button.ch-btn-view:hover,
+button.ch-btn:hover {
     background-color: rgb(0, 128, 128);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-button.ch-btn-lg {
-    border-radius: .2em;
-    border: none;
-    padding: .5em .7em;
-    font-size: 1em;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
 }
 
 a.ch-link {
@@ -277,6 +238,17 @@ a.ch-link:hover {
     border: .8px solid #737373!important;
     margin-bottom: 1em;
     margin-top: .09em
+}
+
+.ch-input-search {
+    height: 2.2em;
+    width: 100%;
+    border-radius: .2em;
+    border: .8px solid #737373!important;
+}
+
+.ch-input-desc {
+    height: 5em;
 }
 
 .ch-label {
@@ -333,6 +305,60 @@ ul.ch-nav li.right {
 }
 
 
+/*	Modals	*/
+
+.ch-modal {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: rgba(64, 64, 64, 0.55);
+    height: 100%;
+    position: fixed;
+    top: 4em;
+    display: none;
+    overflow: auto;
+}
+
+.ch-modal-section {
+    top: 2em;
+    width: 30%;
+    height: auto;
+    margin: auto;
+    margin-top: 3.8em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #f2f2f2;
+    display: none;
+}
+
+
+/* Tables */
+
+div.ch-table {
+    overflow-x: auto!important;
+}
+
+table.ch-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.ch-table th,
+table.ch-table td {
+    padding: .7em;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+/*tr:hover {
+    background-color: #f5f5f5
+}*/
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+
 /* Media Queries */
 
 @media only screen and (max-width: 769px) {
@@ -347,5 +373,18 @@ ul.ch-nav li.right {
         -webkit-justify-content: center;
         justify-content: center;
         padding: 0em 2em;
+    }
+    .ch-modal-section {
+        width: 80%;
+        margin-top: 2em;
+    }
+    ul.ch-nav li.right,
+    ul.ch-nav li {
+        float: none;
+    }
+    ul.ch-nav li.right,
+    ul.ch-nav li {
+        flex: block;
+        width: 100%;
     }
 }

@@ -188,6 +188,26 @@ button.ch-btn-view {
     color: #ffffff;
 }
 
+button.ch-btn-approve {
+    border-radius: .2em;
+    border: none;
+    padding: .3em .5em;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #48e648;
+    color: #ffffff;
+}
+
+button.ch-btn-disapprove {
+    border-radius: .2em;
+    border: none;
+    padding: .3em .5em;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #ec6644;
+    color: #ffffff;
+}
+
 button.ch-btn-round {
     border-radius: 1em;
     border: .1px solid grey;
@@ -223,6 +243,11 @@ button.ch-btn:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+button.ch-btn-approve:hover,
+button.ch-btn-disapprove:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 a.ch-link {
     text-decoration: none;
     color: #3f3e3e;
@@ -230,6 +255,17 @@ a.ch-link {
 
 a.ch-link:hover {
     color: #161616;
+}
+
+
+/*	Alert	*/
+
+.ch-alert {
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    font-size: 1em;
+    display: none;
 }
 
 

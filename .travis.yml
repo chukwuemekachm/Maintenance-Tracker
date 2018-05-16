@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - "9"
+before_install:
+  - npm install -g node-gyp
+  - npm install -g node-pre-gyp
+
+script:
+  - npm test
+
+after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+
+after_success:
+  - npm run coverage
+  - npm run report-coverage

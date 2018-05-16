@@ -296,6 +296,28 @@ img {
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
+.ch-card-dash {
+    text-align: center;
+}
+
+.ch-card-dash i {
+    font-size: 5em;
+    color: rgb(85, 83, 83);
+}
+
+a.ch-dash {
+    text-decoration: none!important;
+}
+
+.ch-counter {
+    color: #4d79ff!important;
+    font-size: 2em;
+}
+
+.ch-card-dash:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 
 /* Inputs */
 

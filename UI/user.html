@@ -7,28 +7,33 @@
     <title>Maintenance Tracker | User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/ico" href="img/15682.png">
 </head>
 
 <body>
-    <div class="ch-wrapper">
-        <div class="ch-aside">
+    <div class="">
+        <div class="">
             <div id="ch-nav">
                 <ul class="ch-nav ch-card-1">
                     <li>
                         <h2><a href="">Maintenance Tracker</a></h2>
                     </li>
-                    <li class="right"><a href="index.html"><button class="ch-btn-sm" onclick="window.location.replace(index.html)">Log Out</button></a></li>
-                    <li class="right"><a><button class="ch-btn-sm" onclick="toggleModal('add-request',this)">New Request</button></a></li>
+                    <li class="right"><a href="index.html"><button class="ch-btn-round" onclick="window.location.replace(index.html)">Log Out</button></a></li>
+                    <li class="right"><a><button class="ch-btn-round" onclick="toggleModal('add-request',this)">New Request</button></a></li>
                     <li class="right">
                         <a><input placeholder="Search" class="ch-input-search" /></a>
                     </li>
                 </ul>
             </div>
+            <div class="ch-alert" id="display">
+                <p id="alert"></p>
+            </div>
             <div class="ch-col-12">
-                <h1 class="ch-padding">My Requests</h1>
+                <h2 class="ch-padding"><i class="icon ion-md-person"></i> My Requests</h2>
                 <div class="ch-row">
                     <div class="ch-col-1"></div>
-                    <div class="ch-col-10 ch-padding ch-card-0 ch-padding-2">
+                    <div class="ch-col-10 ch-padding ch-padding-2">
                         <div class="ch-table">
                             <table class="ch-table">
                                 <thead>
@@ -85,11 +90,16 @@
             </div>
         </div>
     </div>
+
+    <div class="ch-footer">
+        <h5>Copyright of &copy;2018 Maintenace Tracker by Chima Chukwuemeka</h5>
+    </div>
+
     <div class="ch-modal" id="modal">
         <div class="ch-modal-section ch-padding" id="add-request">
             <div class="ch-row">
                 <div class="ch-col-10">
-                    <form action="user.html" method="post">
+                    <form onsubmit="toggleModal('add-request'); displayAlert('Requst created successfully', 1)">
                         <label for="title" class="ch-label">Title</label>
                         <input type="text" name="title" id="" class="ch-input" required>
                         <label for="type" class="ch-label">Type</label>
@@ -111,22 +121,22 @@
             <div class="ch-row">
                 <div class="ch-col-10">
                     <p><label for="title" class="ch-label">Title</label></p>
-                    <h4>
+                    <p>
                         Lorem impsum dolet et sim, elet dar tar
-                    </h4>
+                    </p>
                     <br>
                     <p><label for="type" class="ch-label">Type</label></p>
-                    <h4>Repair</h4>
+                    <p>Repair</p>
                     <br>
                     <p><label for="description" class="ch-label">Description</label>
                     </p>
-                    <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</h4>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
                     <br>
                     <p><label for="status" class="ch-label">Status</label></p>
-                    <h4>Approved</h4>
+                    <p>Approved</p>
                     <br>
                     <p><label for="date" class="ch-label">Date</label></p>
-                    <h4>22/03/2018 01:02pm</h4>
+                    <p>22/03/2018 01:02pm</p>
                     <br>
                     <button onclick="toggleModal('view-request')" class="ch-btn-flat">Close</button>
                     <br>

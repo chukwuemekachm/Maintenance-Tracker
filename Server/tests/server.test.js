@@ -7,7 +7,11 @@ import { server } from '../../app';
 const should = chai.should();
 chai.use(chaiHttp);
 
-/** tests */
+/**
+ * tests
+ * It should test baseurl and return 200 if it's successful
+ * else it should return 404 if route is not supported
+ *  */
 describe('GET /', () => {
   it('should return 200 and message, "Welcome to Maintenance Tracker."', (done) => {
     chai.request(server)

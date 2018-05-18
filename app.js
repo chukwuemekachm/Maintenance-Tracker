@@ -1,6 +1,7 @@
 /** imports */
 import express from 'express';
 import logger from 'morgan';
+import RequestRoutes from './Server/routes/userRoutes';
 
 /** instantiations */
 const app = express();
@@ -11,6 +12,8 @@ app.use(logger('dev'));
 
 /** route handlers */
 app.get('/', (req, res) => res.status(200).json({ message: 'Welcome to Maintenance Tracker' }));
+
+app.use('/api/v1/users', RequestRoutes);
 
 app.all('*', (req, res) => res.status(404).json({ message: 'Route not supported on server.' }));
 

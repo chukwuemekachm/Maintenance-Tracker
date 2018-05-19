@@ -1,11 +1,10 @@
-/** imports */
+import { describe, it } from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { server } from '../../app';
 
-/** instantiations */
-const should = chai.should();
 chai.use(chaiHttp);
+const should = chai.should();
 
 describe('GET /', () => {
   it('should return 200 and requests,', (done) => {

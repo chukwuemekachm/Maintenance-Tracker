@@ -1,8 +1,8 @@
+import { describe, it } from 'mocha';
 import chai from 'chai';
-import { describe } from 'mocha';
 import Request from '../models/request';
 
-const should = chai.expect;
+const should = chai.should();
 
 describe('Test Request Model', () => {
   it('It should instantiate a new Request object', (done) => {

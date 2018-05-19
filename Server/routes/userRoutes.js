@@ -5,6 +5,7 @@ const router = express.Router();
 const UserController = new User();
 
 router.get('/requests', UserController.getRequest);
+router.get('/requests/:id', UserController.getRequestById);
 
 router.all('*', (req, res) => res.status(404).json({
   status: 'fail',

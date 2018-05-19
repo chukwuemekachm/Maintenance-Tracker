@@ -2,7 +2,7 @@ import Request from '../models/request';
 
 class UserController {
   /**
-     * Gets request of a user
+     * Gets requests of a user
      *
      * @param {object} req - The request object received
      * @param {object} res - The response object sent
@@ -20,7 +20,7 @@ class UserController {
   }
 
   /**
-     * Gets request of a user
+     * Gets a single request of a user
      *
      * @param {object} req - The request object received
      * @param {object} res - The response object sent
@@ -47,6 +47,30 @@ class UserController {
       status: 'success',
       code: 200,
       message: 'Request found for the user',
+      data: { request },
+    });
+  }
+
+  /**
+     * Creates a new request
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  createRequest(req, res) {
+    const request = new Request(
+      Request.count(),
+      req.body.request.title,
+      req.body.request.type,
+      req.body.request.description,
+    );
+    Request.createRequest(request);
+    return res.status(201).json({
+      status: 'success',
+      code: 201,
+      message: 'Request created successfully',
       data: { request },
     });
   }

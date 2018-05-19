@@ -1,6 +1,7 @@
 /** imports */
 import express from 'express';
 import logger from 'morgan';
+import bodyParser from 'body-parser';
 import RequestRoutes from './Server/routes/userRoutes';
 
 /** instantiations */
@@ -9,6 +10,8 @@ const port = process.env.PORT || 3000;
 
 /** middlewares */
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 /** route handlers */
 app.get('/', (req, res) => res.status(200).json({ message: 'Welcome to Maintenance Tracker' }));

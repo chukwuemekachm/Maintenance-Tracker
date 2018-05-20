@@ -4,46 +4,44 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Maintenance Tracker | Signup</title>
+    <title>Maintenance Tracker | Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/ico" href="img/15682.png">
 </head>
 
 <body>
     <div class="ch-wrapper">
         <div class="ch-aside">
-            <div class="">
-                <ul class="ch-nav ch-card-1">
+            <nav>
+                <ul class="ch-nav ch-card">
                     <li>
-                        <h2><a href="">Maintenance Tracker Signup</a></h2>
+                        <h2><a href="index.html">Maintenance Tracker</a></h2>
                     </li>
                 </ul>
-            </div>
-            <div class="ch-row">
-                <div class="ch-col-4"></div>
-                <div class="ch-col-4 ch-padding-8">
-                    <div class="ch-card-1 ch-padding-3">
-                        <form action="user.html" method="get">
-                            <label for="fisrtname" class="ch-label">First Name</label>
-                            <input type="text" name="fisrtname" id="" class="ch-input" required>
-                            <label for="lastname" class="ch-label">Last Name</label>
-                            <input type="text" name="lastname" id="" class="ch-input" required>
-                            <label for="email" class="ch-label">Email</label>
-                            <input type="email" name="email" id="" class="ch-input" required>
-                            <label for="password" class="ch-label">Password</label>
-                            <input type="password" name="password" id="" class="ch-input" required>
-                            <button type="submit" class="ch-btn-flat">Sign Up</button>
-                        </form>
-                        <br>
-                        <p><a href="signin.html" class="ch-link">Have an account? sign in</a></p>
-                    </div>
-                </div>
-                <div class="ch-col-4"></div>
+            </nav>
+            <div class="ch-col-3 ch-center ch-panel">
+                <form action="user.html" method="get">
+                    <label for="firstname" class="ch-label">First Name</label>
+                    <input type="text" name="firstname" id="" class="ch-input" required placeholder="First Name">
+                    <label for="lastname" class="ch-label">Last Name</label>
+                    <input type="text" name="lastname" id="" class="ch-input" required placeholder="Last Name">
+                    <label for="email" class="ch-label">Email Address</label>
+                    <input type="email" name="email" id="" class="ch-input" required placeholder="Email Address">
+                    <label for="password" class="ch-label">Password</label>
+                    <input type="password" name="password" id="" class="ch-input" required placeholder="Password">
+                    <button class="ch-btn-flat">Signup</button>
+                </form>
+                <p class="ch-right">
+                    <a href="signin.html">Have an account? Signin...</a>
+                </p>
             </div>
         </div>
     </div>
-
+    <div class="ch-footer ch-card">
+        <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
+    </div>
 </body>
 <script src="js/script.js"></script>
 

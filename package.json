@@ -1,0 +1,47 @@
+{
+    "name": "Maintenance-Tracker",
+    "version": "1.0.0",
+    "description": "Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.",
+    "main": "app.js",
+    "scripts": {
+        "test": "nyc --reporter=html --reporter=text mocha --exit --require babel-register ./Server/tests/**/*.test.js",
+        "start:dev": "nodemon --exec babel-node app.js",
+        "start": "babel-node app.js",
+        "lint": "./node_modules/.bin/eslint Server/ --ext js --fix",
+        "coverage": "nyc report --reporter=text-lcov | coveralls"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chukwuemekachm/Maintenance-Tracker.git"
+    },
+    "keywords": [],
+    "author": "CHIMA CHUKWUEMEKA",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/chukwuemekachm/Maintenance-Tracker/issues"
+    },
+    "homepage": "https://github.com/chukwuemekachm/Maintenance-Tracker#readme",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "errorhandler": "^1.5.0",
+        "express": "^4.16.3",
+        "joi": "^13.3.0",
+        "morgan": "^1.9.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-preset-env": "^1.7.0",
+        "chai": "^4.1.2",
+        "chai-http": "^4.0.0",
+        "coveralls": "^3.0.1",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb": "^16.1.0",
+        "eslint-plugin-import": "^2.12.0",
+        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-react": "^7.8.2",
+        "mocha": "^5.1.1",
+        "nodemon": "^1.17.4",
+        "nyc": "^11.8.0"
+    }
+}

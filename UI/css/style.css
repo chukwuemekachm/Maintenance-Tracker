@@ -241,6 +241,28 @@ button.ch-btn-view {
     opacity: .8;
 }
 
+button.ch-btn-ok {
+    border-radius: .36em;
+    border: .1px solid grey;
+    padding: .25em 1em;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: rgb(30, 130, 76);
+    color: #ffffff;
+    opacity: .8;
+}
+
+button.ch-btn-close {
+    border-radius: .36em;
+    border: .1px solid grey;
+    padding: .25em 1em;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: rgb(108, 122, 137);
+    color: #ffffff;
+    opacity: .8;
+}
+
 button.ch-btn-approve {
     border-radius: .36em;
     border: .1px solid grey;
@@ -296,9 +318,10 @@ button.ch-btn-flat {
     background-color: rgba(64, 64, 64, 0.55);
     height: 100%;
     position: fixed;
-    top: 4em;
+    top: 0em;
     display: none;
     overflow: auto;
+    z-index: 1;
 }
 
 .ch-modal-section {
@@ -308,9 +331,24 @@ button.ch-btn-flat {
     margin: auto;
     margin-top: 3.8em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: #f2f2f2;
+    background-color: rgb(242, 241, 239);
     display: none;
     overflow: auto;
+    animation: fade 500ms;
+    padding-top: 1em;
+    border-top: .3em inset rgb(30, 130, 76);
+    border-bottom: .4em inset rgb(30, 130, 76);
+}
+
+.ch-modal-section p>label {
+    font-family: 'Poiret One', cursive!important;
+    margin-bottom: .2em;
+    font-weight: 600;
+    color: #3b3b3b;
+}
+
+.ch-modal-section p {
+    text-align: left!important;
 }
 
 
@@ -340,7 +378,7 @@ ul.ch-nav div.ch-nav-right {
     justify-content: space-between;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    animation: fade 2s;
+    animation: fade 500ms;
 }
 
 ul.ch-nav div.ch-nav-right li {
@@ -364,6 +402,17 @@ ul.ch-nav li>h2 {
 }
 
 ul.ch-nav li>h2>i {
+    display: none;
+}
+
+
+/*	Alert	*/
+
+.ch-alert {
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    font-size: 1em;
     display: none;
 }
 
@@ -408,6 +457,9 @@ ul.ch-nav li>h2>i {
         width: 80%;
         margin-top: 2em;
     }
+    .ch-footer {
+        position: initial;
+    }
 }
 
 
@@ -416,14 +468,26 @@ ul.ch-nav li>h2>i {
 @-webkit-keyframes fade {
     0% {
         opacity: 0;
+        transform: scale(0);
     }
-    35% {
-        opacity: 0.7;
+    20% {
+        opacity: 0.2;
+        transform: scale(.2);
     }
-    75% {
-        opacity: 1;
+    40% {
+        opacity: 0.4;
+        transform: scale(.4);
+    }
+    60% {
+        opacity: 0.6;
+        transform: scale(.6);
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(.8);
     }
     100% {
+        opacity: 1;
         transform: scale(1);
     }
 }
@@ -431,14 +495,26 @@ ul.ch-nav li>h2>i {
 @keyframes fade {
     0% {
         opacity: 0;
+        transform: scale(0);
     }
-    35% {
-        opacity: 0.7;
+    20% {
+        opacity: 0.2;
+        transform: scale(.2);
     }
-    75% {
-        opacity: 1;
+    40% {
+        opacity: 0.4;
+        transform: scale(.4);
+    }
+    60% {
+        opacity: 0.6;
+        transform: scale(.6);
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(.8);
     }
     100% {
+        opacity: 1;
         transform: scale(1);
     }
 }

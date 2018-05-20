@@ -12,24 +12,24 @@
 </head>
 
 <body>
-    <div id="ch-nav">
-        <ul class="ch-nav ch-card-1">
-            <li>
-                <h2><a href="">Maintenance Tracker</a></h2>
-            </li>
-            <li class="right"><a href="index.html"><button class="ch-btn-round" onclick="window.location.replace('index.html')">Logout</button></a></li>
-            <li class="right">
-                <a><input placeholder="Search Requests" class="ch-input-search" /></a>
-            </li>
-        </ul>
-    </div>
-    <div class="ch-alert" id="display">
-        <p id="alert"></p>
-    </div>
-    <div>
-        <h2 class="ch-padding"><i class="icon ion-md-alert"></i> Users Requests</h2>
-        <h5>
-            <select name="type" id="" class="ch-input">
+    <div class="ch-wrapper">
+        <div class="ch-aside">
+            <nav>
+                <ul class="ch-nav ch-card">
+                    <li>
+                        <h2><a href="index.html">Maintenance Tracker</a> <i class="icon ion-md-menu" onclick="toggleNav()"></i></h2>
+                    </li>
+                    <div class="ch-nav-right" id="nav">
+                        <li><a href="index.html"><button class="ch-btn-round" onclick="window.location.replace('index.html')">Logout</button></a></li>
+                    </div>
+                </ul>
+            </nav>
+            <div class="ch-alert" id="display">
+                <p id="alert"></p>
+            </div>
+            <h1 class="ch-display"><i class="icon ion-md-alert"></i> Users Requests</h1>
+            <h5 class="ch-col-4">
+                <select name="type" id="" class="ch-input">
 				<option value="">-- filter requests by --</option>
 				<option value="repair">Repair</option>
 				<option value="maintenance">Maintenance</option>
@@ -38,78 +38,81 @@
 				<option value="users">Users</option>
 				<option value="status">Status</option>
 			</select>
-        </h5>
-    </div>
-
-    <div class="ch-row">
-        <div class="ch-col-12 ch-padding ch-padding-2">
-            <div class="ch-table">
-                <table class="ch-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Title</th>
-                            <th>Date</th>
-                            <th>User</th>
-                            <th>Details</th>
-                            <th>Approve</th>
-                            <th>Disapprove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>0987</td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>13/03/2018 11:02am</td>
-                            <td>Jane Doe</td>
-                            <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
-                            <td><button onclick="displayAlert('Request approved', 1)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
-                            <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
-                        </tr>
-                        <tr>
-                            <td>1987</td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>20/03/2018 10:19am</td>
-                            <td>Juliet Alfa</td>
-                            <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
-                            <td><button onclick="displayAlert('Failed to approve request', 3)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
-                            <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
-                        </tr>
-                        <tr>
-                            <td>2987</td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>21/03/2018 12:22pm</td>
-                            <td>Bright Nkangsa</td>
-                            <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
-                            <td><button onclick="displayAlert('Request approved', 1)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
-                            <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
-                        </tr>
-                        <tr>
-                            <td>3987</td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>22/03/2018 01:02pm</td>
-                            <td>Chinedu Praise</td>
-                            <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
-                            <td><button onclick="displayAlert('Failed to approve request', 3)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
-                            <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
-                        </tr>
-                        <tr>
-                            <td>3987</td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>25/04/2018 10:02am</td>
-                            <td>Lukman Auwal</td>
-                            <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
-                            <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
-                            <td><button onclick="displayAlert('Request disapproved', 1)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
-                        </tr>
-                    </tbody>
-                </table>
+            </h5>
+            <div class="ch-col-11 ch-panel">
+                <div class="ch-table">
+                    <table class="ch-table">
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Request No.</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Details</th>
+                                <th>Approve</th>
+                                <th>Disapprove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>0987</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                <td>13/03/2018 11:02am</td>
+                                <td>Jane Doe</td>
+                                <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
+                                <td><button onclick="displayAlert('Request approved', 1)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
+                                <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>1987</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                <td>20/03/2018 10:19am</td>
+                                <td>Juliet Alfa</td>
+                                <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
+                                <td><button onclick="displayAlert('Failed to approve request', 3)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
+                                <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>2987</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                <td>21/03/2018 12:22pm</td>
+                                <td>Bright Nkangsa</td>
+                                <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
+                                <td><button onclick="displayAlert('Request approved', 1)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
+                                <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>3987</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                <td>22/03/2018 01:02pm</td>
+                                <td>Chinedu Praise</td>
+                                <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
+                                <td><button onclick="displayAlert('Failed to approve request', 3)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
+                                <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>3987</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                <td>25/04/2018 10:02am</td>
+                                <td>Lukman Auwal</td>
+                                <td><button onclick="toggleModal('view-request')" class="ch-btn-view"> <i class="icon ion-md-arrow-dropup"></i> View</button></td>
+                                <td><button onclick="displayAlert('Failed to disapprove request', 3)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle-outline"></i> </button></td>
+                                <td><button onclick="displayAlert('Request disapproved', 1)" class="ch-btn-disapprove"> <i class="icon ion-md-close-circle-outline"></i> </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="ch-footer">
-        <h5>Copyright of &copy;2018 Maintenace Tracker by Chima Chukwuemeka</h5>
+    <div class="ch-footer ch-card">
+        <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
     </div>
 
     <div class="ch-modal" id="modal">
@@ -134,14 +137,16 @@
                     <p><label for="date" class="ch-label">Date</label></p>
                     <p>22/03/2018 01:02pm</p>
                     <br>
-                    <td><button onclick="toggleModal('view-request'); displayAlert('Approve request before resolving', 2)" class="ch-btn-approve"> <i class="icon ion-md-checkmark-circle"></i> Resolve</button></td>
+                    <button onclick="toggleModal('view-request'); displayAlert('Approve request before resolving', 2)" class="ch-btn-ok"> <i class="icon ion-md-checkmark-circle"></i> Resolve</button>
+                    <button onclick="toggleModal('view-request')" class="ch-btn-close"> <i class="icon ion-md-close"></i> Close</button>
                     <br>
                     <br>
                 </div>
             </div>
         </div>
     </div>
-    <script src="js/script.js"></script>
+    </div>
 </body>
+<script src="js/script.js"></script>
 
 </html>

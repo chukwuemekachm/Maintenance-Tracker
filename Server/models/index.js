@@ -15,8 +15,8 @@ const db = {
     title: 'My Television',
     type: 'Repair',
     description: "My Television displays black and white and doesn't dispaly colors",
-    createdAt: new Date().toLocaleDateString(),
-    updatedAt: new Date().toLocaleDateString(),
+    createdAt: new Date().toJSON(),
+    updatedAt: new Date().toJSON(),
   },
   ],
 };

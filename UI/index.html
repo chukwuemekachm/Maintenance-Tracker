@@ -12,84 +12,33 @@
 </head>
 
 <body>
-    <div id="ch-nav">
-        <ul class="ch-nav ch-card-1">
-            <li>
-                <h2><a href="">Maintenance Tracker</a></h2>
-            </li>
-            <li class="right"><a href="signin.html"><button class="ch-btn-round" onclick="window.location.replace('signin.html')">Login</button></a></li>
-            <li class="right"><a href="signup.html"><button class="ch-btn-round" onclick="window.location.replace('signup.html')">Signup</button></a></li>
-        </ul>
-    </div>
-    <div class="ch-banner">
-        <div class="ch-banner-aside">
-            <h1>Facilities don't need to go bad any longer, request a repair or maintenace schedule from us today.</h1>
-            <div class="ch-col-2">
-                <center>
-                    <button class="ch-btn-round">Learn More</button>
-                </center>
+    <div class="ch-wrapper">
+        <div class="ch-aside">
+            <nav>
+                <ul class="ch-nav ch-card">
+                    <li>
+                        <h2><a href="">Maintenance Tracker</a> <i class="icon ion-md-menu" onclick="toggleNav()"></i></h2>
+                    </li>
+                    <div class="ch-nav-right" id="nav">
+                        <li><a href="signin.html"><button class="ch-btn-round" onclick="window.location.replace('signin.html')">Login</button></a></li>
+                        <li><a href="signup.html"><button class="ch-btn-round" onclick="window.location.replace('signup.html')">Signup</button></a></li>
+                    </div>
+                </ul>
+            </nav>
+            <div class="ch-col-6 ch-center">
+                <h1 class="ch-display">Facilities don't need to go bad any longer, request a repair or maintenance schedule from us today.</h1>
+                <div class="ch-col-6">
+                    <center>
+                        <button class="ch-btn-flat" onclick="window.location.replace('signin.html')">Get Started Today</button>
+                    </center>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="ch-about">
-        <h2>About Us</h2>
-        <p>Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.</p>
-    </div>
-
-    <div class="ch-about">
-        <h2>Our Team</h2>
-    </div>
-    <div class="ch-row">
-        <div class="ch-col-2 ch-padding-2">
-            <img alt="" src="img/icon2.jpg">
-            <center>
-                <h4>James Blunt</h4>
-                <p>James Blunt is our Senior Technician.</p>
-            </center>
-        </div>
-        <div class="ch-col-2 ch-padding-2">
-            <img alt="" src="img/icon1.jpg">
-            <center>
-                <h4>John Doe</h4>
-                <p>John Doe is our Junior Electrical Engineer.</p>
-            </center>
-        </div>
-        <div class="ch-col-2 ch-padding-2">
-            <img alt="" src="img/icon3.jpg">
-            <center>
-                <h4>Jane Oscar</h4>
-                <p>Jane Oscar is a our Public relations officer.</p>
-            </center>
-        </div>
-    </div>
-    <div class="ch-about">
-        <h2>Contact Us</h2>
-    </div>
-    <div class="ch-row">
-        <div class="ch-col-1"></div>
-        <div class="ch-col-5 ch-padding-4">
-            <form action="" method="">
-                <input type="text" name="name" id="" class="ch-input" required placeholder="Full Name">
-                <input type="email" name="email" id="" class="ch-input" required placeholder="Email Address">
-                <textarea name="description" id="" class="ch-input ch-input-desc" required placeholder="Your Message"></textarea>
-                <button type="submit" class="ch-btn-flat">Message Us <i class="icon ion-md-send"></i></button>
-            </form>
-        </div>
-        <div class="ch-col-2"></div>
-        <div class="ch-col-4">
-            <address>
-				<h5>Address</h5>
-				No. 234 Edingburh Road.<br>
-				Off Opara Square,<br>
-				Independent Layout,<br>
-				Enugu.
-			</address>
-        </div>
-    </div>
-    <div class="ch-footer">
-        <h5>Copyright of &copy;2018 Maintenace Tracker by Chima Chukwuemeka</h5>
+    <div class="ch-footer ch-card">
+        <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
     </div>
 </body>
+<script src="js/script.js"></script>
 
 </html>

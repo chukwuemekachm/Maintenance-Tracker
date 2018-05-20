@@ -13,8 +13,8 @@ class Request {
     this.title = title;
     this.type = type;
     this.description = description;
-    this.createdAt = new Date().toLocaleDateString();
-    this.updatedAt = new Date().toLocaleDateString();
+    this.createdAt = new Date().toLocaleTimeString();
+    this.updatedAt = new Date().toLocaleTimeString();
   }
 
   /**

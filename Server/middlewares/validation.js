@@ -7,13 +7,13 @@ const createRequestSchema = Joi.object().keys({
 });
 
 /**
- * Validates user inputs in request payload
+ * Validates user inputs in request payload for POST new request
  *
  * @param {object} req - The request object
  * @param {object} res - The response object
  * @param {object} done - The next middleware to be called
  */
-const createRequest = (req, res, done) => {
+export const createRequest = (req, res, done) => {
   if (!req.body.title || typeof req.body.title !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.title)) {
     return res.status(400).json({
       status: 'error',
@@ -21,7 +21,7 @@ const createRequest = (req, res, done) => {
       message: 'title is required or invalid',
     });
   }
-  if (!req.body.type || typeof req.body.type !== 'string' || !/^[a-zA-Z0-9]{1,}$/.test(req.body.type)) {
+  if (!req.body.type || typeof req.body.type !== 'string' || !/^[a-zA-Z]{1,}$/.test(req.body.type)) {
     return res.status(400).json({
       status: 'error',
       code: 400,
@@ -56,4 +56,43 @@ const createRequest = (req, res, done) => {
   return done();
 };
 
-export default createRequest;
+/**
+ * Validates user inputs in request payload for updating a book
+ *
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} done - The next middleware to be called
+ */
+export const updateRequest = (req, res, done) => {
+  if (req.body.title) {
+    req.body.title = req.body.title.replace(/  +/g, ' ').trim();
+    if (typeof req.body.title !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.title) || req.body.title.length === 0) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'title is invalid',
+      });
+    }
+  }
+  if (req.body.type) {
+    req.body.type = req.body.type.replace(/  +/g, '').trim();
+    if (typeof req.body.type !== 'string' || !/^[a-zA-Z]{1,}$/.test(req.body.type) || req.body.type.length === 0) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'type is invalid',
+      });
+    }
+  }
+  if (req.body.description) {
+    req.body.description = req.body.description.replace(/  +/g, ' ').trim();
+    if (typeof req.body.description !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.description) || req.body.description.length === 0) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'description is invalid',
+      });
+    }
+  }
+  return done();
+};

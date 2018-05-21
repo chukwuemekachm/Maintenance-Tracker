@@ -2,6 +2,15 @@ language: node_js
 node_js:
   - "9"
 
+services:
+  - postgresql
+
+install:
+  - npm install
+
+before_script:
+  - npm run db-migrate:travis
+
 script:
   - npm test
 

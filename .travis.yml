@@ -2,6 +2,16 @@ language: node_js
 node_js:
   - "9"
 
+services:
+  - postgresql
+
+install:
+  - npm install
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - npm run db-migrate:travis
+
 script:
   - npm test
 

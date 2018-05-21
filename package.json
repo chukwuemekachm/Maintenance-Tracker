@@ -4,13 +4,13 @@
     "description": "Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.",
     "main": "app.js",
     "scripts": {
-        "test": "npm run db-migrate:test && nyc --reporter=html --reporter=text mocha --exit --require babel-register ./Server/tests/**/*.test.js",
+        "test": "nyc --reporter=html --reporter=text mocha --exit --require babel-register ./Server/tests/**/*.test.js",
         "start:dev": "nodemon --exec babel-node app.js",
         "start": "babel-node app.js",
         "lint": "./node_modules/.bin/eslint Server/ --ext js --fix",
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "db-migrate:test": "db-migrate reset -m Server/migrations && db-migrate up -m Server/migrations",
-        "db-migrate:travis": "db-migrate up -m Server/migrations"
+        "db-migrate:travis": "db-migrate reset -m Server/migrations && db-migrate up -m Server/migrations"
     },
     "repository": {
         "type": "git",

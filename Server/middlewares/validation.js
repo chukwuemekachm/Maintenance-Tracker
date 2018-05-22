@@ -1,48 +1,61 @@
 import Joi from 'joi';
+import bcrypt from 'bcrypt';
 
-const createRequestSchema = Joi.object().keys({
-  title: Joi.string().required(),
-  type: Joi.string().required(),
-  description: Joi.string().required(),
+const signupSchema = Joi.object().keys({
+  firstname: Joi.string().required(),
+  lastname: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
 });
 
 /**
- * Validates user inputs in request payload for POST new request
+ * Validates user inputs in request payload for Uuser
  *
  * @param {object} req - The request object
  * @param {object} res - The response object
  * @param {object} done - The next middleware to be called
  */
-export const createRequest = (req, res, done) => {
-  if (!req.body.title || typeof req.body.title !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.title)) {
+const signup = (req, res, done) => {
+  const {
+    firstname, lastname, email, password,
+  } = req.body;
+  if (!firstname || typeof firstname !== 'string' || !/^[a-zA-Z]{1,}$/.test(firstname)) {
     return res.status(400).json({
       status: 'error',
       code: 400,
-      message: 'title is required or invalid',
+      message: 'firstname is required or invalid',
     });
   }
-  if (!req.body.type || typeof req.body.type !== 'string' || !/^[a-zA-Z]{1,}$/.test(req.body.type)) {
+  if (!lastname || typeof lastname !== 'string' || !/^[a-zA-Z]{1,}$/.test(lastname)) {
     return res.status(400).json({
       status: 'error',
       code: 400,
-      message: 'type is required or invalid',
+      message: 'lastname is required or invalid',
     });
   }
-  if (!req.body.description || typeof req.body.description !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.description)) {
+  if (!email || typeof email !== 'string') {
     return res.status(400).json({
       status: 'error',
       code: 400,
-      message: 'description is required or invalid',
+      message: 'email is required or invalid',
+    });
+  }
+  if (!password || typeof password !== 'string' || !/^[a-zA-Z0-9]{1,}$/.test(password)) {
+    return res.status(400).json({
+      status: 'error',
+      code: 400,
+      message: 'password is required or invalid',
     });
   }
 
-  const request = {
-    title: req.body.title.replace(/  +/g, ' ').trim(),
-    type: req.body.type.replace(/  +/g, '').trim(),
-    description: req.body.description.replace(/  +/g, ' ').trim(),
+  const user = {
+    firstname: firstname.replace(/  +/g, '').trim(),
+    lastname: lastname.replace(/  +/g, '').trim(),
+    email: email.replace(/  +/g, '').trim(),
+    password: password.replace(/  +/g, '').trim(),
   };
 
-  Joi.validate(request, createRequestSchema, (err) => {
+  Joi.validate(user, signupSchema, (err) => {
     if (err) {
       return res.status(400).json({
         status: 'error',
@@ -50,49 +63,11 @@ export const createRequest = (req, res, done) => {
         message: err.details[0].message,
       });
     }
-    req.body.request = request;
+    user.password = bcrypt.hashSync(user.password, 10);
+    req.body.user = user;
     return true;
   });
   return done();
 };
 
-/**
- * Validates user inputs in request payload for updating a book
- *
- * @param {object} req - The request object
- * @param {object} res - The response object
- * @param {object} done - The next middleware to be called
- */
-export const updateRequest = (req, res, done) => {
-  if (req.body.title) {
-    req.body.title = req.body.title.replace(/  +/g, ' ').trim();
-    if (typeof req.body.title !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.title) || req.body.title.length === 0) {
-      return res.status(400).json({
-        status: 'error',
-        code: 400,
-        message: 'title is invalid',
-      });
-    }
-  }
-  if (req.body.type) {
-    req.body.type = req.body.type.replace(/  +/g, '').trim();
-    if (typeof req.body.type !== 'string' || !/^[a-zA-Z]{1,}$/.test(req.body.type) || req.body.type.length === 0) {
-      return res.status(400).json({
-        status: 'error',
-        code: 400,
-        message: 'type is invalid',
-      });
-    }
-  }
-  if (req.body.description) {
-    req.body.description = req.body.description.replace(/  +/g, ' ').trim();
-    if (typeof req.body.description !== 'string' || !/^[a-zA-Z0-9\s\,\.]{1,}$/.test(req.body.description) || req.body.description.length === 0) {
-      return res.status(400).json({
-        status: 'error',
-        code: 400,
-        message: 'description is invalid',
-      });
-    }
-  }
-  return done();
-};
+export default signup;

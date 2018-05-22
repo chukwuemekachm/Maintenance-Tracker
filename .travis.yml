@@ -5,11 +5,11 @@ node_js:
 services:
   - postgresql
 
-install:
-  - npm install
+before_install:
+  - npm install -g npm@latest
 
 before_script:
-  - npm run db-migrate:travis
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
   - npm test

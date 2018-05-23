@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { Client } from 'pg';
 
@@ -49,5 +50,57 @@ class UserController {
         });
     });
   }
+
+  /**
+     * Authenticate User and returns a token
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  static login(req, res) {
+    const client = new Client({
+      connectionString,
+    });
+
+    client.connect();
+    const {
+      email, password,
+    } = req.body.user;
+    const queryString = {
+      text: 'SELECT admin, password FROM users WHERE email = $1 LIMIT 1;',
+      values: [email],
+    };
+    client.query(queryString, (error, result) => {
+      client.end();
+      if (result.rows[0]) {
+        const hashValue = bcrypt.compareSync(password, result.rows[0].password);
+        if (hashValue) {
+          const { id, admin } = result.rows[0];
+          return res.status(201)
+            .json({
+              status: 'success',
+              code: 201,
+              token: jwt.sign({ id, email, admin }, secret, { expiresIn: '6h' }),
+              message: 'User login successful',
+            });
+        }
+        return res.status(401)
+          .json({
+            status: 'error',
+            code: 401,
+            message: 'Password incorrect',
+          });
+      }
+      return res.status(401)
+        .json({
+          status: 'error',
+          code: 401,
+          message: 'User with email does not exist',
+        });
+    });
+  }
 }
+
 export default UserController;

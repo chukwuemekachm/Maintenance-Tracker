@@ -2,7 +2,8 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import Auth from './Server/routes/authRoutes';
+import AuthRoutes from './Server/routes/authRoutes';
+import UserRoutes from './Server/routes/userRoutes';
 
 dotenv.config();
 const app = express();
@@ -18,7 +19,8 @@ app.get('/', (req, res) => res.status(200).json({
   message: 'Welcome to Maintenance Tracker',
 }));
 
-app.use('/api/v1/auth', Auth);
+app.use('/api/v1/auth', AuthRoutes);
+app.use('/api/v1/users', UserRoutes);
 
 app.all('*', (req, res) => res.status(404).json({
   status: 'error',

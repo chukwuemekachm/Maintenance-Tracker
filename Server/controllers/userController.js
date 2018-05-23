@@ -69,7 +69,7 @@ class UserController {
       email, password,
     } = req.body.user;
     const queryString = {
-      text: 'SELECT admin, password FROM users WHERE email = $1 LIMIT 1;',
+      text: 'SELECT id, admin, password FROM users WHERE email = $1 LIMIT 1;',
       values: [email],
     };
     client.query(queryString, (error, result) => {
@@ -78,10 +78,10 @@ class UserController {
         const hashValue = bcrypt.compareSync(password, result.rows[0].password);
         if (hashValue) {
           const { id, admin } = result.rows[0];
-          return res.status(201)
+          return res.status(200)
             .json({
               status: 'success',
-              code: 201,
+              code: 200,
               token: jwt.sign({ id, email, admin }, secret, { expiresIn: '6h' }),
               message: 'User login successful',
             });

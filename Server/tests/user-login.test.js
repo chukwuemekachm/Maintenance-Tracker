@@ -16,11 +16,11 @@ describe('POST /login', () => {
         password: `${process.env.JWT_KEY}`,
       })
       .end((req, res) => {
-        res.should.have.status(201);
+        res.should.have.status(200);
         res.should.be.a('object');
         res.body.should.have.property('status').eql('success');
         res.body.should.have.property('message').eql('User login successful');
-        res.body.should.have.property('code').eql(201);
+        res.body.should.have.property('code').eql(200);
         res.body.should.have.property('token');
         done();
       });

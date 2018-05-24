@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import AuthRoutes from './Server/routes/authRoutes';
 import UserRoutes from './Server/routes/userRoutes';
+import AdminRoutes from './Server/routes/adminRoutes';
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ app.get('/', (req, res) => res.status(200).json({
 
 app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1/users', UserRoutes);
+app.use('/api/v1/requests', AdminRoutes);
 
 app.all('*', (req, res) => res.status(404).json({
   status: 'error',

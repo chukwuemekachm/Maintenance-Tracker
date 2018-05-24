@@ -24,6 +24,7 @@ class RequestController {
     });
     client.connect();
     client.query(queryString, (error, result) => {
+      client.end();
       if (result.rows.length > 0) {
         return res.status(200)
           .json({
@@ -62,6 +63,7 @@ class RequestController {
     });
     client.connect();
     client.query(queryString, (error, result) => {
+      client.end();
       if (result.rows[0]) {
         return res.status(200)
           .json({

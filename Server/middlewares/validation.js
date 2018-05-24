@@ -13,6 +13,24 @@ const loginSchema = Joi.object().keys({
   password: Joi.string().required(),
 });
 
+const createRequestSchema = Joi.object().keys({
+  title: Joi.string().required(),
+  type: Joi.string().required(),
+  description: Joi.string().required(),
+});
+
+/**
+ * Validates if a type property in the request payload is equal to repair or maintenance
+ *
+ * @param {string} type - The type parameter
+ *
+ * @param {boolean} - The value returned
+ */
+const checkType = (type) => {
+  if (type.toLowerCase() === 'repair' || type.toLowerCase() === 'maintenance') { return true; }
+  return false;
+};
+
 /**
  * Validates user inputs in request payload for Uuser
  *
@@ -139,4 +157,57 @@ const checkRequestId = (req, res, done) => {
   return done();
 };
 
-export { signup, login, checkRequestId };
+/**
+ * Validates user inputs in request payload for creation of new request
+ *
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} done - The next middleware to be called
+ */
+const createRequest = (req, res, done) => {
+  const {
+    title, type, description,
+  } = req.body;
+  if (!title || typeof title !== 'string' || !/^[a-zA-Z0-9\s]{1,}$/.test(title)) {
+    return res.status(400).json({
+      status: 'error',
+      code: 400,
+      message: 'title is required or invalid',
+    });
+  }
+  if (!type || typeof type !== 'string' || !/^[a-zA-Z\s]{1,}$/.test(type) || !checkType(type)) {
+    return res.status(400).json({
+      status: 'error',
+      code: 400,
+      message: 'type is required or invalid, it must be a "repair" or a "maintenance"',
+    });
+  }
+  if (!description || typeof description !== 'string') {
+    return res.status(400).json({
+      status: 'error',
+      code: 400,
+      message: 'description is required or invalid',
+    });
+  }
+
+  const request = {
+    title: title.replace(/  +/g, '').trim(),
+    type: type.replace(/  +/g, '').trim(),
+    description: description.replace(/  +/g, ' ').trim(),
+  };
+
+  Joi.validate(request, createRequestSchema, (err) => {
+    if (err) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: err.details[0].message,
+      });
+    }
+    req.body.request = request;
+    return true;
+  });
+  return done();
+};
+
+export { signup, login, checkRequestId, createRequest };

@@ -120,4 +120,23 @@ const login = (req, res, done) => {
   return done();
 };
 
-export { signup, login };
+/**
+ * Validates requestId in request route parameters
+ *
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} done - The next middleware to be called
+ */
+const checkRequestId = (req, res, done) => {
+  const { requestId } = req.params;
+  if (!requestId || !/^[0-9]{1,}$/.test(requestId) || Number.isNaN(requestId)) {
+    return res.status(400).json({
+      status: 'error',
+      code: 400,
+      message: 'requestId is not valid',
+    });
+  }
+  return done();
+};
+
+export { signup, login, checkRequestId };

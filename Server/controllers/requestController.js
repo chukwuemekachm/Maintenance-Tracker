@@ -79,6 +79,46 @@ class RequestController {
         });
     });
   }
+
+  /**
+     * Creates a new request for the authenticated user
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  static createRequest(req, res) {
+    const { id } = req.body.token;
+    const { title, type, description } = req.body.request;
+    const queryString = {
+      text: 'INSERT INTO requests(title, type, description, user_id, status) VALUES($1, $2, $3, $4, $5) RETURNING id, title, type, description, status, createdat',
+      values: [title, type, description, id, 'pending'],
+    };
+    const client = new Client({
+      connectionString,
+    });
+    client.connect();
+    client.query(queryString, (error, result) => {
+      client.end();
+      if (result) {
+        return res.status(201)
+          .json({
+            status: 'success',
+            code: 201,
+            data: result.rows[0],
+            message: 'Request created successfully',
+          });
+      }
+      return res.status(417)
+        .json({
+          status: 'failed',
+          code: 417,
+          error,
+          message: 'Request creation failed',
+        });
+    });
+  }
 }
 
 export default RequestController;

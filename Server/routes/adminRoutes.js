@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', authenticateAdmin, AdminController.getRequests);
 router.put('/:requestId/approve', checkRequestId, authenticateAdmin, requestCheck, AdminController.approveRequest);
+router.put('/:requestId/disapprove', checkRequestId, authenticateAdmin, requestCheck, AdminController.disapproveRequest);
 
 router.all('*', (req, res) => res.status(404).json({
   status: 'error',

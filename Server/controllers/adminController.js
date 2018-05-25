@@ -30,6 +30,36 @@ class AdminController {
         });
     });
   }
+
+  /**
+     * Modifies the status of a request to approve
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  static approveRequest(req, res) {
+    const { requestId } = req.params;
+    const queryString = {
+      text: 'UPDATE requests SET status = $1, updatedat = NOW() WHERE id = $2 RETURNING id, title, type, description, status, updatedat;',
+      values: ['approved', requestId],
+    };
+    const client = new Client({
+      connectionString,
+    });
+    client.connect();
+    client.query(queryString, (error, result) => {
+      client.end();
+      return res.status(200)
+        .json({
+          status: 'success',
+          code: 200,
+          data: result.rows[0],
+          message: 'Request approved successfully',
+        });
+    });
+  }
 }
 
 export default AdminController;

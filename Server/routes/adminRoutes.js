@@ -2,7 +2,7 @@ import express from 'express';
 import AdminController from '../controllers/adminController';
 import authenticateAdmin from '../middlewares/authAdmin';
 import { checkRequestId } from '../middlewares/validation';
-import requestCheck from '../middlewares/checkRequest';
+import { requestCheck } from '../middlewares/checkRequest';
 
 const router = express.Router();
 

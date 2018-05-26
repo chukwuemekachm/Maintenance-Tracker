@@ -191,7 +191,7 @@ const createRequest = (req, res, done) => {
   }
 
   const request = {
-    title: title.replace(/  +/g, '').trim(),
+    title: title.replace(/  +/g, ' ').trim(),
     type: type.replace(/  +/g, '').trim(),
     description: description.replace(/  +/g, ' ').trim(),
   };
@@ -210,4 +210,52 @@ const createRequest = (req, res, done) => {
   return done();
 };
 
-export { signup, login, checkRequestId, createRequest };
+/**
+ * Validates user inputs in request payload for updating a book
+ *
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} done - The next middleware to be called
+ */
+const updateRequest = (req, res, done) => {
+  if (req.body.title) {
+    req.body.title = req.body.title.replace(/  +/g, ' ').trim();
+    if (typeof req.body.title !== 'string' || !/^[a-zA-Z0-9\s,]{1,}$/.test(req.body.title) || req.body.title.length < 2) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'title is invalid',
+      });
+    }
+  }
+  if (req.body.type) {
+    req.body.type = req.body.type.replace(/  +/g, '').trim();
+    if (typeof req.body.type !== 'string' || !/^[a-zA-Z]{1,}$/.test(req.body.type) || !checkType(req.body.type)) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'type is invalid, it must be a "repair" or a "maintenance"',
+      });
+    }
+  }
+  if (req.body.description) {
+    req.body.description = req.body.description.replace(/  +/g, ' ').trim();
+    if (typeof req.body.description !== 'string' || !/^[a-zA-Z0-9,\s]{1,}$/.test(req.body.description)) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'description is invalid',
+      });
+    }
+  }
+  if (!req.body.title && !req.body.type && !req.body.description) {
+    return res.status(400).json({
+      status: 'error',
+      code: 400,
+      message: 'You have made no changes',
+    });
+  }
+  return done();
+};
+
+export { signup, login, checkRequestId, createRequest, updateRequest };

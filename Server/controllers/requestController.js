@@ -121,6 +121,37 @@ class RequestController {
         });
     });
   }
+
+  /**
+     * Upadtes the details of a request
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  static updateUserRequest(req, res) {
+    const { title, type, description } = req.body.request;
+    const id = parseInt(req.params.requestId, 10);
+    const queryString = {
+      text: 'UPDATE requests SET title = $1, type = $2, description = $3, updatedat = NOW() WHERE id = $4 RETURNING id, title, type, description, updatedat;',
+      values: [title, type, description, id],
+    };
+    const client = new Client({
+      connectionString,
+    });
+    client.connect();
+    client.query(queryString, (error, result) => {
+      client.end();
+      return res.status(200)
+        .json({
+          status: 'success',
+          code: 200,
+          data: result.rows[0],
+          message: 'Request updated successfully',
+        });
+    });
+  }
 }
 
 export default RequestController;

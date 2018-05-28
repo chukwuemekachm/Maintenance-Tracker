@@ -20,7 +20,6 @@ class UserController {
     const client = new Client({
       connectionString,
     });
-
     client.connect();
     const {
       firstname, lastname, email, password,
@@ -31,14 +30,6 @@ class UserController {
     };
     client.query(queryString, (error, result) => {
       client.end();
-      if (error) {
-        return res.status(400)
-          .json({
-            status: 'fail',
-            code: 400,
-            message: 'User sign up failed',
-          });
-      }
       const { id } = result.rows[0];
       return res.status(201)
         .json({

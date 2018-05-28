@@ -31,7 +31,7 @@ class RequestController {
             status: 'success',
             code: 200,
             data: result.rows,
-            message: 'Requests exist for the user',
+            message: 'Requests retrieved successfully',
           });
       }
       return res.status(404)
@@ -70,7 +70,7 @@ class RequestController {
             status: 'success',
             code: 200,
             data: result.rows,
-            message: 'Request exist for the user',
+            message: 'Request retrieved successfully',
           });
       }
       return res.status(404)

@@ -90,14 +90,14 @@ class UserController {
           .json({
             status: 'error',
             code: 401,
-            message: 'Password incorrect',
+            message: 'User login failed, incorrect email or password',
           });
       }
       return res.status(401)
         .json({
           status: 'error',
           code: 401,
-          message: 'User with email does not exist',
+          message: 'User login failed, incorrect email or password',
         });
     });
   }

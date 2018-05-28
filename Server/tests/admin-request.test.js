@@ -53,7 +53,7 @@ describe('GET /requests', () => {
         res.should.have.status(200);
         res.should.be.a('object');
         res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('Requests on the system');
+        res.body.should.have.property('message').eql('Requests on the system retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');

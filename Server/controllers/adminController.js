@@ -26,7 +26,7 @@ class AdminController {
           status: 'success',
           code: 200,
           data: result.rows,
-          message: 'Requests on the system',
+          message: 'Requests on the system retrieved successfully',
         });
     });
   }

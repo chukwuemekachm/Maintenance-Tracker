@@ -53,7 +53,7 @@ describe('GET /requests/requestId', () => {
         res.should.have.status(200);
         res.should.be.a('object');
         res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('Request exist for the user');
+        res.body.should.have.property('message').eql('Request retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data[0].should.have.property('id');

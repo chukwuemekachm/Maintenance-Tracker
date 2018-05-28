@@ -28,18 +28,11 @@ class RequestController {
       if (result.rows.length > 0) {
         return res.status(200)
           .json({
-            status: 'success',
-            code: 200,
-            data: result.rows,
-            message: 'Requests retrieved successfully',
+            status: 'success', code: 200, data: result.rows, message: 'Requests retrieved successfully',
           });
       }
       return res.status(404)
-        .json({
-          status: 'fail',
-          code: 404,
-          message: 'No request for the user',
-        });
+        .json({ status: 'fail', code: 404, message: 'No request for the user' });
     });
   }
 
@@ -67,18 +60,11 @@ class RequestController {
       if (result.rows[0]) {
         return res.status(200)
           .json({
-            status: 'success',
-            code: 200,
-            data: result.rows,
-            message: 'Request retrieved successfully',
+            status: 'success', code: 200, data: result.rows, message: 'Request retrieved successfully',
           });
       }
       return res.status(404)
-        .json({
-          status: 'fail',
-          code: 404,
-          message: 'Request does not exist for the user',
-        });
+        .json({ status: 'fail', code: 404, message: 'Request does not exist for the user' });
     });
   }
 
@@ -103,22 +89,9 @@ class RequestController {
     client.connect();
     client.query(queryString, (error, result) => {
       client.end();
-      if (result) {
-        return res.status(201)
-          .json({
-            status: 'success',
-            code: 201,
-            data: result.rows[0],
-            message: 'Request created successfully',
-          });
-      }
-      return res.status(417)
-        .json({
-          status: 'failed',
-          code: 417,
-          error,
-          message: 'Request creation failed',
-        });
+      return res.status(201).json({
+        status: 'success', code: 201, data: result.rows[0], message: 'Request created successfully',
+      });
     });
   }
 

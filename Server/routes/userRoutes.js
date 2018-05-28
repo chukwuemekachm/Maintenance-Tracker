@@ -1,6 +1,6 @@
 import express from 'express';
 import RequestController from '../controllers/requestController';
-import authenticateUser from '../middlewares/auth';
+import authenticateUser from '../middlewares/userAuthentication';
 import { requestCheckUser } from '../middlewares/checkRequest';
 import { checkRequestId, createRequest, updateRequest } from '../middlewares/validation';
 

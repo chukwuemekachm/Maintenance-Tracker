@@ -1,6 +1,6 @@
 import express from 'express';
 import AdminController from '../controllers/adminController';
-import authenticateAdmin from '../middlewares/authAdmin';
+import authenticateAdmin from '../middlewares/adminAuthentication';
 import { checkRequestId } from '../middlewares/validation';
 import { requestCheck } from '../middlewares/checkRequest';
 

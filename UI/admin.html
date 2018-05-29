@@ -27,17 +27,25 @@
             <div class="ch-alert" id="display">
                 <p id="alert"></p>
             </div>
-            <h1 class="ch-display"><i class="icon ion-md-alert"></i> Users Requests</h1>
-            <h5 class="ch-col-4">
-                <select name="type" id="" class="ch-input">
-				<option value="">-- filter requests by --</option>
-				<option value="repair">Repair</option>
-				<option value="maintenance">Maintenance</option>
-				<option value="no">No</option>
-				<option value="date">Date</option>
-				<option value="users">Users</option>
-				<option value="status">Status</option>
-			</select>
+            <h1 class="ch-display"><i class=""></i> Users Requests</h1>
+            <h5 class="ch-row">
+                <div class="ch-col-3">
+                    <select name="type" id="" class="ch-input">
+                        <option value="">-- filter by request type --</option>
+                        <option value="repair">Repair</option>
+                        <option value="maintenance">Maintenance</option>
+                    </select>
+                </div>
+                <div class="ch-col-3">
+                    <select name="type" id="" class="ch-input">
+                        <option value="">-- filter by request ID --</option>
+                        <option value="ascending">ascending</option>
+                        <option value="descending">descending</option>
+                    </select>
+                </div>
+                <div class="ch-col-3">
+                    <input type="date" name="" class="ch-input">
+                </div>
             </h5>
             <div class="ch-col-11 ch-panel">
                 <div class="ch-table">
@@ -45,7 +53,7 @@
                         <thead>
                             <tr>
                                 <th>S.N</th>
-                                <th>Request No.</th>
+                                <th>No.</th>
                                 <th>Title</th>
                                 <th>Date</th>
                                 <th>User</th>
@@ -116,8 +124,11 @@
     </div>
 
     <div class="ch-modal" id="modal">
-        <div class="ch-modal-section ch-padding" id="view-request">
+        <div class="ch-modal-section" id="view-request">
             <div class="ch-row">
+              <div class="ch-col-12 ch-modal-heading">
+                <h4>Request Details</h4>
+              </div>
                 <div class="ch-col-10">
                     <p><label for="title" class="ch-label">Title</label></p>
                     <p>

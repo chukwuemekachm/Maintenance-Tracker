@@ -1,17 +1,24 @@
-import dotenv from 'dotenv';
-import { Client } from 'pg';
-import winston from 'winston';
-import query from './db';
+/**
+ * Holds all the request in memory
+ */
+const db = {
+  requests: [{
+    id: 0,
+    title: 'Bad Air Conditioner',
+    type: 'Repair',
+    description: "The air conditioner makes noise and doesn't cool",
+    createdAt: new Date().toLocaleDateString(),
+    updatedAt: new Date().toLocaleDateString(),
+  },
+  {
+    id: 1,
+    title: 'My Television',
+    type: 'Repair',
+    description: "My Television displays black and white and doesn't dispaly colors",
+    createdAt: new Date().toJSON(),
+    updatedAt: new Date().toJSON(),
+  },
+  ],
+};
 
-dotenv.config();
-const connectionString = process.env.DATABASE_URL;
-
-const client = new Client({
-  connectionString,
-});
-
-client.connect();
-client.query(query, (err, res) => {
-  winston.log(err ? err.stack : res);
-  client.end();
-});
+export default db;

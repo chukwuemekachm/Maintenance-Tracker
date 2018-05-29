@@ -1,18 +1,17 @@
 import express from 'express';
-import RequestController from '../controllers/requestController';
-import authenticateUser from '../middlewares/userAuthentication';
-import { requestCheckUser } from '../middlewares/checkRequest';
-import { checkRequestId, createRequest, updateRequest } from '../middlewares/validation';
+import User from '../controllers/userController';
+import { createRequest, updateRequest } from '../middlewares/validation';
 
 const router = express.Router();
+const UserController = new User();
 
-router.get('/requests', authenticateUser, RequestController.getUserRequests);
-router.get('/requests/:requestId', checkRequestId, authenticateUser, RequestController.getUserRequest);
-router.post('/requests', createRequest, authenticateUser, RequestController.createRequest);
-router.put('/requests/:requestId', checkRequestId, authenticateUser, updateRequest, requestCheckUser, RequestController.updateUserRequest);
+router.get('/requests', UserController.getRequest);
+router.get('/requests/:id', UserController.getRequestById);
+router.post('/requests', createRequest, UserController.createRequest);
+router.put('/requests/:id', updateRequest, UserController.updateRequest);
 
 router.all('*', (req, res) => res.status(404).json({
-  status: 'error',
+  status: 'fail',
   code: 404,
   message: 'Route not supported on server.',
 }));

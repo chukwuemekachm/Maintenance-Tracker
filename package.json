@@ -4,11 +4,12 @@
     "description": "Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.",
     "main": "app.js",
     "scripts": {
-        "test": "nyc --reporter=html --reporter=text mocha --exit --require babel-register ./Server/tests/**/*.test.js",
+        "test": "npm run migrate && nyc --reporter=html --reporter=text mocha --exit --timeout 15000 --require babel-register ./Server/tests/**/*.test.js",
         "start:dev": "nodemon --exec babel-node app.js",
         "start": "babel-node app.js",
         "lint": "./node_modules/.bin/eslint Server/ --ext js --fix",
-        "coverage": "nyc report --reporter=text-lcov | coveralls"
+        "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+        "migrate": "babel-node ./Server/models/index.js"
     },
     "repository": {
         "type": "git",
@@ -22,11 +23,16 @@
     },
     "homepage": "https://github.com/chukwuemekachm/Maintenance-Tracker#readme",
     "dependencies": {
+        "bcrypt": "^2.0.1",
         "body-parser": "^1.18.3",
         "errorhandler": "^1.5.0",
         "express": "^4.16.3",
         "joi": "^13.3.0",
-        "morgan": "^1.9.0"
+        "jsonwebtoken": "^8.2.1",
+        "morgan": "^1.9.0",
+        "pg": "^7.0.3",
+        "winston": "^2.4.2",
+        "dotenv": "^5.0.1"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",

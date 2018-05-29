@@ -1,95 +1,114 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-import { Client } from 'pg';
-
-dotenv.config();
-const secret = process.env.JWT_KEY;
-const connectionString = process.env.DATABASE_URL;
+import Request from '../models/request';
 
 class UserController {
   /**
-     * Signs up a new User
+     * Gets requests of a user
      *
      * @param {object} req - The request object received
      * @param {object} res - The response object sent
      *
-     * @returns {object}
+     * @returns {array}
      */
-  static signUp(req, res) {
-    const client = new Client({
-      connectionString,
-    });
-    client.connect();
-    const {
-      firstname, lastname, email, password,
-    } = req.body.user;
-    const queryString = {
-      text: 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING id, firstname, lastname, email, createdat;',
-      values: [firstname, lastname, email, password],
-    };
-    client.query(queryString, (error, result) => {
-      client.end();
-      const { id } = result.rows[0];
-      return res.status(201)
-        .json({
-          status: 'success',
-          code: 201,
-          data: { fullname: `${firstname} ${lastname}`, email },
-          token: jwt.sign({ id, email, admin: false }, secret, { expiresIn: '6h' }),
-          message: 'User sign up successful',
-        });
+  getRequest(req, res) {
+    const requests = Request.getRequest();
+    res.status(200).json({
+      status: 'success',
+      code: 200,
+      message: 'Requests found for the user',
+      data: { requests },
     });
   }
 
   /**
-     * Authenticate User and returns a token
+     * Gets a single request of a user
      *
      * @param {object} req - The request object received
      * @param {object} res - The response object sent
      *
      * @returns {object}
      */
-  static login(req, res) {
-    const client = new Client({
-      connectionString,
+  getRequestById(req, res) {
+    if (!req.params.id || isNaN(req.params.id)) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'Request id not valid',
+      });
+    }
+    const request = Request.getRequestById(req.params.id);
+    if (!request) {
+      return res.status(404).json({
+        status: 'fail',
+        code: 404,
+        message: 'No request found for the user',
+      });
+    }
+    return res.status(200).json({
+      status: 'success',
+      code: 200,
+      message: 'Request found for the user',
+      data: { request },
     });
+  }
 
-    client.connect();
-    const {
-      email, password,
-    } = req.body.user;
-    const queryString = {
-      text: 'SELECT id, admin, password FROM users WHERE email = $1 LIMIT 1;',
-      values: [email],
-    };
-    client.query(queryString, (error, result) => {
-      client.end();
-      if (result.rows[0]) {
-        const hashValue = bcrypt.compareSync(password, result.rows[0].password);
-        if (hashValue) {
-          const { id, admin } = result.rows[0];
-          return res.status(200)
-            .json({
-              status: 'success',
-              code: 200,
-              token: jwt.sign({ id, email, admin }, secret, { expiresIn: '6h' }),
-              message: 'User login successful',
-            });
-        }
-        return res.status(401)
-          .json({
-            status: 'error',
-            code: 401,
-            message: 'User login failed, incorrect email or password',
-          });
-      }
-      return res.status(401)
-        .json({
-          status: 'error',
-          code: 401,
-          message: 'User login failed, incorrect email or password',
-        });
+  /**
+     * Creates a new request
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  createRequest(req, res) {
+    const request = new Request(
+      Request.count(),
+      req.body.request.title,
+      req.body.request.type,
+      req.body.request.description,
+    );
+    Request.createRequest(request);
+    return res.status(201).json({
+      status: 'success',
+      code: 201,
+      message: 'Request created successfully',
+      data: { request },
+    });
+  }
+
+  /**
+     * Updates an existing request when it exists
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  updateRequest(req, res) {
+    if (!req.params.id || isNaN(req.params.id)) {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: 'Request id not valid',
+      });
+    }
+    const request = Request.getRequestById(parseInt(req.params.id, 10));
+    if (!request) {
+      return res.status(404).json({
+        status: 'fail',
+        code: 404,
+        message: 'Request not found',
+      });
+    }
+    request.title = req.body.title || request.title;
+    request.type = req.body.type || request.type;
+    request.description = req.body.description || request.description;
+    request.updatedAt = new Date().toLocaleTimeString();
+    Request.updateRequest(parseInt(req.params.id, 10), request);
+    return res.status(200).json({
+      status: 'success',
+      code: 200,
+      message: 'Request updated successfully',
+      data: { request },
     });
   }
 }

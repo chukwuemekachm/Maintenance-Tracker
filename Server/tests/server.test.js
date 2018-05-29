@@ -4,7 +4,7 @@ import chaiHttp from 'chai-http';
 import { server } from '../../app';
 
 chai.use(chaiHttp);
-chai.should();
+const should = chai.should();
 
 describe('GET /', () => {
   it('should return 200, when base url is requested"', (done) => {
@@ -32,7 +32,7 @@ describe('GET /', () => {
   });
 
   it('should return 404, when an unavailable route is requested', (done) => {
-    chai.request(server).get('/api/').end((req, res) => {
+    chai.request(server).get('/ap').end((req, res) => {
       res.should.have.status(404);
       res.should.be.a('object');
       res.body.should.have.property('code').eql(404);

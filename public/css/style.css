@@ -1,16 +1,15 @@
 /* Import Google fonts */
-@import url('Poiret_One/PoiretOne-Regular.ttf');
-@import url('Tajawal/Tajawal-Regular.ttf');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Tajawal', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
   text-align: center;
 }
 
 h1.ch-display {
-  font-family: 'Tajawal', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
   color: #f2f2f2!important;
   margin-bottom: 1em;
   margin-top: .6em;
@@ -82,7 +81,7 @@ h1.ch-display {
 /* wrapper */
 
 .ch-wrapper {
-  background-image: url('../img/img1.jpg');
+  background-image: url('https://res.cloudinary.com/dvcaeuvee/image/upload/v1527700136/img1.jpg');
   width: 100%;
   margin: 0;
   top: 0;

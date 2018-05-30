@@ -407,6 +407,7 @@ ul.ch-nav li>h2>i {
   top: 4em;
   left: 0em;
   z-index: 1!important;
+  background-color: rgb(189, 195, 199);
 }
 /* Media Quries */
 

@@ -1,10 +1,11 @@
 const baseUrl = 'http://localhost:3000/api/v1';
 const formSignup = document.getElementById('signup-form');
+const formLogin = document.getElementById('login-form');
 
 /**
  * Redirects the signed up or logged in user based on the server response
  */
-const isAdmin = () => {
+ const isAdmin = () => {
   fetch(`${baseUrl}/requests`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` },
@@ -12,13 +13,13 @@ const isAdmin = () => {
     cache: 'reload',
     redirect: 'follow',
   })
-    .then(res => res.json())
-    .then((res) => {
-      if (res.code === 403) window.location.replace('user.html');
-      if (res.code === 200) window.location.replace('admin.html');
-    }).catch((err) => {
-      displayAlert(`Welcome ${err.message}, your login failed`, 2);
-    });
+  .then(res => res.json())
+  .then((res) => {
+    if (res.code === 403) window.location.replace('user.html');
+    if (res.code === 200) window.location.replace('admin.html');
+  }).catch((err) => {
+    displayAlert(`Welcome ${err.message}, your login failed`, 2);
+  });
 };
 
 /**
@@ -26,7 +27,7 @@ const isAdmin = () => {
  *
  * @param {object} message - The event parameter
  */
-if (formSignup) {
+ if (formSignup) {
   formSignup.addEventListener('submit', (e) => {
     e.preventDefault();
     const firstname = document.getElementById('firstname').value;
@@ -55,7 +56,39 @@ if (formSignup) {
         }
         displayAlert(res.message, 2);
       })
-        .catch((err) => { displayAlert(err.message, 1); });
+      .catch((err) => { displayAlert(err.message, 1); });
+    } else {
+      displayAlert('Please fill in the form', 2);
+    }
+  });
+}
+
+if (formLogin) {
+  formLogin.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (email && password) {
+      const body = { email, password };
+      fetch(`${baseUrl}/auth/login`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        cache: 'reload',
+        redirect: 'follow'
+      }).then(res => res.json()).then((res) => {
+        if (res.code ===  200) {
+          window.localStorage.token = res.token;
+          displayAlert(`Welcome, your login was Successful`, 1);
+          isAdmin();
+        }
+        displayAlert(res.message, 2);
+      })
+      .catch((err) => {
+        displayAlert(`${err.message}, your login failed`, 2);
+      });
     } else {
       displayAlert('Please fill in the form', 2);
     }

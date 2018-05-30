@@ -102,7 +102,7 @@ const signup = (req, res, done) => {
   if (!lastname || typeof lastname !== 'string' || !/^[a-zA-Z]{1,}$/.test(lastname)) {
     return res.status(400).json({ status: 'error', code: 400, message: 'lastname is required or invalid' });
   }
-  if (!email || typeof email !== 'string') {
+  if (!email || typeof email !== 'string' || !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]{2,4}$/.test(email)) {
     return res.status(400).json({ status: 'error', code: 400, message: 'email is required or invalid' });
   }
   if (!password || typeof password !== 'string' || !/^[a-zA-Z0-9]{1,}$/.test(password)) {

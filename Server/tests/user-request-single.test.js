@@ -10,7 +10,7 @@ chai.should();
 let userToken = '';
 let superUserToken = 'jnjsds9sjsds9dskmsd9sdmdsjdsdsk.dsdsos0sld9sdosdsmsdmssdjsnsdjisdjksd';
 
-describe('GET /requests/requestId', () => {
+describe('GET /users/requests/requestId', () => {
   it('should return 200 and token, when credentials are valid', (done) => {
     chai.request(server).post('/api/v1/auth/login')
       .send({
@@ -47,7 +47,7 @@ describe('GET /requests/requestId', () => {
 
   it('should return 200 and requests, when token is valid and requests exists', (done) => {
     chai.request(server)
-      .get('/api/v1/users/requests/1')
+      .get('/api/v1/users/requests/4')
       .set('Authorization', `Bearer ${superUserToken}`)
       .end((req, res) => {
         res.should.have.status(200);

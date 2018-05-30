@@ -47,7 +47,7 @@ describe('PUT /requests/:requestId/disapprove', () => {
 
   it('should return 200 and requests, when token is valid and requests exists', (done) => {
     chai.request(server)
-      .put('/api/v1/requests/1/disapprove')
+      .put('/api/v1/requests/3/disapprove')
       .set('Authorization', `Bearer ${superUserToken}`)
       .end((req, res) => {
         res.should.have.status(200);
@@ -61,6 +61,20 @@ describe('PUT /requests/:requestId/disapprove', () => {
         res.body.data.should.have.property('description');
         res.body.data.should.have.property('updatedat');
         res.body.data.should.be.an('object');
+        done();
+      });
+  });
+
+  it('should return 400 and requests, when token but request is not pending', (done) => {
+    chai.request(server)
+      .put('/api/v1/requests/2/disapprove')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('error');
+        res.body.should.have.property('message').eql('Request can no longer be approved or disapproved');
+        res.body.should.have.property('code').eql(400);
         done();
       });
   });
@@ -96,7 +110,7 @@ describe('PUT /requests/:requestId/disapprove', () => {
 
   it('should return 404 request does not exist in the system', (done) => {
     chai.request(server)
-      .put('/api/v1/requests/3/disapprove')
+      .put('/api/v1/requests/5/disapprove')
       .set('Authorization', `Bearer ${superUserToken}`)
       .end((err, res) => {
         res.should.have.status(404);

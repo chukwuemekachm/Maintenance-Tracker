@@ -14,7 +14,7 @@ class AdminController {
      * @returns {object}
      */
   static getRequests(req, res) {
-    const queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id ORDER BY request_id';
+    const queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id ORDER BY request_id';
     const client = new Client({
       connectionString,
     });

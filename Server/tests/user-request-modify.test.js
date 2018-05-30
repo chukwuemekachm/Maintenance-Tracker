@@ -47,7 +47,7 @@ describe('GET /requests/requestId', () => {
 
   it('should return 200 and request, when token is valid and request is updated', (done) => {
     chai.request(server)
-      .put('/api/v1/users/requests/3').send({
+      .put('/api/v1/users/requests/4').send({
         title: 'Drawer',
         type: 'repair',
         description: 'My Drawer is stuck',

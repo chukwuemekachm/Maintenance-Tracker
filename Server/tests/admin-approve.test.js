@@ -65,6 +65,20 @@ describe('PUT /requests/:requestId/approve', () => {
       });
   });
 
+  it('should return 400 and requests, when token but request is not pending', (done) => {
+    chai.request(server)
+      .put('/api/v1/requests/2/approve')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('error');
+        res.body.should.have.property('message').eql('Request can no longer be approved or disapproved');
+        res.body.should.have.property('code').eql(400);
+        done();
+      });
+  });
+
   it('should return 401 when token is invalid', (done) => {
     chai.request(server)
       .put('/api/v1/requests/1/approve')
@@ -96,7 +110,7 @@ describe('PUT /requests/:requestId/approve', () => {
 
   it('should return 404 request does not exist in the system', (done) => {
     chai.request(server)
-      .put('/api/v1/requests/3/approve')
+      .put('/api/v1/requests/5/approve')
       .set('Authorization', `Bearer ${superUserToken}`)
       .end((err, res) => {
         res.should.have.status(404);

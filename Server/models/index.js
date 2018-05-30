@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import { Client } from 'pg';
-import winston from 'winston';
 import query from './db';
 
 dotenv.config();
@@ -12,6 +11,6 @@ const client = new Client({
 
 client.connect();
 client.query(query, (err, res) => {
-  winston.log(err ? err.stack : res);
   client.end();
+  if (err) { throw err;}
 });

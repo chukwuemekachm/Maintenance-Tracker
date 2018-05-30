@@ -10,7 +10,7 @@ chai.should();
 let userToken = '';
 let superUserToken = 'jnjsds9sjsds9dskmsd9sdmdsjdsdsk.dsdsos0sld9sdosdsmsdmssdjsnsdjisdjksd';
 
-describe('PUT /requests/:requestId/approve', () => {
+describe('PUT /requests/:requestId/resolve', () => {
   it('should return 200 and token, when credentials are valid', (done) => {
     chai.request(server).post('/api/v1/auth/login')
       .send({
@@ -65,6 +65,20 @@ describe('PUT /requests/:requestId/approve', () => {
       });
   });
 
+  it('should return 400 and requests, when token but request is not approved', (done) => {
+    chai.request(server)
+      .put('/api/v1/requests/3/resolve')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('error');
+        res.body.should.have.property('message').eql('You can only resolve an approved request');
+        res.body.should.have.property('code').eql(400);
+        done();
+      });
+  });
+
   it('should return 401 when token is invalid', (done) => {
     chai.request(server)
       .put('/api/v1/requests/1/resolve')
@@ -96,7 +110,7 @@ describe('PUT /requests/:requestId/approve', () => {
 
   it('should return 404 request does not exist in the system', (done) => {
     chai.request(server)
-      .put('/api/v1/requests/3/resolve')
+      .put('/api/v1/requests/5/resolve')
       .set('Authorization', `Bearer ${superUserToken}`)
       .end((err, res) => {
         res.should.have.status(404);

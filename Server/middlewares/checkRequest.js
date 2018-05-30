@@ -5,13 +5,13 @@ dotenv.config();
 const connectionString = process.env.DATABASE_URL;
 
 /**
-   * Checks if the request exists on the system
+   * Checks if the request exists on the system and is still pending
    *
    * @param {object} req - The request object received
    * @param {object} res - The response object sent
    * @param {object} next - The next middleware
    */
-const requestCheck = (req, res, next) => {
+const requestCheckPending = (req, res, next) => {
   const { requestId } = req.params;
   const queryString = {
     text: 'SELECT * FROM requests WHERE id = $1 LIMIT 1;',
@@ -23,14 +23,49 @@ const requestCheck = (req, res, next) => {
   client.connect();
   client.query(queryString, (error, result) => {
     client.end();
-    if (result.rows[0]) {
+    if (!result.rows[0]) { return res.status(404).json({ status: 'error', code: 404, message: 'Request does not exist' }); }
+    const { status } = result.rows[0];
+    if (status === 'pending') {
       return next();
     }
-    return res.status(404)
+    return res.status(400)
       .json({
         status: 'error',
-        code: 404,
-        message: 'Request does not exist',
+        code: 400,
+        message: 'Request can no longer be approved or disapproved',
+      });
+  });
+};
+
+/**
+   * Checks if the request exists on the system and is approved
+   *
+   * @param {object} req - The request object received
+   * @param {object} res - The response object sent
+   * @param {object} next - The next middleware
+   */
+const requestCheckApprove = (req, res, next) => {
+  const { requestId } = req.params;
+  const queryString = {
+    text: 'SELECT * FROM requests WHERE id = $1 LIMIT 1;',
+    values: [requestId],
+  };
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+  client.query(queryString, (error, result) => {
+    client.end();
+    if (!result.rows[0]) { return res.status(404).json({ status: 'error', code: 404, message: 'Request does not exist' }); }
+    const { status } = result.rows[0];
+    if (status === 'approved') {
+      return next();
+    }
+    return res.status(400)
+      .json({
+        status: 'error',
+        code: 400,
+        message: 'You can only resolve an approved request',
       });
   });
 };
@@ -66,4 +101,4 @@ const requestCheckUser = (req, res, next) => {
   });
 };
 
-export { requestCheck, requestCheckUser };
+export { requestCheckUser, requestCheckApprove, requestCheckPending };

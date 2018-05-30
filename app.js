@@ -25,6 +25,7 @@ app.get('/', (req, res) => res.status(200).json({
 app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1/users', UserRoutes);
 app.use('/api/v1/requests', AdminRoutes);
+app.use('/client', express.static('public'));
 
 app.all('*', (req, res) => res.status(404).json({
   status: 'error',

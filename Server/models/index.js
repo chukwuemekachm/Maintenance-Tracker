@@ -10,7 +10,7 @@ const client = new Client({
 });
 
 client.connect();
-client.query(query, (err, res) => {
+client.query(query, (err) => {
   client.end();
-  if (err) { throw err;}
+  if (err) { throw err; }
 });

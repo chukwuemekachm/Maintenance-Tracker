@@ -3,6 +3,10 @@ module.exports = {
 	"globals": {
 	     "window": true,
 	     "document": true,
-	     "location": true
+	     "location": true,
+	     "fetch": true,
+	     "displayAlert": true,
+	     "isAdmin": true,
+	     "localStorage": true
 	 }
 };

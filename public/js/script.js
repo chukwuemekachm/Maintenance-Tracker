@@ -6,22 +6,22 @@ const btnCloseViewRequest = document.getElementById('btn-close-view-request');
 /**
  * Toggles Modals
  *
- * @param {string} id - The id of the Modal to be toggled 
+ * @param {string} id - The id of the Modal to be toggled
  */
 const toggleModal = (id) => {
-    if (document.getElementById('modal').style.display === 'block') {
-        document.getElementById('modal').style.display = 'none';
-        document.getElementById(id).style.display = 'none';
-    } else {
-        document.getElementById('modal').style.display = 'block';
-        document.getElementById(id).style.display = 'block';
-    }
+  if (document.getElementById('modal').style.display === 'block') {
+    document.getElementById('modal').style.display = 'none';
+    document.getElementById(id).style.display = 'none';
+  } else {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById(id).style.display = 'block';
+  }
 };
 
 if (btnMenu) {
   /**
  * Toggles the navigation bar on small devices
- */ 
+ */
   btnMenu.addEventListener('click', () => {
     if (document.getElementById('nav').style.display === 'none') {
       document.getElementById('nav').style.display = 'block';

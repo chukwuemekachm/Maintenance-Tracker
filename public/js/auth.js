@@ -5,92 +5,76 @@ const formLogin = document.getElementById('login-form');
 /**
  * Redirects the signed up or logged in user based on the server response
  */
- const isAdmin = () => {
+const isAdmin = () => {
   fetch(`${baseUrl}/requests`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` },
-    mode: 'cors',
-    cache: 'reload',
-    redirect: 'follow',
-  })
-  .then(res => res.json())
-  .then((res) => {
-    if (res.code === 403) window.location.replace('user.html');
-    if (res.code === 200) window.location.replace('admin.html');
-  }).catch((err) => {
-    displayAlert(`Welcome ${err.message}, your login failed`, 2);
+  }).then(response => response.json()).then((response) => {
+    if (response.status === 'fail') window.location.replace('user.html');
+    if (response.status === 'success') window.location.replace('admin.html');
+  }).catch((error) => {
+    displayAlert(`Welcome ${error.message}, your login failed`);
   });
 };
 
 /**
- * Assigns an event-listener to formSignup if it exists
+ * Assigns an event-listener to formSignup if it exists in the window
  *
- * @param {object} message - The event parameter
+ * @param {object} submitEvent - The event parameter
  */
- if (formSignup) {
-  formSignup.addEventListener('submit', (e) => {
-    e.preventDefault();
+if (formSignup) {
+  formSignup.addEventListener('submit', (submitEvent) => {
+    submitEvent.preventDefault();
     const firstname = document.getElementById('firstname').value;
     const lastname = document.getElementById('lastname').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    if (firstname && lastname && email && password) {
-      const body = {
+    fetch(`${baseUrl}/auth/signup`, {
+      method: 'POST',
+      body: JSON.stringify({
         firstname, lastname, email, password,
-      };
-      fetch(`${baseUrl}/auth/signup`, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'cors',
-        cache: 'reload',
-        redirect: 'follow',
-      }).then(res => res.json()).then((res) => {
-        if (res.code === 201) {
-          window.localStorage.token = res.token;
-          displayAlert(`Welcome ${res.data.fullname}, your signup was Successful`, 1);
-          setTimeout(() => {
-            window.location.replace('user.html');
-          }, 3000);
-        }
-        displayAlert(res.message, 2);
-      })
-      .catch((err) => { displayAlert(err.message, 1); });
-    } else {
-      displayAlert('Please fill in the form', 2);
-    }
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => response.json()).then((response) => {
+      if (response.code === 201) {
+        window.localStorage.token = response.token;
+        displayAlert(`Welcome ${response.data.fullname}, your signup was Successful`);
+        setTimeout(() => {
+          window.location.replace('user.html');
+        }, 3000);
+      } else {
+        displayAlert(response.message);
+      }
+    }).catch((error) => { displayAlert(error.message); });
   });
 }
 
+/**
+ * Assigns an event-listener to formLogin if it exists in the window
+ *
+ * @param {object} submitEvent - The event parameter
+ */
 if (formLogin) {
-  formLogin.addEventListener('submit', (e) => {
-    e.preventDefault();
+  formLogin.addEventListener('submit', (submitEvent) => {
+    submitEvent.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    if (email && password) {
-      const body = { email, password };
-      fetch(`${baseUrl}/auth/login`, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'cors',
-        cache: 'reload',
-        redirect: 'follow'
-      }).then(res => res.json()).then((res) => {
-        if (res.code ===  200) {
-          window.localStorage.token = res.token;
-          displayAlert(`Welcome, your login was Successful`, 1);
-          isAdmin();
-        }
-        displayAlert(res.message, 2);
-      })
-      .catch((err) => {
-        displayAlert(`${err.message}, your login failed`, 2);
-      });
-    } else {
-      displayAlert('Please fill in the form', 2);
-    }
+    fetch(`${baseUrl}/auth/login`, {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => response.json()).then((response) => {
+      if (response.code === 200) {
+        window.localStorage.token = response.token;
+        displayAlert('Welcome, your login was Successful');
+        isAdmin();
+      } else {
+        displayAlert(response.message);
+      }
+    }).catch((error) => {
+      displayAlert(`${error.message}, your login failed`);
+    });
   });
 }

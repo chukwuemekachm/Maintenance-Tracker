@@ -3,22 +3,22 @@ const token = `Bearer ${localStorage.token}`;
 const userPage = document.getElementById('user-page');
 
 const append = (data) => {
-  let newTableBody = document.createElement('tbody');
+  const newTableBody = document.createElement('tbody');
   data.map((request) => {
-    let newRow = document.createElement('tr');
-    let cellId = newRow.insertCell(0);
-    let cellTitle = newRow.insertCell(1);
-    let cellDate = newRow.insertCell(2);
-    let cellStatus = newRow.insertCell(3);
-    let cellDetails = newRow.insertCell(4);
+    const newRow = document.createElement('tr');
+    const cellId = newRow.insertCell(0);
+    const cellTitle = newRow.insertCell(1);
+    const cellDate = newRow.insertCell(2);
+    const cellStatus = newRow.insertCell(3);
+    const cellDetails = newRow.insertCell(4);
     cellId.innerHTML = request.id;
     cellTitle.innerHTML = request.title;
     cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
     cellStatus.innerHTML = request.status;
-    cellDetails.innerHTML = `<button class="ch-btn-view">View</button>`;
+    cellDetails.innerHTML = '<button class="ch-btn-view">View</button>';
     newTableBody.append(newRow);
   });
-  let Table = document.getElementById('user-table');
+  const Table = document.getElementById('user-table');
   Table.removeChild(Table.lastChild);
   Table.append(newTableBody);
 };
@@ -27,7 +27,7 @@ const getRequests = () => {
   if (token) {
     fetch(`${baseUrl}/users/requests`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Authorization': token },
+      headers: { 'Content-Type': 'application/json', Authorization: token },
       cache: 'reload',
     }).then(res => res.json()).then((res) => {
       if (res.code === 200) {
@@ -41,9 +41,9 @@ const getRequests = () => {
         }, 3000);
       }
     })
-    .catch((err) => {
-      displayAlert(err.message);
-    })
+      .catch((err) => {
+        displayAlert(err.message);
+      });
   } else {
     window.location.replace('signin.html');
   }

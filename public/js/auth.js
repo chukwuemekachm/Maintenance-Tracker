@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000/api/v1';
+const baseUrl = 'https://my-maintenance-tracker.herokuapp.com/api/v1';
 const formSignup = document.getElementById('signup-form');
 const formLogin = document.getElementById('login-form');
 

@@ -40,7 +40,7 @@ if (btnCloseCreateRequest) {
 }
 
 if (btnCloseViewRequest) {
-  btnCloseViewRequest.addEventListener('click', () => toggleModal('add-request'));
+  btnCloseViewRequest.addEventListener('click', () => toggleModal('view-request'));
 }
 
 /**

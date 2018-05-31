@@ -6,7 +6,7 @@ module.exports = {
 	     "location": true,
 	     "fetch": true,
 	     "displayAlert": true,
-	     "isAdmin": true,
+	     "toggleModal": true,
 	     "localStorage": true
 	 }
 };

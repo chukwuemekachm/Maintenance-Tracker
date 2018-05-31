@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Maintenance Tracker | User</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/ico" href="https://res.cloudinary.com/dvcaeuvee/image/upload/v1527700128/15682.png">
+</head>
+
+<body id="user-page">
+  <div class="ch-wrapper">
+    <div class="ch-aside">
+      <nav>
+        <ul class="ch-nav ch-card">
+          <li>
+            <h2><a href="index.html">Maintenance Tracker</a> <i class="icon ion-md-menu" id="menu"></i></h2>
+          </li>
+          <div class="ch-nav-right" id="nav">
+            <li><button class="ch-btn-round" id="btn-add-request">New Request</button></li>
+            <li>
+              <a href="index.html"><button class="ch-btn-round">Logout</button></a>
+            </li>
+          </div>
+        </ul>
+      </nav>
+      <div class="ch-alert" id="display">
+        <p id="alert"></p>
+      </div>
+      <h1 class="ch-display"><i class=""></i> My Requests</h1>
+      <div class="ch-col-10 ch-panel">
+        <div class="ch-table">
+          <table class="ch-table" id="user-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ch-footer-dis ch-card">
+    <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
+  </div>
+
+  <div class="ch-modal" id="modal">
+    <div class="ch-modal-section" id="add-request">
+      <div class="ch-col-12 ch-modal-heading">
+        <h4>New Request</h4>
+      </div>
+      <div class="ch-row">
+        <div class="ch-col-10">
+          <form>
+            <label for="title" class="ch-label">Title</label>
+            <input type="text" name="title" id="" class="ch-input" required>
+            <label for="type" class="ch-label">Type</label>
+            <select name="type" id="" class="ch-input">
+             <option value="">-- select --</option>
+             <option value="repair">Repair</option>
+             <option value="maintenance">Maintenance</option>
+           </select>
+           <label for="description" class="ch-label">Description</label>
+           <textarea name="description" id="" class="ch-input ch-input-desc" required></textarea>
+           <button class="ch-btn-round" type="submit">Submit Request</button>
+           <button class="ch-btn-close" id="btn-close-add-request"> <i class="icon ion-md-close"></i> Close</button>
+         </form>
+         <br>
+       </div>
+     </div>
+   </div>
+
+   <div class="ch-modal-section" id="view-request">
+    <div class="ch-col-12 ch-modal-heading">
+      <h4>Request Details</h4>
+    </div>
+    <div class="ch-row">
+      <div class="ch-col-10">
+        <p><label for="title" class="ch-label">Title</label></p>
+        <p>
+          Lorem impsum dolet et sim, elet dar tar
+        </p>
+        <br>
+        <p><label for="type" class="ch-label">Type</label></p>
+        <p>Repair</p>
+        <br>
+        <p><label for="description" class="ch-label">Description</label>
+        </p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
+        <br>
+        <p><label for="status" class="ch-label">Status</label></p>
+        <p>Approved</p>
+        <br>
+        <p><label for="date" class="ch-label">Date</label></p>
+        <p>22/03/2018 01:02pm</p>
+        <br>
+        <button id="btn-close-view-request" class="ch-btn-close"> <i class="icon ion-md-close"></i> Close</button>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="js/script.js"></script>
+<script src="js/user.js"></script>
+
+</html>

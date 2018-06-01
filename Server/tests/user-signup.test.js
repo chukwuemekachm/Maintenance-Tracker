@@ -98,7 +98,7 @@ describe('POST /signup', () => {
       });
   });
 
-  it('should return 400, when firstname is an empty string', (done) => {
+  it('should return 422, when firstname is an empty string', (done) => {
     chai.request(server).post('/api/v1/auth/signup')
       .send({
         firstname: '   ',
@@ -107,16 +107,16 @@ describe('POST /signup', () => {
         password: '34567',
       })
       .end((req, res) => {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('code').eql(400);
-        res.body.should.have.property('message').eql('firstname is required or invalid');
+        res.body.should.have.property('code').eql(422);
+        res.body.should.have.property('message');
         done();
       });
   });
 
-  it('should return 400, when lastname is an empty string', (done) => {
+  it('should return 422, when lastname is an empty string', (done) => {
     chai.request(server).post('/api/v1/auth/signup')
       .send({
         firstname: 'Tosin',
@@ -125,16 +125,16 @@ describe('POST /signup', () => {
         password: '34567',
       })
       .end((req, res) => {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('code').eql(400);
-        res.body.should.have.property('message').eql('lastname is required or invalid');
+        res.body.should.have.property('code').eql(422);
+        res.body.should.have.property('message');
         done();
       });
   });
 
-  it('should return 400, when email is an empty string', (done) => {
+  it('should return 422, when email is an empty string', (done) => {
     chai.request(server).post('/api/v1/auth/signup')
       .send({
         firstname: 'Tosin',
@@ -143,10 +143,10 @@ describe('POST /signup', () => {
         password: '34567',
       })
       .end((req, res) => {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('code').eql(400);
+        res.body.should.have.property('code').eql(422);
         res.body.should.have.property('message');
         done();
       });

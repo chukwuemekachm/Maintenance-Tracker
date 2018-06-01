@@ -1,0 +1,482 @@
+FORMAT: 1A
+HOST: https://my-maintenance-tracker.herokuapp.com/api/v1
+
+# Maintenance Tracker
+
+Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
+
+# Group User
+
+## Signup [/auth/signup]
+
+### Sign up as a new User [POST]
+You can sign up using this action
+
++ Request (application/json)
+
+            {
+                "firstname": "Mary",
+                "lastname": "Jane",
+                "email": "maryjane@gmail.com",
+                "password": "12345"
+            }
+
++ Response 201 (application/json)
+
+            {
+                "status": "success",
+                "code": 201,
+                "data": {
+                    "fullname": "Mary Jane",
+                    "email": "maryjane@gmail.com"
+                        },
+                "token": "token-sample",
+                "message": "User sign up successful"
+           }
+           
++ Response 409 (application/json)
+
+            {
+              "status": "fail",
+              "code": 409,
+              "message": "User with email exists"
+            }
+       
+
+## Login [/auth/login]
+
+### Login as an existing User [POST]
+You can login using this action.
+
++ Request (application/json)
+
+            {
+                "email": "maryjane@gmail.com",
+                "password": "12345"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "token": "token-sample",
+                "message": "User login successful"
+           }
+           
++ Response 401 (application/json)
+
+            {
+              "status": "error",
+              "code": 401,
+              "message": "User login failed, incorrect email or password"
+            }
+           
+# Group Request
+
+## User Requests [/users/requests]
+
+### Get list of User's Requests [GET /users/requests]
+You can view all your requests using this action
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": [
+                    {
+                        "id": 5,
+                        "title": "Broken Cabinet",
+                        "type": "repair",
+                        "description": "Please can you hook up my cabinet as quick as possible",
+                        "user_id": 5,
+                        "status": "pending",
+                        "createdat": "2018-05-27T02:05:30.176Z",
+                        "updatedat": "2018-05-27T02:05:30.176Z"
+                    },
+                    {
+                        "id": 6,
+                        "title": "Bad PC",
+                        "type": "repair",
+                        "description": "My Windows 10 P.C is bad",
+                        "user_id": 5,
+                        "status": "pending",
+                        "createdat": "2018-05-27T02:07:13.613Z",
+                        "updatedat": "2018-05-27T02:07:13.613Z"
+                    }
+                ],
+                "message": "Requests retrieved successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
++ Response 404 (application/json)
+
+            {
+             "status": "fail",
+              "code": 404,
+              "message": "No requests for the user"
+            }
+
+### Create Request [POST /users/requests]
+You can create requests using this action.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+    
+    + Body
+    
+            {
+                 "title": "Laptop Repair",
+                "type": "repair",
+                "description": "My laptop is not charging"
+            
+            }
+
++ Response 201 (application/json)
+
+            {
+                "status": "success",
+                "code": 201,
+                "data": {
+                    "id": 4,
+                    "title": "Laptop Repair",
+                    "type": "repair",
+                    "description": "My laptop is not charging",
+                    "status": "pending",
+                    "createdat": "2018-05-28T01:30:58.397Z"
+                },
+                "message": "Request created successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
+### Get a single User's Request [GET /users/requests/{requestId}]
+You can view the details of a single request using this action.
+
++ Parameters
+
+    + requestId (required, Number, `4`) ... Numeric `id` of the request to retrieve.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": [
+                    {
+                        "id": 4,
+                        "title": "Laptop Repair",
+                        "type": "repair",
+                        "description": "My laptop is not charging",
+                        "user_id": 1,
+                        "status": "pending",
+                        "createdat": "2018-05-28T01:30:58.397Z",
+                        "updatedat": "2018-05-29T08:38:32.397Z"
+                    }
+                ],
+                "message": "Request retrieved successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
++ Response 404 (application/json)
+
+            {
+             "status": "error",
+              "code": 404,
+              "message": "Request does not exist for user"
+            }
+
+### Update a User's Request [PUT /users/requests/{requestId}]
+You can update the details of a request using this action
+
++ Parameters
+
+    + requestId (required, Number, `4`) ... Numeric `id` of the request to be updated.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+    
+    + Body
+    
+            {
+                "title": "Laptop not charging",
+                "type": "repair",
+                "description": "My laptop is not charging, it displays light only"
+            
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": {
+                    "id": 4,
+                    "title": "Laptop not charging",
+                    "type": "repair",
+                    "description": "My laptop is not charging, it displays light only",
+                    "updatedat": "2018-05-28T01:51:40.495Z"
+                },
+                "message": "Request updated successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+
+## Admin Requests [/requests]
+
+### Get all requests on the system [GET /requests]
+An Admin can view all requests using this action
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": [
+                    {
+                        "id": 5,
+                        "title": "Broken Cabinet",
+                        "type": "repair",
+                        "description": "Please can you hook up my cabinet as quick as possible",
+                        "user_id": 5,
+                        "status": "pending",
+                        "createdat": "2018-05-27T02:05:30.176Z",
+                        "updatedat": "2018-05-27T02:05:30.176Z"
+                    },
+                    {
+                        "id": 6,
+                        "title": "Bad PC",
+                        "type": "repair",
+                        "description": "My Windows 10 P.C is bad",
+                        "user_id": 5,
+                        "status": "pending",
+                        "createdat": "2018-05-27T02:07:13.613Z",
+                        "updatedat": "2018-05-27T02:07:13.613Z"
+                    }
+                ],
+                "message": "Requests retrieved successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
+### Approve a request [PUT /requests/{requestId}/approve]
+An Admin can approve a single request using this action
+
++ Parameters
+
+    + requestId (required, Number, `4`) ... Numeric `id` of the request to be approved.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": [
+                    {
+                        "id": 4,
+                        "title": "Laptop Repair",
+                        "type": "repair",
+                        "description": "My laptop is not charging",
+                        "user_id": 3,
+                        "status": "approved",
+                        "updatedat": "2018-05-28T02:05:36.140Z"
+                    },
+                    "message": "Request approved successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
++ Response 404 (application/json)
+
+            {
+             "status": "fail",
+              "code": 404,
+              "message": "Request does not exist"
+            }
+            
++ Response 409 (application/json)
+
+            {
+             "status": "fail",
+              "code": 409,
+              "message": "You dont have access to this resource"
+            }
+
+### Disapprove a request [PUT /requests/{requestId}/disapprove]
+An Admin can disapprove a single request using this action
+
++ Parameters
+
+    + requestId (required, Number, `4`) ... Numeric `id` of the request to be disapproved.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": [
+                    {
+                        "id": 4,
+                        "title": "Laptop Repair",
+                        "type": "repair",
+                        "description": "My laptop is not charging",
+                        "user_id": 3,
+                        "status": "approved",
+                        "updatedat": "2018-05-28T02:05:36.140Z"
+                    },
+                    "message": "Request disapproved successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
++ Response 404 (application/json)
+
+            {
+             "status": "fail",
+              "code": 404,
+              "message": "Request does not exist"
+            }
+            
++ Response 409 (application/json)
+
+            {
+             "status": "fail",
+              "code": 409,
+              "message": "You dont have access to this resource"
+            }
+
+### Resolve a request [PUT /requests/{requestId}/resolve]
+An Admin can resolve a single request using this action
+
++ Parameters
+
+    + requestId (required, Number, `4`) ... Numeric `id` of the request to be resolved.
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: "Bearer token-sample"
+
++ Response 200 (application/json)
+
+            {
+                "status": "success",
+                "code": 200,
+                "data": [
+                    {
+                        "id": 4,
+                        "title": "Laptop Repair",
+                        "type": "repair",
+                        "description": "My laptop is not charging",
+                        "user_id": 3,
+                        "status": "resolved",
+                        "updatedat": "2018-05-28T02:05:36.140Z"
+                    },
+                    "message": "Request resolved successfully"
+            }
+            
++ Response 401 (application/json)
+
+            {
+             "status": "fail",
+              "code": 401,
+              "message": "Invalid authorization token"
+            }
+            
++ Response 404 (application/json)
+
+            {
+             "status": "fail",
+              "code": 404,
+              "message": "Request does not exist"
+            }
+            
++ Response 409 (application/json)
+
+            {
+             "status": "fail",
+              "code": 409,
+              "message": "You dont have access to this resource"
+            }

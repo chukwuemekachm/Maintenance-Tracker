@@ -2,10 +2,11 @@ import Joi from 'joi';
 import bcrypt from 'bcrypt';
 
 const signupSchema = Joi.object().keys({
-  firstname: Joi.string().required(),
-  lastname: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
+  firstname: Joi.string().required().max(10),
+  lastname: Joi.string().required().max(10),
+  email: Joi.string().email().required().max(25)
+    .regex(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]{2,4}$/),
+  password: Joi.string().required().max(15),
 });
 
 const loginSchema = Joi.object().keys({
@@ -14,9 +15,9 @@ const loginSchema = Joi.object().keys({
 });
 
 const createRequestSchema = Joi.object().keys({
-  title: Joi.string().required(),
-  type: Joi.string().required(),
-  description: Joi.string().required(),
+  title: Joi.string().required().max(50),
+  type: Joi.string().required().max(15),
+  description: Joi.string().required().max(100),
 });
 
 /**
@@ -55,7 +56,7 @@ const trimUser = (firstname, lastname, email, password, req, res, done) => {
       req.body.user = user;
       return done();
     }
-    return res.status(400).json({ status: 'error', code: 400, message: err.details[0].message });
+    return res.status(422).json({ status: 'error', code: 422, message: err.details[0].message });
   });
 };
 
@@ -94,15 +95,18 @@ const trimRequest = (title, type, description, req, res, done) => {
  */
 const signup = (req, res, done) => {
   const {
-    firstname, lastname, email, password,
+    firstname,
+    lastname,
+    email,
+    password,
   } = req.body;
-  if (!firstname || typeof firstname !== 'string' || !/^[a-zA-Z]{1,}$/.test(firstname)) {
+  if (!firstname || typeof firstname !== 'string') {
     return res.status(400).json({ status: 'error', code: 400, message: 'firstname is required or invalid' });
   }
-  if (!lastname || typeof lastname !== 'string' || !/^[a-zA-Z]{1,}$/.test(lastname)) {
+  if (!lastname || typeof lastname !== 'string') {
     return res.status(400).json({ status: 'error', code: 400, message: 'lastname is required or invalid' });
   }
-  if (!email || typeof email !== 'string' || !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]{2,4}$/.test(email)) {
+  if (!email || typeof email !== 'string') {
     return res.status(400).json({ status: 'error', code: 400, message: 'email is required or invalid' });
   }
   if (!password || typeof password !== 'string' || !/^[a-zA-Z0-9]{1,}$/.test(password)) {
@@ -121,7 +125,8 @@ const signup = (req, res, done) => {
  */
 const login = (req, res, done) => {
   const {
-    email, password,
+    email,
+    password,
   } = req.body;
   if (!email || typeof email !== 'string') {
     return res.status(400).json({ status: 'error', code: 400, message: 'email is required or invalid' });
@@ -167,7 +172,9 @@ const checkRequestId = (req, res, done) => {
  */
 const createRequest = (req, res, done) => {
   const {
-    title, type, description,
+    title,
+    type,
+    description,
   } = req.body;
   if (!title || typeof title !== 'string' || !/^[a-zA-Z0-9\s]{1,}$/.test(title)) {
     return res.status(400).json({ status: 'error', code: 400, message: 'title is required or invalid' });

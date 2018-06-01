@@ -11,10 +11,4 @@ router.put('/:requestId/approve', checkRequestId, authenticateAdmin, requestChec
 router.put('/:requestId/disapprove', checkRequestId, authenticateAdmin, requestCheckPending, AdminController.disapproveRequest);
 router.put('/:requestId/resolve', checkRequestId, authenticateAdmin, requestCheckApprove, AdminController.resolveRequest);
 
-router.all('*', (req, res) => res.status(404).json({
-  status: 'error',
-  code: 404,
-  message: 'Route not supported on server.',
-}));
-
 export default router;

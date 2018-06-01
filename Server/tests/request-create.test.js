@@ -30,9 +30,9 @@ describe('POST /requests', () => {
   it('should return 201 and request, when properties are valid', (done) => {
     chai.request(server).post('/api/v1/users/requests')
       .send({
-        title: 'Faulty Water dispenser',
+        title: 'Bad Printer keb',
         type: 'repair',
-        description: 'Water dispense does not dispense cold water',
+        description: 'My Printer Heater has stopped working',
       })
       .set('Authorization', `Bearer ${userToken}`)
       .end((req, res) => {
@@ -48,6 +48,24 @@ describe('POST /requests', () => {
         res.body.data.should.have.property('description');
         res.body.data.should.have.property('type');
         res.body.data.should.have.property('status');
+        done();
+      });
+  });
+
+  it('should return 409 and request, when properties are duplicate', (done) => {
+    chai.request(server).post('/api/v1/users/requests')
+      .send({
+        title: 'Bad Printer keb',
+        type: 'repair',
+        description: 'My Printer Heater has stopped working',
+      })
+      .set('Authorization', `Bearer ${userToken}`)
+      .end((req, res) => {
+        res.should.have.status(409);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('fail');
+        res.body.should.have.property('message').eql('Request already exists for user, "No Duplicates"');
+        res.body.should.have.property('code').eql(409);
         done();
       });
   });

@@ -16,16 +16,11 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.status(200).json({
-  status: 'success',
-  code: 200,
-  message: 'Welcome to Maintenance Tracker',
-}));
-
 app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1/users', UserRoutes);
 app.use('/api/v1/requests', AdminRoutes);
-app.use('/client', express.static('public'));
+app.get('/api/v1/docs', (req, res) => res.redirect('https://maintenancetracker1.docs.apiary.io/#'));
+app.use('/', express.static('public'));
 
 app.all('*', (req, res) => res.status(404).json({
   status: 'error',

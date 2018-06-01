@@ -7,15 +7,11 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('GET /', () => {
-  it('should return 200, when base url is requested"', (done) => {
+  it('should redirect to api docs"', (done) => {
     chai.request(server)
-      .get('/')
+      .get('/api/v1/docs')
       .end((req, res) => {
-        res.should.have.status(200);
-        res.should.be.a('object');
-        res.body.should.have.property('code').eql(200);
-        res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('Welcome to Maintenance Tracker');
+        res.should.redirectTo('https://maintenancetracker1.docs.apiary.io/#');
         done();
       });
   });

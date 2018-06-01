@@ -31,8 +31,8 @@ class RequestController {
             status: 'success', code: 200, data: result.rows, message: 'Requests retrieved successfully',
           });
       }
-      return res.status(404)
-        .json({ status: 'fail', code: 404, message: 'No request for the user' });
+      return res.status(200)
+        .json({ status: 'success', code: 200, message: 'No request for the user' });
     });
   }
 

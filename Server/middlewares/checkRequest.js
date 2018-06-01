@@ -101,4 +101,26 @@ const requestCheckUser = (req, res, next) => {
   });
 };
 
-export { requestCheckUser, requestCheckApprove, requestCheckPending };
+/**
+   * Checks if the request exists for the authenticated user and is a Duplicate
+   *
+   * @param {object} req - The request object received
+   * @param {object} res - The response object sent
+   * @param {object} next - The next middleware
+   */
+const requestCheckUserDuplicate = (req, res, next) => {
+  const userId = req.body.token.id;
+  const { title, type } = req.body.request;
+  const queryString = { text: 'SELECT * FROM requests WHERE user_id = $1 AND title = $2 AND type = $3 AND status = $4 LIMIT 1;', values: [userId, title, type, 'pending'] };
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+  client.query(queryString, (error, result) => {
+    client.end();
+    if (result.rows[0]) { return res.status(409).json({ status: 'fail', code: 409, message: 'Request already exists for user, "No Duplicates"' }); }
+    return next();
+  });
+};
+
+export { requestCheckUser, requestCheckApprove, requestCheckPending, requestCheckUserDuplicate };

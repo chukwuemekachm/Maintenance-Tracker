@@ -75,28 +75,17 @@ describe('GET /requests', () => {
       });
   });
 
-  it('should return 404 when no request exist for the user', (done) => {
+  it('should return 200 when no request exist for the user', (done) => {
     chai.request(server)
       .get('/api/v1/users/requests')
       .set('Authorization', `Bearer ${userToken}`)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(200);
         res.body.should.be.a('object');
-        res.body.should.have.property('code').eql(404);
-        res.body.should.have.property('status').eql('fail');
+        res.body.should.have.property('code').eql(200);
+        res.body.should.have.property('status').eql('success');
         res.body.should.have.property('message').eql('No request for the user');
         done();
       });
-  });
-
-  it('should return 404, when an unavailable route is requested', (done) => {
-    chai.request(server).get('/api/users/hd').end((req, res) => {
-      res.should.have.status(404);
-      res.should.be.a('object');
-      res.body.should.have.property('code').eql(404);
-      res.body.should.have.property('status').eql('error');
-      res.body.should.have.property('message').eql('Route not supported on server.');
-      done();
-    });
   });
 });

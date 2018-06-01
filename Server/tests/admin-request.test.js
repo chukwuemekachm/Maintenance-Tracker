@@ -88,15 +88,4 @@ describe('GET /requests', () => {
         done();
       });
   });
-
-  it('should return 404, when an unavailable route is requested', (done) => {
-    chai.request(server).get('/api/requests').end((req, res) => {
-      res.should.have.status(404);
-      res.should.be.a('object');
-      res.body.should.have.property('code').eql(404);
-      res.body.should.have.property('status').eql('error');
-      res.body.should.have.property('message').eql('Route not supported on server.');
-      done();
-    });
-  });
 });

@@ -172,20 +172,4 @@ describe('GET /requests/requestId', () => {
         done();
       });
   });
-
-  it('should return 400 when description is not valid', (done) => {
-    chai.request(server)
-      .put('/api/v1/users/requests/1').send({
-        description: ' ',
-      })
-      .set('Authorization', `Bearer ${userToken}`)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('code').eql(400);
-        res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('message').eql('description is invalid');
-        done();
-      });
-  });
 });

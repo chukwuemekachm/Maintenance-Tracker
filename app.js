@@ -30,7 +30,7 @@ app.use('/client', express.static('public'));
 app.all('*', (req, res) => res.status(404).json({
   status: 'error',
   code: 404,
-  message: 'Route not supported on server.',
+  message: 'Route unavailable on server.',
 }));
 
 app.listen(port);

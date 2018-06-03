@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Maintenance Tracker | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/ico" href="https://res.cloudinary.com/dvcaeuvee/image/upload/v1527700128/15682.png">
+</head>
+
+<body id="admin-page">
+  <div class="ch-wrapper">
+    <div class="ch-aside">
+      <nav>
+        <ul class="ch-nav ch-card">
+          <li>
+            <h2>
+              <a href="index.html">Maintenance Tracker</a>
+              <i class="icon ion-md-menu" id="menu"></i>
+            </h2>
+          </li>
+          <div class="ch-nav-right" id="nav">
+            <li>
+              <button class="ch-btn-round">
+                <i class="icon ion-md-sync" id="admin-sync"></i> Sync</button>
+            </li>
+            <li>
+              <a href="index.html">
+                <button class="ch-btn-round" id="logout">Logout</button>
+              </a>
+            </li>
+          </div>
+        </ul>
+      </nav>
+      <div class="ch-alert" id="display">
+        <p id="alert"></p>
+      </div>
+      <h1 class="ch-display">
+        <i class=""></i> Users Requests</h1>
+      <h5 class="ch-row">
+        <div class="ch-col-3">
+          <button class="ch-btn-flat">
+            <i class="icon ion-md-infinite" id="admin-sync"></i> Pending Requests</button>
+        </div>
+        <div class="ch-col-3">
+          <button class="ch-btn-flat">
+            <i class="icon ion-md-checkmark" id="admin-sync"></i> Approved Requests</button>
+        </div>
+        <div class="ch-col-3">
+          <button class="ch-btn-flat">
+            <i class="icon ion-md-done-all" id="admin-sync"></i> Resolved Requests</button>
+        </div>
+      </h5>
+      <div class="ch-col-11 ch-panel">
+        <div class="ch-table">
+          <table class="ch-table" id="admin-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>User</th>
+                <th>Details</th>
+                <th>Approve</th>
+                <th>Disapprove</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ch-footer-dis ch-card">
+    <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
+  </div>
+
+  <div class="ch-modal" id="modal">
+    <div class="ch-modal-section" id="view-request">
+      <div class="ch-row">
+        <div class="ch-col-12 ch-modal-heading">
+          <h4>Request Details</h4>
+        </div>
+        <div class="ch-col-10">
+          <p>
+            <label for="title" class="ch-label">Title</label>
+          </p>
+          <p id="displayTitle" class="displayModal">
+            Lorem impsum dolet et sim, elet dar tar
+          </p>
+          <p>
+            <label for="type" class="ch-label">Type</label>
+          </p>
+          <p id="displayType" class="displayModal">Repair</p>
+          <p>
+            <label for="description" class="ch-label">Description</label>
+          </p>
+          <p id="displayDescription" class="displayModal">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus
+            quam odit nam nisi velit consequatur cumque expedita.</p>
+          <p>
+            <label for="status" class="ch-label">Status</label>
+          </p>
+          <p id="displayStatus" class="displayModal">Approved</p>
+          <p>
+            <label for="date" class="ch-label">Date</label>
+          </p>
+          <p id="displayDate" class="displayModal">22/03/2018 01:02pm</p>
+          <button class="ch-btn-ok">
+            <i class="icon ion-md-checkmark-circle"></i> Resolve</button>
+          <button id="btn-close-view-request" class="ch-btn-close">
+            <i class="icon ion-md-close"></i> Close</button>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+<script src="js/script.js"></script>
+<script src="js/admin.js"></script>
+
+</html>

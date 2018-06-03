@@ -196,6 +196,10 @@ p.ch-right>a {
   transform: translate(-50%, -50%);
   overflow: auto;
 }
+
+h5.ch-row {
+  margin-bottom: 1em;
+}
 /*  Card  */
 
 .ch-card {
@@ -255,7 +259,7 @@ button.ch-btn-approve {
   padding: .25em 1em;
   font-size: 1em;
   cursor: pointer;
-  background-color: #80ffc1;
+  background-color: rgb(46, 204, 113);
   color: #ffffff;
   opacity: .8;
 }
@@ -266,7 +270,7 @@ button.ch-btn-disapprove {
   padding: .25em 1em;
   font-size: 1em;
   cursor: pointer;
-  background-color: #ff6666;
+  background-color: rgb(231, 76, 60);
   color: #ffffff;
   opacity: .8;
 }

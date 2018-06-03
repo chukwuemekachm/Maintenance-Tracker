@@ -53,7 +53,7 @@ const appendTableBody = (data) => {
     cellUser.innerHTML = `${request.firstname} ${request.lastname}`;
     cellDetails.innerHTML = '<button class="ch-btn-view"> <i class="icon ion-md-albums"></i> </button>';
     cellApprove.innerHTML = `<button class="ch-btn-approve" onclick="modifyRequest(${request.request_id}, 'approve')"> <i class="icon ion-md-checkmark"></i> </button>`;
-    cellDisapprove.innerHTML = '<button class="ch-btn-disapprove"> <i class="icon ion-md-close"></i> </button>';
+    cellDisapprove.innerHTML = `<button class="ch-btn-disapprove" onclick="modifyRequest(${request.request_id}, 'disapprove')"> <i class="icon ion-md-close"></i> </button>`;
     newTableBody.append(newRow);
   });
   const Table = document.getElementById('admin-table');

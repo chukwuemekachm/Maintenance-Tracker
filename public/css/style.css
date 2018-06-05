@@ -346,6 +346,10 @@ button.ch-btn-flat {
   margin-bottom: 1em;
   color: white;
 }
+
+.ch-display-modal {
+  margin-bottom: .6em;
+}
 /* Nav */
 
 ul.ch-nav {

@@ -1,6 +1,10 @@
 const baseUrl = 'https://my-maintenance-tracker.herokuapp.com/api/v1';
 const token = `Bearer ${localStorage.token}`;
 const userPage = document.getElementById('admin-page');
+const resolveRequestBtn = document.getElementById('resolve-request');
+const adminSyncBtn = document.getElementById('admin-sync');
+let userRequestsArr;
+let currentRequestId;
 
 /**
  * Changes the font color of the status on display, according to the status
@@ -51,7 +55,7 @@ const appendTableBody = (data) => {
     cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
     cellStatus.appendChild(formatStatus(request.status));
     cellUser.innerHTML = `${request.firstname} ${request.lastname}`;
-    cellDetails.innerHTML = '<button class="ch-btn-view"> <i class="icon ion-md-albums"></i> </button>';
+    cellDetails.innerHTML = `<button class="ch-btn-view" onclick="displayRequestDetails(${request.request_id})"> <i class="icon ion-md-albums"></i> </button>`;
     cellApprove.innerHTML = `<button class="ch-btn-approve" onclick="modifyRequest(${request.request_id}, 'approve')"> <i class="icon ion-md-checkmark"></i> </button>`;
     cellDisapprove.innerHTML = `<button class="ch-btn-disapprove" onclick="modifyRequest(${request.request_id}, 'disapprove')"> <i class="icon ion-md-close"></i> </button>`;
     newTableBody.append(newRow);
@@ -59,6 +63,20 @@ const appendTableBody = (data) => {
   const Table = document.getElementById('admin-table');
   Table.removeChild(Table.lastChild);
   return Table.append(newTableBody);
+};
+
+const displayRequestDetails = (requestId) => {
+  const data = userRequestsArr.find(request => request.request_id === parseInt(requestId, 10));
+  currentRequestId = data.request_id;
+  document.getElementById('displayUser').innerHTML = `${data.firstname} ${data.lastname}`;
+  document.getElementById('displayEmail').innerHTML = data.email;
+  document.getElementById('displayId').innerHTML = data.request_id;
+  document.getElementById('displayTitle').innerText = data.title;
+  document.getElementById('displayType').innerText = data.type;
+  document.getElementById('displayDescription').innerText = data.description;
+  document.getElementById('displayStatus').innerText = data.status;
+  document.getElementById('displayDate').innerText = new Date(data.createdat).toLocaleString('en-GB', { hour12: true });
+  toggleModal('view-request');
 };
 
 /**
@@ -72,6 +90,7 @@ const getRequests = () => {
   })
     .then(res => res.json()).then((res) => {
       if (res.code === 200) {
+        userRequestsArr = res.data;
         appendTableBody(res.data);
       }
       if (res.code === 401) {
@@ -107,4 +126,12 @@ const modifyRequest = (requestId, actionType) => {
     });
 };
 
+adminSyncBtn.addEventListener('click', () => {
+  displayAlert('Synchronization in progress...');
+  getRequests();
+});
+resolveRequestBtn.addEventListener('click', () => {
+  toggleModal('view-request');
+  modifyRequest(currentRequestId, 'resolve');
+});
 userPage.addEventListener('load', getRequests());

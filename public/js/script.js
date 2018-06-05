@@ -8,7 +8,7 @@ const btnCloseViewRequest = document.getElementById('btn-close-view-request');
  *
  * @param {string} id - The id of the Modal to be toggled
  */
-const toggleModal = (id) => {
+function toggleModal(id) {
   if (document.getElementById('modal').style.display === 'block') {
     document.getElementById('modal').style.display = 'none';
     document.getElementById(id).style.display = 'none';
@@ -16,7 +16,7 @@ const toggleModal = (id) => {
     document.getElementById('modal').style.display = 'block';
     document.getElementById(id).style.display = 'block';
   }
-};
+}
 
 if (btnMenu) {
   /**
@@ -48,10 +48,10 @@ if (btnCloseViewRequest) {
  *
  * @param {string} message - The message to be displayed on the alert
  */
-const displayAlert = (message) => {
+function displayAlert(message) {
   document.getElementById('display').style.display = 'block';
   document.getElementById('alert').innerHTML = message;
   setTimeout(() => {
     document.getElementById('display').style = 'none';
   }, 4000);
-};
+}

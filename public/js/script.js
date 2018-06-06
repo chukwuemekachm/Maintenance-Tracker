@@ -1,6 +1,7 @@
 const btnMenu = document.getElementById('menu');
 const btnCreateRequest = document.getElementById('btn-add-request');
 const btnCloseCreateRequest = document.getElementById('btn-close-add-request');
+const btnCloseUpdateRequest = document.getElementById('btn-close-update-request');
 const btnCloseViewRequest = document.getElementById('btn-close-view-request');
 
 /**
@@ -36,6 +37,10 @@ if (btnCreateRequest) {
 }
 
 if (btnCloseCreateRequest) {
+  btnCloseCreateRequest.addEventListener('click', () => toggleModal('add-request'));
+}
+
+if (btnCloseUpdateRequest) {
   btnCloseCreateRequest.addEventListener('click', () => toggleModal('add-request'));
 }
 

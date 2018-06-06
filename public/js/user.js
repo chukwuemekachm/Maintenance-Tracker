@@ -70,7 +70,7 @@ const displayPreview = (data) => {
   document.getElementById('displayTitle').innerText = data.title;
   document.getElementById('displayType').innerText = data.type;
   document.getElementById('displayDescription').innerText = data.description;
-  document.getElementById('displayStatus').innerHTML = formatStatus(data.status);
+  document.getElementById('displayStatus').innerHTML = data.status;
   document.getElementById('displayDate').innerText = new Date(data.createdat).toLocaleString('en-GB', { hour12: true });
   toggleModal('view-request');
 };
@@ -84,7 +84,7 @@ const displayUpdate = (data) => {
   currentRequestId = data.id;
   document.getElementById('updateTitle').value = data.title;
   document.getElementById('updateType').value = data.type;
-  document.getElementById('updateDescription').innerText = data.description;
+  document.getElementById('updateDescription').value = data.description;
   toggleModal('update-request');
 };
 

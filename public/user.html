@@ -57,7 +57,7 @@
   <div class="ch-modal" id="modal">
     <div class="ch-modal-section" id="add-request">
       <div class="ch-col-12 ch-modal-heading">
-        <h4>New Request</h4>
+        <h4>New Request</h4> <span id="btn-close-add-request">&times;</span>
       </div>
       <div class="ch-row">
         <div class="ch-col-10">
@@ -73,7 +73,6 @@
            <label for="description" class="ch-label">Description</label>
            <textarea name="description" id="description" class="ch-input ch-input-desc" required></textarea>
            <button class="ch-btn-round" type="submit">Submit Request</button>
-           <button class="ch-btn-close" id="btn-close-add-request"> <i class="icon ion-md-close"></i> Close</button>
          </form>
          <br>
        </div>
@@ -82,7 +81,7 @@
 
    <div class="ch-modal-section" id="update-request">
     <div class="ch-col-12 ch-modal-heading">
-      <h4>Update Request</h4>
+      <h4>Update Request</h4> <span id="btn-close-update-request">&times;</span>
     </div>
     <div class="ch-row">
       <div class="ch-col-10">
@@ -98,7 +97,6 @@
          <label for="description" class="ch-label">Description</label>
          <textarea name="description" id="updateDescription" class="ch-input ch-input-desc" required></textarea>
          <button class="ch-btn-round" type="submit">Update Request</button>
-         <button class="ch-btn-close" id="btn-close-update-request"> <i class="icon ion-md-close"></i> Close</button>
        </form>
        <br>
      </div>
@@ -107,31 +105,23 @@
 
    <div class="ch-modal-section" id="view-request">
     <div class="ch-col-12 ch-modal-heading">
-      <h4>Request Details</h4>
+      <h4>Request Details</h4> <span id="btn-close-view-request">&times;</span>
     </div>
     <div class="ch-row">
       <div class="ch-col-10">
         <p><label for="title" class="ch-label">Title</label></p>
-        <p id="displayTitle">
+        <p id="displayTitle" class="ch-display-modal">
           Lorem impsum dolet et sim, elet dar tar
         </p>
-        <br>
         <p><label for="type" class="ch-label">Type</label></p>
-        <p id="displayType">Repair</p>
-        <br>
+        <p id="displayType" class="ch-display-modal">Repair</p>
         <p><label for="description" class="ch-label">Description</label>
         </p>
-        <p id="displayDescription">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
-        <br>
+        <p id="displayDescription" class="ch-display-modal">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
         <p><label for="status" class="ch-label">Status</label></p>
-        <p id="displayStatus"></p>
-        <br>
+        <p id="displayStatus" class="ch-display-modal"></p>
         <p><label for="date" class="ch-label">Date</label></p>
-        <p id="displayDate">22/03/2018 01:02pm</p>
-        <br>
-        <button id="btn-close-view-request" class="ch-btn-close"> <i class="icon ion-md-close"></i> Close</button>
-        <br>
-        <br>
+        <p id="displayDate" class="ch-display-modal">22/03/2018 01:02pm</p>
       </div>
     </div>
   </div>

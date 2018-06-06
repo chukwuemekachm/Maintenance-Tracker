@@ -174,6 +174,12 @@ form {
   padding-left: .6em!important;
 }
 
+.ch-input-desc {
+  height: 3em!important;
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+
 label.ch-label {
   text-align: left!important;
 }
@@ -324,6 +330,7 @@ button.ch-btn-flat {
   overflow: auto;
   animation: fade 500ms;
   padding-top: 0em;
+  padding-bottom: .3em;
   border-top: .3em inset rgb(30, 130, 76);
   border-bottom: .4em inset rgb(30, 130, 76);
 }
@@ -342,9 +349,22 @@ button.ch-btn-flat {
 
 .ch-modal-heading {
   background-color: rgb(30, 130, 76);
-  padding: .5em;
+  padding: .1em 1em;
   margin-bottom: 1em;
   color: white;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.ch-modal-heading span {
+  font-size: 2em;
+  cursor: pointer;
 }
 
 .ch-display-modal {
@@ -455,6 +475,12 @@ ul.ch-nav li>h2>i {
   .ch-modal-section {
     width: 80%;
     margin-top: 2em;
+  }
+  .ch-modal-heading {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
   }
   .ch-footer-dis {
     position: initial;

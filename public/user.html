@@ -41,6 +41,7 @@
                 <th>Date</th>
                 <th>Status</th>
                 <th>Details</th>
+                <th>Update</th>
               </tr>
             </thead>
             
@@ -79,6 +80,31 @@
      </div>
    </div>
 
+   <div class="ch-modal-section" id="update-request">
+    <div class="ch-col-12 ch-modal-heading">
+      <h4>Update Request</h4>
+    </div>
+    <div class="ch-row">
+      <div class="ch-col-10">
+        <form id="form-update-request">
+          <label for="title" class="ch-label">Title</label>
+          <input type="text" name="title" id="updateTitle" class="ch-input" required>
+          <label for="type" class="ch-label">Type</label>
+          <select name="type" id="updateType" class="ch-input">
+           <option value="">-- select --</option>
+           <option value="repair">Repair</option>
+           <option value="maintenance">Maintenance</option>
+         </select>
+         <label for="description" class="ch-label">Description</label>
+         <textarea name="description" id="updateDescription" class="ch-input ch-input-desc" required></textarea>
+         <button class="ch-btn-round" type="submit">Update Request</button>
+         <button class="ch-btn-close" id="btn-close-update-request"> <i class="icon ion-md-close"></i> Close</button>
+       </form>
+       <br>
+     </div>
+   </div>
+ </div>
+
    <div class="ch-modal-section" id="view-request">
     <div class="ch-col-12 ch-modal-heading">
       <h4>Request Details</h4>
@@ -98,7 +124,7 @@
         <p id="displayDescription">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
         <br>
         <p><label for="status" class="ch-label">Status</label></p>
-        <p id="displayStatus">Approved</p>
+        <p id="displayStatus"></p>
         <br>
         <p><label for="date" class="ch-label">Date</label></p>
         <p id="displayDate">22/03/2018 01:02pm</p>

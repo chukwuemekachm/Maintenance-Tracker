@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Client } from 'pg';
+import EmailSender from "../extensions/emailSender";
 
 dotenv.config();
 const connectionString = process.env.DATABASE_URL;
@@ -56,6 +57,7 @@ class AdminController {
     client.connect();
     client.query(queryString, (error, result) => {
       client.end();
+      EmailSender.userRequestStatus(requestId);
       return res.status(200)
         .json({
           status: 'success',
@@ -86,6 +88,7 @@ class AdminController {
     client.connect();
     client.query(queryString, (error, result) => {
       client.end();
+      EmailSender.userRequestStatus(requestId);
       return res.status(200)
         .json({
           status: 'success',
@@ -116,6 +119,7 @@ class AdminController {
     client.connect();
     client.query(queryString, (error, result) => {
       client.end();
+      EmailSender.userRequestStatus(requestId);
       return res.status(200)
         .json({
           status: 'success',

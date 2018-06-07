@@ -9,7 +9,8 @@
         "start": "babel-node app.js",
         "lint": "./node_modules/.bin/eslint Server/ --ext js --fix",
         "coverage": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
-        "migrate": "babel-node ./Server/models/index.js"
+        "migrate": "babel-node ./Server/models/index.js",
+        "email": "babel-node ./Server/extensions/emailSender.js"
     },
     "repository": {
         "type": "git",
@@ -32,6 +33,7 @@
         "joi": "^13.3.0",
         "jsonwebtoken": "^8.2.1",
         "morgan": "^1.9.0",
+        "nodemailer": "^4.6.5",
         "pg": "^7.0.3"
     },
     "devDependencies": {

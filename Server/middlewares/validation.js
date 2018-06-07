@@ -20,6 +20,11 @@ const createRequestSchema = Joi.object().keys({
   description: Joi.string().required().max(100),
 });
 
+const filterRequestSchema = Joi.object().keys({
+  filterType: Joi.string(),
+  pageNo: Joi.number().positive().integer(),
+});
+
 /**
  * Validates if a type property in the request payload is equal to repair or maintenance
  *
@@ -221,4 +226,19 @@ const updateRequest = (req, res, done) => {
   return done();
 };
 
-export { signup, login, checkRequestId, createRequest, updateRequest };
+/**
+ * Validates query params in request payload for admin get all request
+ *
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} done - The next middleware to be called
+ */
+const filterRequest = (req, res, done) => {
+  const { filterType, pageNo } = req.query;
+  Joi.validate({ filterType, pageNo }, filterRequestSchema, (err) => {
+    if (!err) return done();
+    return res.status(400).json({ status: 'error', code: 400, message: err.details[0].message });
+  });
+};
+
+export { signup, login, checkRequestId, createRequest, updateRequest, filterRequest };

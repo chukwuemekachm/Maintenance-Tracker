@@ -61,6 +61,99 @@ describe('GET /requests', () => {
       });
   });
 
+  it('should return 200 and requests, when token is valid and requests exists from approved filter', (done) => {
+    chai.request(server)
+      .get('/api/v1/requests?filterType=approved&pageNo=1')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('success');
+        res.body.should.have.property('message').eql('Requests on the system retrieved successfully');
+        res.body.should.have.property('code').eql(200);
+        res.body.should.have.property('data');
+        res.body.data.should.be.an('array');
+        done();
+      });
+  });
+
+  it('should return 200 and requests, when token is valid and requests exists from resolved filter', (done) => {
+    chai.request(server)
+      .get('/api/v1/requests?filterType=resolved&pageNo=1')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('success');
+        res.body.should.have.property('message').eql('Requests on the system retrieved successfully');
+        res.body.should.have.property('code').eql(200);
+        res.body.should.have.property('data');
+        res.body.data.should.be.an('array');
+        done();
+      });
+  });
+
+  it('should return 200 and requests, when token is valid and requests exists from pending filter', (done) => {
+    chai.request(server)
+      .get('/api/v1/requests?filterType=pending&pageNo=1')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('success');
+        res.body.should.have.property('message').eql('Requests on the system retrieved successfully');
+        res.body.should.have.property('code').eql(200);
+        res.body.should.have.property('data');
+        res.body.data.should.be.an('array');
+        done();
+      });
+  });
+
+  it('should return 200 and requests, when token is valid and requests exists from repair filter', (done) => {
+    chai.request(server)
+      .get('/api/v1/requests?filterType=repair&pageNo=1')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('success');
+        res.body.should.have.property('message').eql('Requests on the system retrieved successfully');
+        res.body.should.have.property('code').eql(200);
+        res.body.should.have.property('data');
+        res.body.data.should.be.an('array');
+        done();
+      });
+  });
+
+  it('should return 200 and requests, when token is valid and requests exists from maintenance filter', (done) => {
+    chai.request(server)
+      .get('/api/v1/requests?filterType=maintenance&pageNo=1')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('success');
+        res.body.should.have.property('message').eql('Requests on the system retrieved successfully');
+        res.body.should.have.property('code').eql(200);
+        res.body.should.have.property('data');
+        res.body.data.should.be.an('array');
+        done();
+      });
+  });
+
+  it('should return 400 and requests, when token is valid query params are not', (done) => {
+    chai.request(server)
+      .get('/api/v1/requests?filterType=repair&pageNo=ko')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.a('object');
+        res.body.should.have.property('status').eql('error');
+        res.body.should.have.property('code').eql(400);
+        done();
+      });
+  });
+
   it('should return 401 when token is invalid', (done) => {
     chai.request(server)
       .get('/api/v1/requests')

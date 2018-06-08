@@ -127,6 +127,28 @@ class RequestController {
         });
     });
   }
+
+  static deleteRequest(req, res) {
+    const { id } = req.body.token;
+    const { requestId } = req.params;
+    const queryString = {
+      text: 'DELETE FROM requests WHERE user_id = $1 AND id = $2;',
+      values: [id, requestId],
+    };
+    const client = new Client({
+      connectionString,
+    });
+    client.connect();
+    client.query(queryString, () => {
+      client.end();
+      return res.status(200)
+        .json({
+          status: 'success',
+          code: 200,
+          message: 'Request deleted successfully',
+        });
+    });
+  }
 }
 
 export default RequestController;

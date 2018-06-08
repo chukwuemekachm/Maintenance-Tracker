@@ -6,21 +6,34 @@ dotenv.config();
 const connectionString = process.env.DATABASE_URL;
 
 const mailTransporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: process.env.MY_SERVICE,
   auth: {
     user: process.env.MY_EMAIL,
     pass: process.env.MY_PASSWORD,
   },
 });
 
+/**
+ * Sends email notifications to admin and users
+ * 
+ * @class - The EmailSender class
+ */
 class EmailSender {
+  /**
+   * Sends an email to a recipient
+   * 
+   * @param {String} userEmail - The email address of the recipent
+   * @param {String} mailSubject - The subject of the mail
+   * @param {String} mailBody - The mail/message body
+   */
   static async sendEmail(userEmail, mailSubject, mailBody) {
     const mailOptions = {
       from: 'Maintenance-Tracker.com',
       to: userEmail,
       subject: mailSubject,
-      html: `<h1 style="grey: white;padding: .5em;">Maintenance Tracker</h1>
-      <p style="padding: .5em;">${mailBody}</p>`,
+      html: `<h3 style="grey: white;padding: .5em;">Maintenance Tracker</h3>
+      <div style="padding: .5em;">${mailBody}</div>
+      <p style="padding: .5em;"><b>**Note if you are not subscribed to Maintenance Tracker, please ignore this mail.</p>`,
     };
 
     mailTransporter.sendMail(mailOptions, (err) => {
@@ -31,6 +44,11 @@ class EmailSender {
     });
   }
 
+  /**
+   * Constructs the message body of a user email notification, when a request is approved, disapproved or resolved
+   * 
+   * @param {Number} requestId - The request id of the modified request
+   */
   static async userRequestStatus(requestId) {
     const client = new Client({
       connectionString,
@@ -45,8 +63,27 @@ class EmailSender {
       const {
         title, createdat, updatedat, status, lastname, email,
       } = result.rows[0];
-      const messageBody = `Dear ${lastname}, <br /><br /> You request with <br /> Request ID: <b>${requestId}</b>, <br /> Request Title: <b>${title}</b>, <br /> Created on: <b>${createdat}</b>, <br /> was ${status} on <b>${new Date(updatedat)}</b>.`;
+      const messageBody = `<p>Dear <b>${lastname}</b>,</p> <p>Your request with</p> <p>Request ID: <b>${requestId}</b>, <p>Request Title: <b>${title}</p>, <p> Created on: <b>${createdat}</b>, <p> was ${status} on <b>${new Date(updatedat)}</b>.</p>`;
       EmailSender.sendEmail(email, `Request ${status}`, messageBody);
+    });
+  }
+
+  /**
+   * Constructs the message body of an admin email notification, when a request is created
+   * 
+   * @param {String} requestTitle - The title of the created request
+   */
+  static async userCreateRequest(requestTitle) {
+    const client = new Client({
+      connectionString,
+    });
+    client.connect();
+    const queryString = 'SELECT email, lastname from users WHERE admin = TRUE;';
+    client.query(queryString, (error, result) => {
+      client.end();
+      const { email, lastname } = result.rows[0];
+      const messageBody = `<p>Dear <b>${lastname}</b>, <p>A new request with<p/> <p>Request Title: <b>${requestTitle}</b>,</p> <p>was logged on <b>${new Date()}</b>.</p>`;
+      EmailSender.sendEmail(email, 'Request logged', messageBody);
     });
   }
 }

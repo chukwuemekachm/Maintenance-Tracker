@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Client } from 'pg';
+import EmailSender from '../extensions/emailSender';
 
 dotenv.config();
 const connectionString = process.env.DATABASE_URL;
@@ -89,6 +90,7 @@ class RequestController {
     client.connect();
     client.query(queryString, (error, result) => {
       client.end();
+      EmailSender.userCreateRequest(title);
       return res.status(201).json({
         status: 'success', code: 201, data: result.rows[0], message: 'Request created successfully',
       });

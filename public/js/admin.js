@@ -3,6 +3,13 @@ const token = `Bearer ${localStorage.token}`;
 const userPage = document.getElementById('admin-page');
 const resolveRequestBtn = document.getElementById('resolve-request');
 const adminSyncBtn = document.getElementById('admin-sync');
+const btnNext = document.getElementById('next-btn');
+const btnPrevious = document.getElementById('previous-btn');
+const btnApproved = document.getElementById('approved-btn');
+const btnPending = document.getElementById('pending-btn');
+const btnResolved = document.getElementById('resolved-btn');
+let currentFilter;
+let currentPage = 1;
 let userRequestsArr;
 let currentRequestId;
 
@@ -33,6 +40,7 @@ const formatStatus = (status) => {
   }
   return statusElement;
 };
+
 /**
  * Appends and displays requests on the admin table
  *
@@ -40,9 +48,10 @@ const formatStatus = (status) => {
  */
 const appendTableBody = (data) => {
   const newTableBody = document.createElement('tbody');
+  let counter = 1;
   data.forEach((request) => {
     const newRow = document.createElement('tr');
-    const cellId = newRow.insertCell(0);
+    const cellNo = newRow.insertCell(0);
     const cellTitle = newRow.insertCell(1);
     const cellDate = newRow.insertCell(2);
     const cellStatus = newRow.insertCell(3);
@@ -50,7 +59,7 @@ const appendTableBody = (data) => {
     const cellDetails = newRow.insertCell(5);
     const cellApprove = newRow.insertCell(6);
     const cellDisapprove = newRow.insertCell(7);
-    cellId.innerHTML = request.request_id;
+    cellNo.innerHTML = counter;
     cellTitle.innerHTML = request.title;
     cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
     cellStatus.appendChild(formatStatus(request.status));
@@ -59,12 +68,18 @@ const appendTableBody = (data) => {
     cellApprove.innerHTML = `<button class="ch-btn-approve" onclick="modifyRequest(${request.request_id}, 'approve')"> <i class="icon ion-md-checkmark"></i> </button>`;
     cellDisapprove.innerHTML = `<button class="ch-btn-disapprove" onclick="modifyRequest(${request.request_id}, 'disapprove')"> <i class="icon ion-md-close"></i> </button>`;
     newTableBody.append(newRow);
+    counter += 1;
   });
   const Table = document.getElementById('admin-table');
   Table.removeChild(Table.lastChild);
   return Table.append(newTableBody);
 };
 
+/**
+ * Diplays the details of a user's request
+ *
+ * @param {Number} requestId - The request id of the request to be displayed
+ */
 const displayRequestDetails = (requestId) => {
   const data = userRequestsArr.find(request => request.request_id === parseInt(requestId, 10));
   currentRequestId = data.request_id;
@@ -81,9 +96,12 @@ const displayRequestDetails = (requestId) => {
 
 /**
  * Gets a list of requests on the system using fetch api
+ *
+ * @param {String} filterType - The type of requests to be returned
+ * @param {Number} pageNo - The page no to be returned
  */
-const getRequests = () => {
-  fetch(`${baseUrl}/requests`, {
+const getRequests = (filterType, pageNo = 1) => {
+  fetch(`${baseUrl}/requests?filterType=${filterType}&pageNo=${pageNo}&cache-bust=${Date.now()}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', Authorization: token },
     cache: 'reload',
@@ -91,6 +109,7 @@ const getRequests = () => {
     .then(res => res.json()).then((res) => {
       if (res.code === 200) {
         userRequestsArr = res.data;
+        document.getElementById('request-count').innerHTML = `${userRequestsArr.length} requests`
         appendTableBody(res.data);
       }
       if (res.code === 401) {
@@ -104,6 +123,12 @@ const getRequests = () => {
     });
 };
 
+/**
+ * Modifies the status of a user's request
+ *
+ * @param {Number} requestId - The request id of the request to be modified
+ * @param {String} actionType - The type of modification action to be performed (Approve, Disapprove, Resolve)
+ */
 const modifyRequest = (requestId, actionType) => {
   fetch(`${baseUrl}/requests/${requestId}/${actionType}`, {
     method: 'PUT',
@@ -128,10 +153,46 @@ const modifyRequest = (requestId, actionType) => {
 
 adminSyncBtn.addEventListener('click', () => {
   displayAlert('Synchronization in progress...');
+  currentFilter = 'none';
   getRequests();
 });
+
+btnNext.addEventListener('click', () => {
+  displayAlert('Loading next...');
+  currentPage += 1;
+  getRequests(currentFilter, currentPage);
+});
+
+btnPrevious.addEventListener('click', () => {
+  displayAlert('Loading previous...');
+  currentPage -= 1;
+  getRequests(currentFilter, currentPage);
+});
+
+btnApproved.addEventListener('click', () => {
+  displayAlert('Loading Approved...');
+  currentPage = 1;
+  currentFilter = 'approved';
+  getRequests(currentFilter, currentPage);
+});
+
+btnResolved.addEventListener('click', () => {
+  displayAlert('Loading Resolved...');
+  currentPage = 1;
+  currentFilter = 'resolved';
+  getRequests(currentFilter, currentPage);
+});
+
+btnPending.addEventListener('click', () => {
+  displayAlert('Loading Pending...');
+  currentPage = 1;
+  currentFilter = 'pending';
+  getRequests(currentFilter, currentPage);
+});
+
 resolveRequestBtn.addEventListener('click', () => {
   toggleModal('view-request');
   modifyRequest(currentRequestId, 'resolve');
 });
+
 userPage.addEventListener('load', getRequests());

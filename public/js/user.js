@@ -40,21 +40,23 @@ const formatStatus = (status) => {
 */
 const append = (data) => {
   const newTableBody = document.createElement('tbody');
+  let counter = 1;
   data.forEach((request) => {
     const newRow = document.createElement('tr');
-    const cellId = newRow.insertCell(0);
+    const cellNo = newRow.insertCell(0);
     const cellTitle = newRow.insertCell(1);
     const cellDate = newRow.insertCell(2);
     const cellStatus = newRow.insertCell(3);
     const cellDetails = newRow.insertCell(4);
     const cellUpdate = newRow.insertCell(5);
-    cellId.innerHTML = request.id;
+    cellNo.innerHTML = counter;
     cellTitle.innerHTML = request.title;
     cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
     cellStatus.appendChild(formatStatus(request.status));
     cellDetails.innerHTML = `<button class="ch-btn-view" onclick="getRequest(${request.id},'preview')"> <i class="icon ion-md-albums"></i> </button>`;
     cellUpdate.innerHTML = `<button class="ch-btn-view" onclick="getRequest(${request.id},'update')"> <i class="icon ion-md-create"></i> </button>`;
     newTableBody.append(newRow);
+    counter += 1;
   });
   const Table = document.getElementById('user-table');
   Table.removeChild(Table.lastChild);

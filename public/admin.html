@@ -24,10 +24,6 @@
           </li>
           <div class="ch-nav-right" id="nav">
             <li>
-              <button class="ch-btn-round">
-                <i class="icon ion-md-sync" id="admin-sync"></i> Sync</button>
-            </li>
-            <li>
               <a href="index.html">
                 <button class="ch-btn-round" id="logout">Logout</button>
               </a>
@@ -40,20 +36,15 @@
       </div>
       <h1 class="ch-display">
         <i class=""></i> Users Requests</h1>
-      <h5 class="ch-row">
-        <div class="ch-col-3">
-          <button class="ch-btn-flat">
-            <i class="icon ion-md-infinite" id="admin-sync"></i> Pending Requests</button>
-        </div>
-        <div class="ch-col-3">
-          <button class="ch-btn-flat">
-            <i class="icon ion-md-checkmark" id="admin-sync"></i> Approved Requests</button>
-        </div>
-        <div class="ch-col-3">
-          <button class="ch-btn-flat">
-            <i class="icon ion-md-done-all" id="admin-sync"></i> Resolved Requests</button>
-        </div>
-      </h5>
+      <h2 class="ch-row ch-admin-nav ch-col-11">
+        <i class="icon ion-md-sync" id="admin-sync" title="Synchronise new requests on server"></i>
+        <i class="icon ion-md-done-all" id="resolved-btn" title="Fetch only resolved requests on server"></i>
+        <i class="icon ion-md-checkmark" id="approved-btn" title="Fetch only approved requests on server"></i>
+        <i class="icon ion-md-infinite" id="pending-btn" title="Fetch only pending requests on server"></i>
+        <i class="icon ion-ios-arrow-back" id="previous-btn" title="Fetch previous page of requests on server using current filter"></i>
+        <i class="icon ion-ios-arrow-forward" id="next-btn" title="Fetch next page of requests on server using current filter"></i>
+        <p id="request-count"></p>
+      </h2>
       <div class="ch-col-11 ch-panel">
         <div class="ch-table">
           <table class="ch-table" id="admin-table">

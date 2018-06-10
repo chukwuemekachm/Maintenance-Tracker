@@ -11,7 +11,7 @@
 h1.ch-display {
   font-family: 'Open Sans Condensed', sans-serif;
   color: #f2f2f2!important;
-  margin-bottom: 1em;
+  margin-bottom: .5em;
   margin-top: .6em;
 }
 /* Row Declaration */
@@ -422,6 +422,21 @@ ul.ch-nav li>h2 {
 ul.ch-nav li>h2>i {
   display: none;
 }
+
+h2.ch-row.ch-admin-nav {
+  background-color: #d3d1d1!important;
+  color: #242424;
+}
+
+h2.ch-row.ch-admin-nav i, h2.ch-row.ch-admin-nav p {
+  padding: .5em;
+  font-weight: bold;
+  border-radius: 10em;
+}
+
+h2.ch-row.ch-admin-nav i:hover {
+  background-color: #c4c2c2!important
+}
 /*  Alert */
 
 .ch-alert {
@@ -476,11 +491,17 @@ ul.ch-nav li>h2>i {
     width: 80%;
     margin-top: 2em;
   }
-  .ch-modal-heading {
+  .ch-modal-heading, h2.ch-row.ch-admin-nav.ch-col-11 {
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;
     -webkit-justify-content: space-between;
+  }
+  h2.ch-row.ch-admin-nav.ch-col-11 i {
+    padding: .1em;
+    font-weight: bold;
+    border-radius: 2em;
+    align-self: auto;
   }
   .ch-footer-dis {
     position: initial;

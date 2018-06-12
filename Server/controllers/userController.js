@@ -92,6 +92,42 @@ class UserController {
         });
     });
   }
+
+  /**
+     * Returns the account/profile details of the authenticated user
+     *
+     * @param {object} req - The request object received
+     * @param {object} res - The response object sent
+     *
+     * @returns {object}
+     */
+  static userProfile(req, res) {
+    const client = new Client({
+      connectionString,
+    });
+    const { id } = req.body.token;
+
+    client.connect();
+    const queryString = {
+      text: 'SELECT firstname, lastname, email, admin, createdat, updatedat FROM users WHERE id = $1;',
+      values: [id],
+    };
+    client.query(queryString, (error, result) => {
+      client.end();
+      const {
+        firstname, lastname, email, admin, createdat, updatedat,
+      } = result.rows[0];
+      return res.status(200)
+        .json({
+          status: 'success',
+          code: 200,
+          data: {
+            firstname, lastname, email, admin, createdat, updatedat,
+          },
+          message: 'User details retrieved successfully',
+        });
+    });
+  }
 }
 
 export default UserController;

@@ -52,6 +52,22 @@ const formatUpdateBtn = (requestId, status) => {
 };
 
 /**
+ * Disables or enables the delete button of a request
+ *
+ * @param {Number} requestId - The id of the request, the button deletes
+ * @param {String} status - The status of the request, the button deletes
+ */
+const formatDeleteBtn = (requestId, status) => {
+  let deletebtn;
+  if (status === 'resolved' || status === 'disapproved') {
+    deletebtn = `<button class="ch-btn-disapprove" onclick="deleteRequest(${requestId})"><i class="icon ion-md-close"></i></button>`;
+  } else {
+    deletebtn = '<button class="ch-btn-disapprove"><i class="icon ion-md-close"></i></button>';
+  }
+  return deletebtn;
+};
+
+/**
 * Appends request data to user request display Table
 *
 * @param {object} data - The request to be displayed on the table
@@ -67,12 +83,14 @@ const append = (data) => {
     const cellStatus = newRow.insertCell(3);
     const cellDetails = newRow.insertCell(4);
     const cellUpdate = newRow.insertCell(5);
+    const cellDelete = newRow.insertCell(6);
     cellNo.innerHTML = counter;
     cellTitle.innerHTML = request.title;
     cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
     cellStatus.appendChild(formatStatus(request.status));
     cellDetails.innerHTML = `<button class="ch-btn-view" onclick="getRequest(${request.id},'preview')"> <i class="icon ion-md-albums"></i> </button>`;
     cellUpdate.innerHTML = formatUpdateBtn(request.id, request.status);
+    cellDelete.innerHTML = formatDeleteBtn(request.id, request.status);
     newTableBody.append(newRow);
     counter += 1;
   });
@@ -231,5 +249,20 @@ filterBtn.addEventListener('change', () => {
   }
   append(filteredRequests);
 });
+
+const deleteRequest = (requestId) => {
+  fetch(`${baseUrl}/users/requests/${requestId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', Authorization: token },
+    cache: 'reload',
+  }).then(response => response.json()).then((response) => {
+    if (response.code === 200) {
+      displayAlert(response.message);
+      getRequests();
+    } else {
+      displayAlert('Could not delete request');
+    }
+  }).catch(error => displayAlert(error.message));
+};
 
 userPage.addEventListener('load', getRequests());

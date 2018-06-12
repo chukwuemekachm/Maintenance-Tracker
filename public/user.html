@@ -17,12 +17,19 @@
       <nav>
         <ul class="ch-nav ch-card">
           <li>
-            <h2><a href="index.html">Maintenance Tracker</a> <i class="icon ion-md-menu" id="menu"></i></h2>
+            <h2>
+              <a href="index.html">Maintenance Tracker</a>
+              <i class="icon ion-md-menu" id="menu"></i>
+            </h2>
           </li>
           <div class="ch-nav-right" id="nav">
-            <li><button class="ch-btn-round" id="btn-add-request">New Request</button></li>
             <li>
-              <a href="index.html"><button class="ch-btn-round" id="logout">Logout</button></a>
+              <button class="ch-btn-round" id="btn-add-request">New Request</button>
+            </li>
+            <li>
+              <a href="index.html">
+                <button class="ch-btn-round" id="logout">Logout</button>
+              </a>
             </li>
           </div>
         </ul>
@@ -30,7 +37,20 @@
       <div class="ch-alert" id="display">
         <p id="alert"></p>
       </div>
-      <h1 class="ch-display"><i class=""></i> My Requests</h1>
+      <h1 class="ch-display">
+        <i class=""></i> My Requests</h1>
+      <div class="ch-col-10 ch-row">
+        <div class="ch-col-3">
+          <select name="" id="filter" class="ch-input">
+            <option value="all">All requests</option>
+            <option value="approved">Approved requests</option>
+            <option value="disapproved">Disapproved requests</option>
+            <option value="pending">Pending requests</option>
+            <option value="resolved">Reolved requests</option>
+          </select>
+        </div>
+        <div class="ch-col-9"></div>
+      </div>
       <div class="ch-col-10 ch-panel">
         <div class="ch-table">
           <table class="ch-table" id="user-table">
@@ -44,7 +64,7 @@
                 <th>Update</th>
               </tr>
             </thead>
-            
+
           </table>
         </div>
       </div>
@@ -57,7 +77,8 @@
   <div class="ch-modal" id="modal">
     <div class="ch-modal-section" id="add-request">
       <div class="ch-col-12 ch-modal-heading">
-        <h4>New Request</h4> <span id="btn-close-add-request">&times;</span>
+        <h4>New Request</h4>
+        <span id="btn-close-add-request">&times;</span>
       </div>
       <div class="ch-row">
         <div class="ch-col-10">
@@ -66,66 +87,78 @@
             <input type="text" name="title" id="title" class="ch-input" required>
             <label for="type" class="ch-label">Type</label>
             <select name="type" id="type" class="ch-input">
-             <option value="">-- select --</option>
-             <option value="repair">Repair</option>
-             <option value="maintenance">Maintenance</option>
-           </select>
-           <label for="description" class="ch-label">Description</label>
-           <textarea name="description" id="description" class="ch-input ch-input-desc" required></textarea>
-           <button class="ch-btn-round" type="submit">Submit Request</button>
-         </form>
-         <br>
-       </div>
-     </div>
-   </div>
-
-   <div class="ch-modal-section" id="update-request">
-    <div class="ch-col-12 ch-modal-heading">
-      <h4>Update Request</h4> <span id="btn-close-update-request">&times;</span>
+              <option value="">-- select --</option>
+              <option value="repair">Repair</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+            <label for="description" class="ch-label">Description</label>
+            <textarea name="description" id="description" class="ch-input ch-input-desc" required></textarea>
+            <button class="ch-btn-round" type="submit">Submit Request</button>
+          </form>
+          <br>
+        </div>
+      </div>
     </div>
-    <div class="ch-row">
-      <div class="ch-col-10">
-        <form id="form-update-request">
-          <label for="title" class="ch-label">Title</label>
-          <input type="text" name="title" id="updateTitle" class="ch-input" required>
-          <label for="type" class="ch-label">Type</label>
-          <select name="type" id="updateType" class="ch-input">
-           <option value="">-- select --</option>
-           <option value="repair">Repair</option>
-           <option value="maintenance">Maintenance</option>
-         </select>
-         <label for="description" class="ch-label">Description</label>
-         <textarea name="description" id="updateDescription" class="ch-input ch-input-desc" required></textarea>
-         <button class="ch-btn-round" type="submit">Update Request</button>
-       </form>
-       <br>
-     </div>
-   </div>
- </div>
 
-   <div class="ch-modal-section" id="view-request">
-    <div class="ch-col-12 ch-modal-heading">
-      <h4>Request Details</h4> <span id="btn-close-view-request">&times;</span>
+    <div class="ch-modal-section" id="update-request">
+      <div class="ch-col-12 ch-modal-heading">
+        <h4>Update Request</h4>
+        <span id="btn-close-update-request">&times;</span>
+      </div>
+      <div class="ch-row">
+        <div class="ch-col-10">
+          <form id="form-update-request">
+            <label for="title" class="ch-label">Title</label>
+            <input type="text" name="title" id="updateTitle" class="ch-input" required>
+            <label for="type" class="ch-label">Type</label>
+            <select name="type" id="updateType" class="ch-input">
+              <option value="">-- select --</option>
+              <option value="repair">Repair</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+            <label for="description" class="ch-label">Description</label>
+            <textarea name="description" id="updateDescription" class="ch-input ch-input-desc" required></textarea>
+            <button class="ch-btn-round" type="submit">Update Request</button>
+          </form>
+          <br>
+        </div>
+      </div>
     </div>
-    <div class="ch-row">
-      <div class="ch-col-10">
-        <p><label for="title" class="ch-label">Title</label></p>
-        <p id="displayTitle" class="ch-display-modal">
-          Lorem impsum dolet et sim, elet dar tar
-        </p>
-        <p><label for="type" class="ch-label">Type</label></p>
-        <p id="displayType" class="ch-display-modal">Repair</p>
-        <p><label for="description" class="ch-label">Description</label>
-        </p>
-        <p id="displayDescription" class="ch-display-modal">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus quam odit nam nisi velit consequatur cumque expedita.</p>
-        <p><label for="status" class="ch-label">Status</label></p>
-        <p id="displayStatus" class="ch-display-modal"></p>
-        <p><label for="date" class="ch-label">Date</label></p>
-        <p id="displayDate" class="ch-display-modal">22/03/2018 01:02pm</p>
+
+    <div class="ch-modal-section" id="view-request">
+      <div class="ch-col-12 ch-modal-heading">
+        <h4>Request Details</h4>
+        <span id="btn-close-view-request">&times;</span>
+      </div>
+      <div class="ch-row">
+        <div class="ch-col-10">
+          <p>
+            <label for="title" class="ch-label">Title</label>
+          </p>
+          <p id="displayTitle" class="ch-display-modal">
+            Lorem impsum dolet et sim, elet dar tar
+          </p>
+          <p>
+            <label for="type" class="ch-label">Type</label>
+          </p>
+          <p id="displayType" class="ch-display-modal">Repair</p>
+          <p>
+            <label for="description" class="ch-label">Description</label>
+          </p>
+          <p id="displayDescription" class="ch-display-modal">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus
+            quam odit nam nisi velit consequatur cumque expedita.</p>
+          <p>
+            <label for="status" class="ch-label">Status</label>
+          </p>
+          <p id="displayStatus" class="ch-display-modal"></p>
+          <p>
+            <label for="date" class="ch-label">Date</label>
+          </p>
+          <p id="displayDate" class="ch-display-modal">22/03/2018 01:02pm</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </body>
 <script src="js/script.js"></script>
 <script src="js/user.js"></script>

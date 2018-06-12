@@ -1,15 +1,15 @@
 /* Import Google fonts */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   text-align: center;
 }
 
 h1.ch-display {
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   color: #f2f2f2!important;
   margin-bottom: .5em;
   margin-top: .6em;
@@ -182,6 +182,7 @@ form {
 
 label.ch-label {
   text-align: left!important;
+  font-weight: 700;
 }
 
 p.ch-right {

@@ -109,7 +109,7 @@ const getRequests = (filterType, pageNo = 1) => {
     .then(res => res.json()).then((res) => {
       if (res.code === 200) {
         userRequestsArr = res.data;
-        document.getElementById('request-count').innerHTML = `${userRequestsArr.length} requests`
+        document.getElementById('request-count').innerHTML = `${userRequestsArr.length} requests`;
         appendTableBody(res.data);
       }
       if (res.code === 401) {

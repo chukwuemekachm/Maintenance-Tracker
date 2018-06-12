@@ -3,6 +3,8 @@ const token = `Bearer ${localStorage.token}`;
 const userPage = document.getElementById('user-page');
 const createRequestForm = document.getElementById('form-create-request');
 const updateRequestForm = document.getElementById('form-update-request');
+const filterBtn = document.getElementById('filter');
+let userRequestsArr;
 let currentRequestId;
 
 /**
@@ -33,7 +35,23 @@ const formatStatus = (status) => {
   return statusElement;
 };
 
-/*
+/**
+ * Disables or enables the update button of a request
+ *
+ * @param {Number} requestId - The id of the request, the button updates
+ * @param {String} status - The status of the request, the button updates
+ */
+const formatUpdateBtn = (requestId, status) => {
+  let updatebtn;
+  if (status === 'pending') {
+    updatebtn = `<button class="ch-btn-view" onclick="getRequest(${requestId},'update')"> <i class="icon ion-md-create"></i> </button>`;
+  } else {
+    updatebtn = '<button type="button" disabled class="ch-btn-view"> <i class="icon ion-md-create"></i> </button>';
+  }
+  return updatebtn;
+};
+
+/**
 * Appends request data to user request display Table
 *
 * @param {object} data - The request to be displayed on the table
@@ -54,7 +72,7 @@ const append = (data) => {
     cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
     cellStatus.appendChild(formatStatus(request.status));
     cellDetails.innerHTML = `<button class="ch-btn-view" onclick="getRequest(${request.id},'preview')"> <i class="icon ion-md-albums"></i> </button>`;
-    cellUpdate.innerHTML = `<button class="ch-btn-view" onclick="getRequest(${request.id},'update')"> <i class="icon ion-md-create"></i> </button>`;
+    cellUpdate.innerHTML = formatUpdateBtn(request.id, request.status);
     newTableBody.append(newRow);
     counter += 1;
   });
@@ -63,7 +81,7 @@ const append = (data) => {
   return Table.append(newTableBody);
 };
 
-/*
+/**
 * Displays information from a single user request on the view request modal
 *
 * @param {object} data - The request to be displayed on the request modal
@@ -77,7 +95,7 @@ const displayPreview = (data) => {
   toggleModal('view-request');
 };
 
-/*
+/**
 * Displays information from a single user request on the update request modal
 *
 * @param {object} data - The request to be displayed on the request modal
@@ -90,7 +108,7 @@ const displayUpdate = (data) => {
   toggleModal('update-request');
 };
 
-/*
+/**
 * Fetches the request of the logged in user
 */
 const getRequests = () => {
@@ -100,10 +118,12 @@ const getRequests = () => {
     cache: 'reload',
   })
     .then(res => res.json()).then((res) => {
-      if (res.code === 200) {
+      if (res.code === 200 && res.data) {
+        userRequestsArr = res.data;
         append(res.data);
+      } else {
+        displayAlert('User does not have requests, click the New Request button to create a request');
       }
-      // displayAlert(res.message);
       if (res.code === 401) {
         setTimeout(() => {
           window.location.replace('signin.html');
@@ -115,33 +135,23 @@ const getRequests = () => {
     });
 };
 
-/*
+/**
 * Gets the details of a single user object
 *
 * @param {number} data - The id of the request to be fetched
 */
 const getRequest = (requestId, displayType) => {
-  fetch(`${baseUrl}/users/requests/${requestId}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', Authorization: token },
-    cache: 'reload',
-  })
-    .then(response => response.json())
-    .then((response) => {
-      if (response.code === 200 && displayType === 'preview') {
-        displayPreview(response.data[0]);
-      } else if (response.code === 200 && displayType === 'update') {
-        displayUpdate(response.data[0]);
-      } else {
-        displayAlert(response.message);
-      }
-    })
-    .catch((error) => {
-      displayAlert(error.message, 3);
-    });
+  const request = userRequestsArr.find(requestItem => requestItem.id === parseInt(requestId, 10));
+  if (displayType === 'preview' && request) {
+    displayPreview(request);
+  } else if (displayType === 'update' && request) {
+    displayUpdate(request);
+  } else {
+    displayAlert('Could not get details of the request');
+  }
 };
 
-/*
+/**
 * Adds an eventListener with a callback to POST user request inputs
 *
 * @param {object} submitEvent - The submitEvent
@@ -173,7 +183,7 @@ createRequestForm.addEventListener('submit', (submitEvent) => {
     });
 });
 
-/*
+/**
 * Adds an eventListener with a callback to POST user request inputs
 *
 * @param {object} submitEvent - The submitEvent
@@ -203,6 +213,23 @@ updateRequestForm.addEventListener('submit', (submitEvent) => {
       displayAlert(error.message);
       toggleModal('add-request');
     });
+});
+
+/**
+ * Adds a click event listener to filterBtn
+ */
+filterBtn.addEventListener('change', () => {
+  const { value: filterString } = filterBtn;
+  let filteredRequests;
+  switch (filterString) {
+    case 'all':
+      filteredRequests = userRequestsArr;
+      break;
+    default:
+      filteredRequests = userRequestsArr.filter(request => request.status === filterString);
+      break;
+  }
+  append(filteredRequests);
 });
 
 userPage.addEventListener('load', getRequests());

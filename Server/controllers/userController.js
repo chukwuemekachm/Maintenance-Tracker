@@ -159,6 +159,38 @@ class UserController {
         });
     });
   }
+
+  /**
+     * Updates the profile of the authenticated user
+     *
+     * @param {Object} req - The request object received
+     * @param {Object} res - The response object sent
+     *
+     * @returns {Object}
+     */
+  static updateProfile(req, res) {
+    const client = new Client({
+      connectionString,
+    });
+    const { id } = req.body.token;
+    const { firstname, lastname, email } = req.body.profile;
+
+    client.connect();
+    const queryString = {
+      text: 'UPDATE users SET firstname = $1, lastname = $2, updatedat = NOW() WHERE id = $3 RETURNING firstname, lastname, email, createdat, updatedat',
+      values: [firstname, lastname, id],
+    };
+    client.query(queryString, (error, result) => {
+      client.end();
+      return res.status(200)
+        .json({
+          status: 'success',
+          code: 200,
+          data: result.rows[0],
+          message: 'User profile updated successfully',
+        });
+    });
+  }
 }
 
 export default UserController;

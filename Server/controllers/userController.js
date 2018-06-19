@@ -128,6 +128,37 @@ class UserController {
         });
     });
   }
+
+  /**
+     * Updates the password of the authenticated user
+     *
+     * @param {Object} req - The request object received
+     * @param {Object} res - The response object sent
+     *
+     * @returns {Object}
+     */
+  static updatePassword(req, res) {
+    const client = new Client({
+      connectionString,
+    });
+    const { id } = req.body.token;
+    const { newPassword } = req.body;
+
+    client.connect();
+    const queryString = {
+      text: 'UPDATE users SET password = $1 WHERE id = $2;',
+      values: [newPassword, id],
+    };
+    client.query(queryString, () => {
+      client.end();
+      return res.status(200)
+        .json({
+          status: 'success',
+          code: 200,
+          message: 'User password updated successfully',
+        });
+    });
+  }
 }
 
 export default UserController;

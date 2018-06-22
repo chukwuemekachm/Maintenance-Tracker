@@ -159,24 +159,6 @@ describe('POST /requests', () => {
       });
   });
 
-  it('should return 400, when description is an empty string', (done) => {
-    chai.request(server).post('/api/v1/users/requests')
-      .send({
-        title: 'Faulty Water dispenser',
-        type: 'repair',
-        description: '        ',
-      })
-      .set('Authorization', `Bearer ${userToken}`)
-      .end((req, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('code').eql(400);
-        res.body.should.have.property('message');
-        done();
-      });
-  });
-
   it('should return 401, when authentication fails', (done) => {
     chai.request(server).post('/api/v1/users/requests')
       .send({

@@ -26,22 +26,6 @@ describe('POST /login', () => {
       });
   });
 
-  it('should return 400, when email is invalid or null', (done) => {
-    chai.request(server).post('/api/v1/auth/login')
-      .send({
-        email: 'tosinil.com',
-        password: '34567',
-      })
-      .end((req, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('code').eql(400);
-        res.body.should.have.property('message');
-        done();
-      });
-  });
-
   it('should return 400, when password is invalid or null', (done) => {
     chai.request(server).post('/api/v1/auth/login')
       .send({
@@ -70,22 +54,6 @@ describe('POST /login', () => {
         res.body.should.have.property('status').eql('error');
         res.body.should.have.property('code').eql(400);
         res.body.should.have.property('message').eql('password is required or invalid');
-        done();
-      });
-  });
-
-  it('should return 400, when email is an empty string', (done) => {
-    chai.request(server).post('/api/v1/auth/login')
-      .send({
-        email: '     ',
-        password: '34567',
-      })
-      .end((req, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('status').eql('error');
-        res.body.should.have.property('code').eql(400);
-        res.body.should.have.property('message');
         done();
       });
   });

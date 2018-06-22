@@ -17,7 +17,7 @@ class RequestController {
   static getUserRequests(req, res) {
     const { id } = req.body.token;
     const queryString = {
-      text: 'SELECT * FROM requests WHERE user_id = $1;',
+      text: 'SELECT * FROM requests WHERE user_id = $1 ORDER BY id DESC;',
       values: [id],
     };
     const client = new Client({

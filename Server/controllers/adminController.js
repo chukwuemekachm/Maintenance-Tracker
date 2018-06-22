@@ -140,23 +140,23 @@ class AdminController {
     switch (filterType) {
       case 'approve':
       case 'approved':
-        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.status = \'approved\' ORDER BY request_id LIMIT 12 OFFSET $1;';
+        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.status = \'approved\' ORDER BY request_id DESC LIMIT 12 OFFSET $1;';
         break;
       case 'resolve':
       case 'resolved':
-        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.status = \'resolved\' ORDER BY request_id LIMIT 12 OFFSET $1;';
+        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.status = \'resolved\' ORDER BY request_id DESC LIMIT 12 OFFSET $1;';
         break;
       case 'pending':
-        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.status = \'pending\' ORDER BY request_id LIMIT 12 OFFSET $1';
+        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.status = \'pending\' ORDER BY request_id DESC LIMIT 12 OFFSET $1';
         break;
       case 'repair':
-        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.type = \'repair\' ORDER BY request_id LIMIT 12 OFFSET $1';
+        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.type = \'repair\' ORDER BY request_id DESC LIMIT 12 OFFSET $1';
         break;
       case 'maintenance':
-        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.type = \'maintenance\' ORDER BY request_id LIMIT 12 OFFSET $1';
+        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id WHERE requests.type = \'maintenance\' ORDER BY request_id DESC LIMIT 12 OFFSET $1';
         break;
       default:
-        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id ORDER BY request_id LIMIT 12 OFFSET $1';
+        queryString = 'SELECT requests.id AS request_id, users.firstname, users.lastname, users.email, requests.title, requests.type, requests.description, requests.status, requests.createdat, requests.updatedat FROM requests INNER JOIN users ON requests.user_id = users.id ORDER BY request_id DESC LIMIT 12 OFFSET $1';
         break;
     }
     return queryString;

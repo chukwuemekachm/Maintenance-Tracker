@@ -153,20 +153,29 @@ const modifyRequest = (requestId, actionType) => {
 
 adminSyncBtn.addEventListener('click', () => {
   displayAlert('Synchronization in progress...');
+  currentPage = 1;
   currentFilter = 'none';
   getRequests();
 });
 
 btnNext.addEventListener('click', () => {
-  displayAlert('Loading next...');
-  currentPage += 1;
-  getRequests(currentFilter, currentPage);
+  if (userRequestsArr.length < 12) {
+    displayAlert('This is the last page');
+  } else {
+    displayAlert('Loading next...');
+    currentPage += 1;
+    getRequests(currentFilter, currentPage);
+  }
 });
 
 btnPrevious.addEventListener('click', () => {
-  displayAlert('Loading previous...');
-  currentPage -= 1;
-  getRequests(currentFilter, currentPage);
+  if (currentPage < 1) {
+    displayAlert('Loading previous...');
+    currentPage -= 1;
+    getRequests(currentFilter, currentPage);
+  } else {
+    displayAlert('This is the first page');
+  }
 });
 
 btnApproved.addEventListener('click', () => {

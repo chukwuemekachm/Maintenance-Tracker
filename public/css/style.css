@@ -85,10 +85,10 @@ h1.ch-display {
   width: 100%;
   margin: 0;
   top: 0;
-  overflow: auto;
   position: fixed;
   height: 100%;
   background-size: cover;
+  overflow: auto;
 }
 
 .ch-aside {
@@ -115,6 +115,17 @@ h1.ch-display {
   letter-spacing: .08em;
 }
 
+.ch-footer-signup {
+  padding: 1.1em;
+  font-size: 1em;
+  width: 100%;
+  margin-top: 1em;
+  text-align: center;
+  background-color: rgba(32, 32, 32, 0.9);
+  color: #f6f6f6;
+  letter-spacing: .08em;
+}
+
 .ch-panel {
   -webkit-display: flex;
   display: flex;
@@ -123,6 +134,10 @@ h1.ch-display {
   padding: 1.5em;
   background-color: rgba(32, 32, 32, 0.86);
   color: #f6f6f6;
+}
+
+.ch-panel.ch-signup {
+  margin-top: 1em!important;
 }
 /* Tables */
 
@@ -238,6 +253,11 @@ button.ch-btn-view {
   opacity: .8;
 }
 
+button.ch-btn-view:disabled {
+  opacity: 0.4!important;
+  cursor: no-drop;
+}
+
 button.ch-btn-ok {
   border-radius: .36em;
   border: .1px solid grey;
@@ -281,6 +301,12 @@ button.ch-btn-disapprove {
   color: #ffffff;
   opacity: .8;
 }
+
+button.ch-btn-disapprove:disabled {
+  opacity: 0.4!important;
+  cursor: no-drop;
+}
+
 
 button.ch-btn-round:hover,
 button.ch-btn-flat:hover {
@@ -329,7 +355,6 @@ button.ch-btn-flat {
   background-color: rgb(242, 241, 239);
   display: none;
   overflow: auto;
-  animation: fade 500ms;
   padding-top: 0em;
   padding-bottom: .3em;
   border-top: .3em inset rgb(30, 130, 76);
@@ -397,7 +422,6 @@ ul.ch-nav div.ch-nav-right {
   justify-content: space-between;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  animation: fade 500ms;
 }
 
 ul.ch-nav div.ch-nav-right li {
@@ -486,80 +510,35 @@ h2.ch-row.ch-admin-nav i:hover {
   }
   h1.ch-display {
     font-size: 1.5em;
-    margin-bottom: 1em;
+    margin-bottom: 0em;
   }
   .ch-modal-section {
     width: 80%;
     margin-top: 2em;
   }
-  .ch-modal-heading, h2.ch-row.ch-admin-nav.ch-col-11 {
+  .ch-modal-heading {
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;
     -webkit-justify-content: space-between;
   }
+  h2.ch-row.ch-admin-nav.ch-col-11 {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    margin-top: .6em!important;
+    padding: .6em;
+  }
   h2.ch-row.ch-admin-nav.ch-col-11 i {
-    padding: .1em;
+    padding: .0em .3em;
     font-weight: bold;
     border-radius: 2em;
     align-self: auto;
   }
+  p#request-count {
+    display: none;
+  }
   .ch-footer-dis {
     position: initial;
-  }
-}
-/* Animations */
-
-@-webkit-keyframes fade {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  20% {
-    opacity: 0.2;
-    transform: scale(.2);
-  }
-  40% {
-    opacity: 0.4;
-    transform: scale(.4);
-  }
-  60% {
-    opacity: 0.6;
-    transform: scale(.6);
-  }
-  80% {
-    opacity: 0.8;
-    transform: scale(.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  20% {
-    opacity: 0.2;
-    transform: scale(.2);
-  }
-  40% {
-    opacity: 0.4;
-    transform: scale(.4);
-  }
-  60% {
-    opacity: 0.6;
-    transform: scale(.6);
-  }
-  80% {
-    opacity: 0.8;
-    transform: scale(.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
   }
 }

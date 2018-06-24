@@ -3,9 +3,11 @@ const token = `Bearer ${localStorage.token}`;
 const userPage = document.getElementById('user-page');
 const createRequestForm = document.getElementById('form-create-request');
 const updateRequestForm = document.getElementById('form-update-request');
+const userTablePanel = document.getElementById('user-table-display');
 const filterBtn = document.getElementById('filter');
 let userRequestsArr;
 let currentRequestId;
+userTablePanel.style.display = 'none';
 
 /**
  * Changes the font color of the status on display, according to the status
@@ -62,7 +64,7 @@ const formatDeleteBtn = (requestId, status) => {
   if (status === 'resolved' || status === 'disapproved') {
     deletebtn = `<button class="ch-btn-disapprove" onclick="deleteRequest(${requestId})"><i class="icon ion-md-close"></i></button>`;
   } else {
-    deletebtn = '<button class="ch-btn-disapprove"><i class="icon ion-md-close"></i></button>';
+    deletebtn = '<button disabled class="ch-btn-disapprove"><i class="icon ion-md-close"></i></button>';
   }
   return deletebtn;
 };
@@ -139,13 +141,14 @@ const getRequests = () => {
       if (res.code === 200 && res.data) {
         userRequestsArr = res.data;
         append(res.data);
-      } else {
-        displayAlert('User does not have requests, click the New Request button to create a request');
-      }
-      if (res.code === 401) {
+        userTablePanel.style.display = 'block';
+      } else if (res.code === 200 && !res.data) {
+        displayAlert('You don\'t have requests, click the New Request button to create a request');
+        userTablePanel.style.display = 'none';
+      }else if (res.code === 401) {
         setTimeout(() => {
           window.location.replace('signin.html');
-        }, 3000);
+        }, 100);
       }
     })
     .catch((err) => {

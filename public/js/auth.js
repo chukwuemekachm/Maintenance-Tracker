@@ -29,8 +29,13 @@ if (formSignup) {
     const lastname = document.getElementById('lastname').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
 
-    fetch(`${baseUrl}/auth/signup`, {
+    if (password !== confirmPassword) {
+      displayAlert('Passwords do not match');
+      return;
+    } else {
+      fetch(`${baseUrl}/auth/signup`, {
       method: 'POST',
       body: JSON.stringify({
         firstname, lastname, email, password,
@@ -47,6 +52,7 @@ if (formSignup) {
         displayAlert(response.message);
       }
     }).catch((error) => { displayAlert(error.message); });
+    }
   });
 }
 

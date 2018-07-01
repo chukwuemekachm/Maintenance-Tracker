@@ -6,6 +6,7 @@ const btnCloseUpdateRequest = document.getElementById('btn-close-update-request'
 const btnCloseViewRequest = document.getElementById('btn-close-view-request');
 const btnLogOut = document.getElementById('logout');
 const indexPage = document.getElementById('index-page');
+const sideNav = document.getElementById('side-nav');
 
 /**
  * Toggles Modals
@@ -27,16 +28,30 @@ const toggleModal = (id) => {
  *
  * @param {string} message - The message to be displayed on the alert
  */
-const displayAlert = (message) => {
-  document.getElementById('display').style.display = 'block';
-  document.getElementById('alert').innerHTML = message;
+const displayAlert = (message, type = 1) => {
+  document.getElementById('display').className = 'show';
+  const alert = document.getElementById('alert');
+  switch (type) {
+    case 2:
+      document.getElementById('display').style.backgroundColor = '#2ecc71';
+      alert.innerHTML = message;
+      break;
+    case 3:
+      document.getElementById('display').style.backgroundColor = '#E74C3C';
+      alert.innerHTML = message;
+      break;
+    default:
+      document.getElementById('display').style.backgroundColor = '#3498db';
+      alert.innerHTML = message;
+      break;
+  }
   setTimeout(() => {
-    document.getElementById('display').style = 'none';
+    document.getElementById('display').className = '';
   }, 4000);
 };
 
 const userLoggedIn = () => {
-  fetch(`${apiBaseUrl}/requests`, {
+  fetch(`${apiBaseUrl}/auth/account`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.token}` },
   }).then(response => response.json()).then((response) => {
@@ -53,20 +68,27 @@ const userLoggedIn = () => {
         break;
     }
   }).catch(() => {
-    displayAlert('Error connecting to our servers');
+    displayAlert('Error connecting to the network, please check your Internet connection and try again');
   });
 };
 
-if (btnMenu) {
-  /**
+/**
  * Toggles the navigation bar on small devices
  */
+const toggleMenu = () => {
+  const width = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
+  if (document.getElementById('nav').style.display === 'none') {
+    document.getElementById('nav').style.display = 'block';
+    if (sideNav && width < 769) sideNav.style.width = '85%';
+  } else {
+    document.getElementById('nav').style.display = 'none';
+    if (sideNav && width < 769) sideNav.style.width = '0px';
+  }
+};
+
+if (btnMenu) {
   btnMenu.addEventListener('click', () => {
-    if (document.getElementById('nav').style.display === 'none') {
-      document.getElementById('nav').style.display = 'block';
-    } else {
-      document.getElementById('nav').style.display = 'none';
-    }
+    toggleMenu();
   });
 }
 
@@ -96,3 +118,15 @@ if (btnLogOut) {
 if (indexPage) {
   indexPage.addEventListener('load', () => userLoggedIn());
 }
+
+/**
+ * Removes the style attributes from responsive elemnts when the screen size changes,
+ * this enables the elements to fallback to external styling
+ */
+const resize = () => {
+  const width = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
+  if (width > 769) {
+    document.getElementById('nav').removeAttribute('style');
+    document.getElementById('side-nav').removeAttribute('style');
+  }
+};

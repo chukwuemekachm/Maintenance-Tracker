@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Maintenance Tracker | Home</title>
+  <title>Maintenance Tracker | Signin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
   <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
@@ -12,44 +12,53 @@
 </head>
 
 <body>
-  <div class="ch-wrapper">
-    <div class="ch-aside">
-      <nav>
-        <ul class="ch-nav ch-card">
-          <li>
-            <h2><a href="index.html"><i class="icon ion-md-construct"></i> Maintenance Tracker</a></h2>
-          </li>
-        </ul>
-      </nav>
-      <div class="ch-alert" id="display">
-        <p id="alert"></p>
-      </div>
-      <div class="ch-col-3 ch-panel ch-signup">
-        <form id="signup-form">
-          <label for="firstname" class="ch-label">First Name</label>
-          <input type="text" name="firstname" id="firstname" class="ch-input" required placeholder="First Name">
-          <label for="lastname" class="ch-label">Last Name</label>
-          <input type="text" name="lastname" id="lastname" class="ch-input" required placeholder="Last Name">
-          <label for="email" class="ch-label">Email Address</label>
-          <input type="email" name="email" id="email" class="ch-input" required placeholder="Email Address">
-          <label for="password" class="ch-label">Password</label>
-          <input type="password" name="password" id="password" class="ch-input" required placeholder="Password">
-          <label for="password" class="ch-label">Confirm Password</label>
-          <input type="password" name="confirm_password" id="confirm-password" class="ch-input" required placeholder="Password">
-          <button class="ch-btn-flat">Signup</button>
-        </form>
-        <p class="ch-right">
-          Already have an account? 
-          <a href="signin.html">Signin...</a>
-        </p>
-      </div>
-      <div class="ch-footer-signup ch-card">
-        <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
-      </div>
+  <nav>
+    <ul class="ch-nav ch-card">
+      <li>
+        <h2>
+          <a href="index.html">
+            <i class="icon ion-md-construct"></i> Maintenance Tracker</a>
+        </h2>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="ch-alert" id="display">
+    <p id="alert"></p>
+  </div>
+
+  <div class="ch-row">
+    <h2 class="ch-about">Sign up to use Maintenance Tracker today</h2>
+  </div>
+
+  <div class="ch-row">
+    <div class="ch-col-3 ch-panel ch-signup">
+      <form id="signup-form">
+        <label for="firstname" class="ch-label">First Name <span class="ch-require">*</span></label>
+        <input type="text" name="firstname" id="firstname" class="ch-input" required placeholder="First Name">
+        <label for="lastname" class="ch-label">Last Name <span class="ch-require">*</span></label>
+        <input type="text" name="lastname" id="lastname" class="ch-input" required placeholder="Last Name">
+        <label for="email" class="ch-label">Email Address <span class="ch-require">*</span></label>
+        <input type="email" name="email" id="email" class="ch-input" required placeholder="Email Address">
+        <label for="password" class="ch-label">Password <span class="ch-require">*</span></label>
+        <input type="password" name="password" id="password" class="ch-input" required placeholder="Password">
+        <label for="password" class="ch-label">Confirm Password <span class="ch-require">*</span></label>
+        <input type="password" name="confirm_password" id="confirm-password" class="ch-input" required placeholder="Password">
+        <button class="ch-btn-flat">Signup</button>
+      </form>
+      <p class="ch-right">
+        Already have an account?
+        <a href="signin.html">Signin...</a>
+      </p>
     </div>
   </div>
+
+  <div class="ch-footer ch-card">
+    <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/auth.js"></script>
 </body>
-<script src="js/script.js"></script>
-<script src="js/auth.js"></script>
 
 </html>

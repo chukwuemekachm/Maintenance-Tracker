@@ -12,8 +12,8 @@ const isAdmin = () => {
   }).then(response => response.json()).then((response) => {
     if (response.status === 'fail') window.location.replace('user.html');
     if (response.status === 'success') window.location.replace('admin.html');
-  }).catch((error) => {
-    displayAlert(`Welcome ${error.message}, your login failed`);
+  }).catch(() => {
+    displayAlert('Error connecting to the network, please check your Internet connection and try again');
   });
 };
 
@@ -32,26 +32,27 @@ if (formSignup) {
     const confirmPassword = document.getElementById('confirm-password').value;
 
     if (password !== confirmPassword) {
-      displayAlert('Passwords do not match');
-      return;
+      displayAlert('Passwords do not match', 3);
     } else {
       fetch(`${baseUrl}/auth/signup`, {
-      method: 'POST',
-      body: JSON.stringify({
-        firstname, lastname, email, password,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then(response => response.json()).then((response) => {
-      if (response.code === 201) {
-        window.localStorage.token = response.token;
-        displayAlert(`Welcome ${response.data.fullname}, your signup was Successful`);
-        setTimeout(() => {
-          window.location.replace('user.html');
-        }, 3000);
-      } else {
-        displayAlert(response.message);
-      }
-    }).catch((error) => { displayAlert(error.message); });
+        method: 'POST',
+        body: JSON.stringify({
+          firstname, lastname, email, password,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(response => response.json()).then((response) => {
+        if (response.code === 201) {
+          window.localStorage.token = response.token;
+          displayAlert(`Welcome ${response.data.fullname}, your signup was Successful`, 2);
+          setTimeout(() => {
+            window.location.replace('user.html');
+          }, 10);
+        } else {
+          displayAlert(response.message, 3);
+        }
+      }).catch(() => {
+        displayAlert('Error connecting to the network, please check your Internet connection and try again');
+      });
     }
   });
 }
@@ -74,13 +75,13 @@ if (formLogin) {
     }).then(response => response.json()).then((response) => {
       if (response.code === 200) {
         window.localStorage.token = response.token;
-        displayAlert('Welcome, your login was Successful');
+        displayAlert('Welcome, your login was Successful', 2);
         isAdmin();
       } else {
-        displayAlert(response.message);
+        displayAlert(response.message, 3);
       }
-    }).catch((error) => {
-      displayAlert(`${error.message}, your login failed`);
+    }).catch(() => {
+      displayAlert('Error connecting to the network, please check your Internet connection and try again');
     });
   });
 }

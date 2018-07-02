@@ -1,20 +1,20 @@
 const baseUrl = 'https://my-maintenance-tracker.herokuapp.com/api/v1';
 const token = `Bearer ${localStorage.token}`;
-const userPage = document.getElementById('admin-page');
-const resolveRequestBtn = document.getElementById('resolve-request');
-const adminSyncBtn = document.getElementById('admin-sync');
+const adminPage = document.getElementById('admin-page');
+const userDisplayPanel = document.getElementById('user-requests');
+const userPreviewPanel = document.getElementById('user-request-preview');
+const btnSync = document.getElementById('user-sync');
+const btnApprove = document.getElementById('user-approve');
+const btnPending = document.getElementById('user-pending');
+const btnResolve = document.getElementById('user-resolve');
 const btnNext = document.getElementById('next-btn');
 const btnPrevious = document.getElementById('previous-btn');
-const btnApproved = document.getElementById('approved-btn');
-const btnPending = document.getElementById('pending-btn');
-const btnResolved = document.getElementById('resolved-btn');
-let currentFilter;
-let currentPage = 1;
 let userRequestsArr;
-let currentRequestId;
+let currentFilter = 'all';
+let currentPage = 1;
 
 /**
- * Changes the font color of the status on display, according to the status
+ * Changes the font color of the a request's status text on display, according to the status
  *
  * @param {String} status - The state of the request
  *
@@ -42,56 +42,105 @@ const formatStatus = (status) => {
 };
 
 /**
- * Appends and displays requests on the admin table
+ * Formats the left/right border colors of a request according to the status of the request
  *
- * @param {Array} data - A list of requests to be displayed on the Admin table
+ * @param {Number} requestId - The id of the request, the button updates
+ * @param {String} status - The status of the request, the button updates
+ *
+ * @returns {String} - The applicable class of the request
  */
-const appendTableBody = (data) => {
-  const newTableBody = document.createElement('tbody');
-  let counter = 1;
-  data.forEach((request) => {
-    const newRow = document.createElement('tr');
-    const cellNo = newRow.insertCell(0);
-    const cellTitle = newRow.insertCell(1);
-    const cellDate = newRow.insertCell(2);
-    const cellStatus = newRow.insertCell(3);
-    const cellUser = newRow.insertCell(4);
-    const cellDetails = newRow.insertCell(5);
-    const cellApprove = newRow.insertCell(6);
-    const cellDisapprove = newRow.insertCell(7);
-    cellNo.innerHTML = counter;
-    cellTitle.innerHTML = request.title;
-    cellDate.innerHTML = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
-    cellStatus.appendChild(formatStatus(request.status));
-    cellUser.innerHTML = `${request.firstname} ${request.lastname}`;
-    cellDetails.innerHTML = `<button class="ch-btn-view" onclick="displayRequestDetails(${request.request_id})"> <i class="icon ion-md-albums"></i> </button>`;
-    cellApprove.innerHTML = `<button class="ch-btn-approve" onclick="modifyRequest(${request.request_id}, 'approve')"> <i class="icon ion-md-checkmark"></i> </button>`;
-    cellDisapprove.innerHTML = `<button class="ch-btn-disapprove" onclick="modifyRequest(${request.request_id}, 'disapprove')"> <i class="icon ion-md-close"></i> </button>`;
-    newTableBody.append(newRow);
-    counter += 1;
-  });
-  const Table = document.getElementById('admin-table');
-  Table.removeChild(Table.lastChild);
-  return Table.append(newTableBody);
+const formatRequest = (status) => {
+  let borderColor;
+  switch (status) {
+    case 'approved':
+      borderColor = 'ch-requests ch-approve';
+      break;
+    case 'disapproved':
+      borderColor = 'ch-requests ch-disapprove';
+      break;
+    case 'resolved':
+      borderColor = 'ch-requests ch-resolve';
+      break;
+    default:
+      borderColor = 'ch-requests ch-pending';
+      break;
+  }
+  return borderColor;
 };
 
 /**
- * Diplays the details of a user's request
+ * Evaluates and formats the action buttons a request is entitled from the request's status
  *
- * @param {Number} requestId - The request id of the request to be displayed
+ * @param {Number} requestId - The id of the request, the button deletes
+ * @param {String} status - The status of the request, the button deletes
+ *
+ * @returns {HTMLCollection} - The formated buttons
  */
-const displayRequestDetails = (requestId) => {
-  const data = userRequestsArr.find(request => request.request_id === parseInt(requestId, 10));
-  currentRequestId = data.request_id;
-  document.getElementById('displayUser').innerHTML = `${data.firstname} ${data.lastname}`;
-  document.getElementById('displayEmail').innerHTML = data.email;
-  document.getElementById('displayId').innerHTML = data.request_id;
+const formatButtons = (status, requestId) => {
+  let buttons;
+  switch (status) {
+    case 'approved':
+      buttons = `<i class="icon ion-md-arrow-back" onclick="previousFilter()"></i>
+      <i class="icon ion-md-done-all" onclick="modifyRequest(${requestId}, 'resolve')"></i>`;
+      break;
+    case 'disapproved':
+      buttons = '<i class="icon ion-md-arrow-back" onclick="previousFilter()"></i>';
+      break;
+    case 'resolved':
+      buttons = '<i class="icon ion-md-arrow-back" onclick="previousFilter()"></i>';
+      break;
+    default:
+      buttons = `<i class="icon ion-md-arrow-back" onclick="previousFilter()"></i>
+      <i class="icon ion-md-checkmark" onclick="modifyRequest(${requestId}, 'approve')"></i>
+      <i class="icon ion-md-close" onclick="modifyRequest(${requestId}, 'disapprove')"></i>`;
+      break;
+  }
+  return buttons;
+};
+
+/**
+* Appends request data to user request display panel
+*
+* @param {Array} data - The requests to be displayed
+*/
+const append = (data) => {
+  userDisplayPanel.innerHTML = '';
+  data.forEach((request) => {
+    const currentRequest = document.createElement('ul');
+    currentRequest.setAttribute('onclick', `getRequest(${request.request_id})`);
+    currentRequest.setAttribute('class', formatRequest(request.status));
+    const titleCell = document.createElement('li');
+    const dateCell = document.createElement('li');
+    const statusCell = document.createElement('li');
+    titleCell.innerText = request.title;
+    dateCell.innerText = new Date(request.createdat).toLocaleString('en-GB', { hour12: true });
+    statusCell.appendChild(formatStatus(request.status));
+    currentRequest.appendChild(titleCell);
+    currentRequest.appendChild(dateCell);
+    currentRequest.appendChild(statusCell);
+    userDisplayPanel.appendChild(currentRequest);
+  });
+  userPreviewPanel.style.display = 'none';
+  userDisplayPanel.style.display = 'block';
+};
+
+/**
+* Displays information for a single user's request
+*
+* @param {Object} data - The request to be displayed
+*/
+const displayPreview = (data) => {
+  document.getElementById('displayUser').innerText = `${data.firstname} ${data.lastname}`;
+  document.getElementById('displayEmail').innerText = data.email;
   document.getElementById('displayTitle').innerText = data.title;
   document.getElementById('displayType').innerText = data.type;
   document.getElementById('displayDescription').innerText = data.description;
-  document.getElementById('displayStatus').innerText = data.status;
+  document.getElementById('buttons').innerHTML = formatButtons(data.status, data.request_id);
+  document.getElementById('displayStatus').innerHTML = '';
+  document.getElementById('displayStatus').appendChild(formatStatus(data.status));
   document.getElementById('displayDate').innerText = new Date(data.createdat).toLocaleString('en-GB', { hour12: true });
-  toggleModal('view-request');
+  userDisplayPanel.style.display = 'none';
+  userPreviewPanel.style.display = 'block';
 };
 
 /**
@@ -109,17 +158,20 @@ const getRequests = (filterType, pageNo = 1) => {
     .then(res => res.json()).then((res) => {
       if (res.code === 200) {
         userRequestsArr = res.data;
-        document.getElementById('request-count').innerHTML = `${userRequestsArr.length} requests`;
-        appendTableBody(res.data);
+        append(res.data);
       }
       if (res.code === 401) {
         setTimeout(() => {
           window.location.replace('signin.html');
-        }, 500);
+        }, 10);
+      } else if (res.code === 403) {
+        setTimeout(() => {
+          window.location.replace('user.html');
+        }, 10);
       }
     })
-    .catch((err) => {
-      displayAlert(err.message);
+    .catch(() => {
+      displayAlert('Error connecting to the network, please check your Internet connection and try again');
     });
 };
 
@@ -127,7 +179,8 @@ const getRequests = (filterType, pageNo = 1) => {
  * Modifies the status of a user's request
  *
  * @param {Number} requestId - The request id of the request to be modified
- * @param {String} actionType - The type of modification action to be performed (Approve, Disapprove, Resolve)
+ * @param {String} actionType - The type of modification action to be performed
+ * (Approve, Disapprove, Resolve)
  */
 const modifyRequest = (requestId, actionType) => {
   fetch(`${baseUrl}/requests/${requestId}/${actionType}`, {
@@ -140,23 +193,35 @@ const modifyRequest = (requestId, actionType) => {
       if (res.code === 200) {
         getRequests();
       }
-      if (res.code === 401 || res.code === 403) {
+      if (res.code === 401) {
         setTimeout(() => {
           window.location.replace('signin.html');
-        }, 500);
+        }, 10);
+      } else if (res.code === 403) {
+        setTimeout(() => {
+          window.location.replace('user.html');
+        }, 10);
       }
     })
-    .catch((err) => {
-      displayAlert(err.message);
+    .catch(() => {
+      displayAlert('Error connecting to the network, please check your Internet connection and try again');
     });
 };
 
-adminSyncBtn.addEventListener('click', () => {
-  displayAlert('Synchronization in progress...');
-  currentPage = 1;
-  currentFilter = 'none';
-  getRequests();
-});
+/**
+* Gets the details of a single user object
+*
+* @param {Number} data - The id of the request to be fetched
+*/
+const getRequest = (requestId) => {
+  const request = userRequestsArr
+    .find(requestItem => requestItem.request_id === parseInt(requestId, 10));
+  displayPreview(request);
+};
+
+const previousFilter = () => {
+  append(userRequestsArr);
+};
 
 btnNext.addEventListener('click', () => {
   if (userRequestsArr.length < 12) {
@@ -169,7 +234,7 @@ btnNext.addEventListener('click', () => {
 });
 
 btnPrevious.addEventListener('click', () => {
-  if (currentPage < 1) {
+  if (currentPage > 1) {
     displayAlert('Loading previous...');
     currentPage -= 1;
     getRequests(currentFilter, currentPage);
@@ -177,31 +242,33 @@ btnPrevious.addEventListener('click', () => {
     displayAlert('This is the first page');
   }
 });
-
-btnApproved.addEventListener('click', () => {
+btnSync.addEventListener('click', () => {
+  displayAlert('Synchronization in progress...');
+  currentPage = 1;
+  currentFilter = 'none';
+  getRequests();
+  toggleMenu();
+});
+btnApprove.addEventListener('click', () => {
   displayAlert('Loading Approved...');
   currentPage = 1;
   currentFilter = 'approved';
   getRequests(currentFilter, currentPage);
+  toggleMenu();
 });
-
-btnResolved.addEventListener('click', () => {
-  displayAlert('Loading Resolved...');
-  currentPage = 1;
-  currentFilter = 'resolved';
-  getRequests(currentFilter, currentPage);
-});
-
 btnPending.addEventListener('click', () => {
   displayAlert('Loading Pending...');
   currentPage = 1;
   currentFilter = 'pending';
   getRequests(currentFilter, currentPage);
+  toggleMenu();
+});
+btnResolve.addEventListener('click', () => {
+  displayAlert('Loading Resolved...');
+  currentPage = 1;
+  currentFilter = 'resolved';
+  getRequests(currentFilter, currentPage);
+  toggleMenu();
 });
 
-resolveRequestBtn.addEventListener('click', () => {
-  toggleModal('view-request');
-  modifyRequest(currentRequestId, 'resolve');
-});
-
-userPage.addEventListener('load', getRequests());
+adminPage.addEventListener('load', getRequests());

@@ -4,46 +4,55 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Maintenance Tracker | Home</title>
+  <title>Maintenance Tracker | Signin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
   <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/ico" href="https://res.cloudinary.com/dvcaeuvee/image/upload/v1527700128/15682.png">
 </head>
 
-<body>
-  <div class="ch-wrapper">
-    <div class="ch-aside">
-      <nav>
-        <ul class="ch-nav ch-card">
-          <li>
-            <h2><a href="index.html"><i class="icon ion-md-construct"></i> Maintenance Tracker</a></h2>
-          </li>
-        </ul>
-      </nav>
-      <div class="ch-alert" id="display">
-        <p id="alert"></p>
-      </div>
-      <div class="ch-col-3 ch-center ch-panel">
-        <form id="login-form">
-          <label for="email" class="ch-label">Email Address</label>
-          <input type="email" name="email" id="email" class="ch-input" required placeholder="Email Address">
-          <label for="password" class="ch-label">Password</label>
-          <input type="password" name="password" id="password" class="ch-input" required placeholder="Password">
-          <button class="ch-btn-flat">Login</button>
-        </form>
-        <p class="ch-right">
-          Don't have an account? 
-          <a href="signup.html">Signup...</a>
-        </p>
-      </div>
+<body id="index-page">
+  <nav>
+    <ul class="ch-nav ch-card">
+      <li>
+        <h2>
+          <a href="index.html">
+            <i class="icon ion-md-construct"></i> Maintenance Tracker</a>
+        </h2>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="ch-alert" id="display">
+    <p id="alert"></p>
+  </div>
+
+  <div class="ch-row">
+    <h2 class="ch-about">Login to access your Maintenance Tracker Account</h2>
+  </div>
+
+  <div class="ch-row">
+    <div class="ch-col-3 ch-panel ch-signup">
+      <form id="login-form">
+        <label for="email" class="ch-label"><i class="icon ion-md-person"></i> Email Address</label>
+        <input type="email" name="email" id="email" class="ch-input" required placeholder="Email Address">
+        <label for="password" class="ch-label"><i class="icon ion-md-key"></i> Password</label>
+        <input type="password" name="password" id="password" class="ch-input" required placeholder="Password">
+        <button class="ch-btn-flat">Login</button>
+      </form>
+      <p class="ch-right">
+        Don't  have an account?
+        <a href="signup.html">Signup...</a>
+      </p>
     </div>
   </div>
-  <div class="ch-footer ch-card">
+
+  <div class="ch-footer ch-bottom ch-card">
     <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
   </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/auth.js"></script>
 </body>
-<script src="js/script.js"></script>
-<script src="js/auth.js"></script>
 
 </html>

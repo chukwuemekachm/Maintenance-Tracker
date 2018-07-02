@@ -4,76 +4,95 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Maintenance Tracker | User</title>
+  <title>Maintenance Tracker | Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
   <link href="https://unpkg.com/ionicons@4.1.0/dist/css/ionicons.min.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/ico" href="https://res.cloudinary.com/dvcaeuvee/image/upload/v1527700128/15682.png">
 </head>
 
-<body id="user-page">
-  <div class="ch-wrapper">
-    <div class="ch-aside">
-      <nav>
-        <ul class="ch-nav ch-card">
-          <li>
-            <h2>
-              <a href="index.html">
-                <i class="icon ion-md-construct"></i> Maintenance Tracker</a>
-              <i class="icon ion-md-menu" id="menu"></i>
-            </h2>
-          </li>
-          <div class="ch-nav-right" id="nav">
-            <li>
-              <button class="ch-btn-round" id="btn-add-request">New Request</button>
-            </li>
-            <li>
-              <button class="ch-btn-round" id="logout">Logout</button>
-            </li>
-          </div>
-        </ul>
-      </nav>
-      <div class="ch-alert" id="display">
-        <p id="alert"></p>
+<body id="user-page" onresize="resize()">
+  <nav>
+    <ul class="ch-nav ch-card">
+      <li>
+        <h2>
+          <a href="index.html">
+            <i class="icon ion-md-construct"></i> Maintenance Tracker</a>
+          <i class="icon ion-md-menu" id="menu"></i>
+        </h2>
+      </li>
+      <div class="ch-nav-right" id="nav">
+        <li>
+          <button class="ch-btn-round" id="logout">Logout</button>
+        </li>
       </div>
-      <h1 class="ch-display">
-        <i class=""></i> My Requests</h1>
-      <div class="ch-col-10 ch-row">
-        <div class="ch-col-3">
-          <select name="" id="filter" class="ch-input">
-            <option value="all">All requests</option>
-            <option value="approved">Approved requests</option>
-            <option value="disapproved">Disapproved requests</option>
-            <option value="pending">Pending requests</option>
-            <option value="resolved">Reolved requests</option>
-          </select>
-        </div>
-        <div class="ch-col-9"></div>
-      </div>
-      <div class="ch-col-10 ch-panel" id='user-table-display'>
-        <div class="ch-table">
-          <table class="ch-table" id="user-table">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Details</th>
-                <th>Update</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
+    </ul>
+  </nav>
 
-          </table>
+  <div class="" id="display">
+    <p id="alert"></p>
+  </div>
+
+  <!-- Side Nav-->
+  <div class="ch-side-nav" id="side-nav">
+    <i class="icon ion-md-construct ch-about-icon"></i>
+    <h3>Maintenance Tracker</h3>
+    <h5 class="ch-green">maintenancetracker.info@gmail.com</h5>
+    <ul>
+      <li id="user-sync"><h5><i class="icon ion-md-sync"></i> All requests</h5></li>
+      <li id="user-approve"><h5><i class="icon ion-md-checkmark"></i> Approved requests</h5></li>
+      <li id="user-disapprove"><h5><i class="icon ion-md-close"></i> Dispproved requests</h5></li>
+      <li id="user-pending"><h5><i class="icon ion-md-infinite"></i> Pending requests</h5></li>
+      <li id="user-resolve"><h5><i class="icon ion-md-done-all"></i> Resolved requests</h5></li>
+    </ul>
+    <button class="ch-btn-round" id="btn-add-request"><i class="icon ion-md-add"></i>  Create Request</button>
+    <ul>
+      <li><h5><i class="icon ion-md-person"></i> My Profile</h5></li>
+      <li><h5><i class="icon ion-md-create"></i> Update Profile</h5></li>
+      <li><h5><i class="icon ion-md-key"></i> Change Password</h5></li>
+    </ul>
+    <ul></ul>
+  </div>
+  <!-- End Side Nav-->
+
+  <div class="ch-row">
+    <div class="ch-col-2"></div>
+    <div class="ch-col-9" id="user-display">
+        <h2 class="ch-display"><i class="icon ion-md-speedometer"></i> Dashboard</h2>
+        <div class="ch-row ch-hide" id="user-requests"></div>
+        <div class="ch-row ch-hide" id="user-request-preview">
+          <div class="ch-col-12">
+            <h3 class="ch-display" id="buttons">
+            </h3>
+            <p class="ch-display">
+              <label for="title" class="ch-label">Title</label>
+            </p>
+            <p id="displayTitle" class="ch-display">
+              Lorem impsum dolet et sim, elet dar tar
+            </p>
+            <p class="ch-display">
+              <label for="type" class="ch-label">Type</label>
+            </p>
+            <p id="displayType" class="ch-display">Repair</p>
+            <p class="ch-display">
+              <label for="description" class="ch-label">Description</label>
+            </p>
+            <p id="displayDescription" class="ch-display">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus
+              quam odit nam nisi velit consequatur cumque expedita.</p>
+            <p class="ch-display">
+              <label for="status" class="ch-label">Status</label>
+            </p>
+            <p id="displayStatus" class="ch-display"></p>
+            <p class="ch-display">
+              <label for="date" class="ch-label">Date</label>
+            </p>
+            <p id="displayDate" class="ch-display">22/03/2018 01:02pm</p>
+          </div>
         </div>
-      </div>
     </div>
   </div>
-  <div class="ch-footer-dis ch-card">
-    <h5>Copyright of &copy;2018 Maintenance Tracker by Chima Chukwuemeka</h5>
-  </div>
 
+  <!-- Modal container -->
   <div class="ch-modal" id="modal">
     <div class="ch-modal-section" id="add-request">
       <div class="ch-col-12 ch-modal-heading">
@@ -125,42 +144,17 @@
       </div>
     </div>
 
-    <div class="ch-modal-section" id="view-request">
-      <div class="ch-col-12 ch-modal-heading">
-        <h4>Request Details</h4>
-        <span id="btn-close-view-request">&times;</span>
-      </div>
-      <div class="ch-row">
-        <div class="ch-col-10">
-          <p>
-            <label for="title" class="ch-label">Title</label>
-          </p>
-          <p id="displayTitle" class="ch-display-modal">
-            Lorem impsum dolet et sim, elet dar tar
-          </p>
-          <p>
-            <label for="type" class="ch-label">Type</label>
-          </p>
-          <p id="displayType" class="ch-display-modal">Repair</p>
-          <p>
-            <label for="description" class="ch-label">Description</label>
-          </p>
-          <p id="displayDescription" class="ch-display-modal">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas at architecto molestiae numquam, laborum possimus
-            quam odit nam nisi velit consequatur cumque expedita.</p>
-          <p>
-            <label for="status" class="ch-label">Status</label>
-          </p>
-          <p id="displayStatus" class="ch-display-modal"></p>
-          <p>
-            <label for="date" class="ch-label">Date</label>
-          </p>
-          <p id="displayDate" class="ch-display-modal">22/03/2018 01:02pm</p>
-        </div>
-      </div>
+  </div>
+
+  <div class="ch-loading">
+    <div class="ch-center">
+      <img src="http://bestanimations.com/Science/Gears/loadinggears/loading-gears-animation-10.gif" alt="loading">
+      <h4>Loading...</h4>
     </div>
   </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/user.js"></script>
 </body>
-<script src="js/script.js"></script>
-<script src="js/user.js"></script>
 
 </html>

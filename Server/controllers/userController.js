@@ -25,18 +25,20 @@ class UserController {
       firstname, lastname, email, password,
     } = req.body.user;
     const queryString = {
-      text: 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING id, firstname, lastname, email, createdat;',
+      text: 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING id, firstname, lastname, email, admin, createdat;',
       values: [firstname, lastname, email, password],
     };
     client.query(queryString, (error, result) => {
       client.end();
-      const { id } = result.rows[0];
+      const { id, admin } = result.rows[0];
       return res.status(201)
         .json({
           status: 'success',
           code: 201,
-          data: { fullname: `${firstname} ${lastname}`, email },
-          token: jwt.sign({ id, email, admin: false }, secret, { expiresIn: '6h' }),
+          data: {
+            admin, firstname, lastname, email,
+          },
+          token: jwt.sign({ id, email, admin: false }, secret, { expiresIn: '72h' }),
           message: 'User sign up successful',
         });
     });
@@ -60,7 +62,7 @@ class UserController {
       email, password,
     } = req.body.user;
     const queryString = {
-      text: 'SELECT id, admin, password FROM users WHERE email = $1 LIMIT 1;',
+      text: 'SELECT id, admin, firstname, lastname, password FROM users WHERE email = $1 LIMIT 1;',
       values: [email],
     };
     client.query(queryString, (error, result) => {
@@ -68,12 +70,17 @@ class UserController {
       if (result.rows[0]) {
         const hashValue = bcrypt.compareSync(password, result.rows[0].password);
         if (hashValue) {
-          const { id, admin } = result.rows[0];
+          const {
+            id, admin, firstname, lastname,
+          } = result.rows[0];
           return res.status(200)
             .json({
               status: 'success',
               code: 200,
-              token: jwt.sign({ id, email, admin }, secret, { expiresIn: '6h' }),
+              data: {
+                admin, firstname, lastname, email,
+              },
+              token: jwt.sign({ id, email, admin }, secret, { expiresIn: '72h' }),
               message: 'User login successful',
             });
         }
@@ -81,14 +88,14 @@ class UserController {
           .json({
             status: 'error',
             code: 401,
-            message: 'User login failed, incorrect email or password',
+            message: 'User login failed, incorrect password',
           });
       }
       return res.status(401)
         .json({
           status: 'error',
           code: 401,
-          message: 'User login failed, incorrect email or password',
+          message: 'User login failed, email does not exist',
         });
     });
   }
@@ -173,7 +180,7 @@ class UserController {
       connectionString,
     });
     const { id } = req.body.token;
-    const { firstname, lastname, email } = req.body.profile;
+    const { firstname, lastname } = req.body.profile;
 
     client.connect();
     const queryString = {

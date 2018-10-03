@@ -13,7 +13,7 @@ describe('POST /signup', () => {
         firstname: 'Tosin',
         lastname: 'Owa',
         email: 'tosin@gmail.com',
-        password: '34567',
+        password: '34567911',
       })
       .end((req, res) => {
         res.should.have.status(201);
@@ -24,7 +24,9 @@ describe('POST /signup', () => {
         res.body.should.have.property('data');
         res.body.data.should.be.an('object');
         res.body.data.should.be.an('object');
-        res.body.data.should.have.property('fullname');
+        res.body.data.should.have.property('firstname');
+        res.body.data.should.have.property('lastname');
+        res.body.data.should.have.property('admin');
         res.body.data.should.have.property('email');
         done();
       });
@@ -176,7 +178,7 @@ describe('POST /signup', () => {
         firstname: 'Tosin',
         lastname: 'Juliet',
         email: 'emecus10@gmail.com',
-        password: '3456798',
+        password: '34567911',
       })
       .end((req, res) => {
         res.should.have.status(409);

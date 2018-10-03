@@ -99,7 +99,7 @@ describe('POST /login', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql('error');
         res.body.should.have.property('code').eql(401);
-        res.body.should.have.property('message').eql('User login failed, incorrect email or password');
+        res.body.should.have.property('message').eql('User login failed, email does not exist');
         done();
       });
   });
@@ -115,7 +115,7 @@ describe('POST /login', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql('error');
         res.body.should.have.property('code').eql(401);
-        res.body.should.have.property('message').eql('User login failed, incorrect email or password');
+        res.body.should.have.property('message').eql('User login failed, incorrect password');
         done();
       });
   });

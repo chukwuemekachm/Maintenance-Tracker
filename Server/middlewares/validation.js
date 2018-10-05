@@ -2,11 +2,11 @@ import Joi from 'joi';
 import bcrypt from 'bcrypt';
 
 const signupSchema = Joi.object().keys({
-  firstname: Joi.string().required().max(30),
-  lastname: Joi.string().required().max(30),
-  email: Joi.string().email().required().max(50)
-    .regex(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]{2,4}$/),
-  password: Joi.string().required().max(15).min(8),
+  firstname: Joi.string().required().max(15),
+  lastname: Joi.string().required().max(15),
+  email: Joi.string().email().required().max(25)
+    .regex(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/),
+  password: Joi.string().required().max(15),
 });
 
 const loginSchema = Joi.object().keys({
@@ -17,7 +17,7 @@ const loginSchema = Joi.object().keys({
 const createRequestSchema = Joi.object().keys({
   title: Joi.string().required().min(10).max(50),
   type: Joi.string().required().max(15),
-  description: Joi.string().required().min(10).max(150),
+  description: Joi.string().required().min(10).max(100),
 });
 
 const filterRequestSchema = Joi.object().keys({
@@ -216,7 +216,7 @@ const updateRequest = (req, res, done) => {
   }
   if (req.body.description) {
     req.body.description = req.body.description.replace(/  +/g, ' ').trim();
-    if (typeof req.body.description !== 'string' || !/^[a-zA-Z0-9,\s]{1,}$/.test(req.body.description)) {
+    if (typeof req.body.description !== 'string' || !/^[a-zA-Z0-9,\.\s]{1,}$/.test(req.body.description)) {
       return res.status(400).json({ status: 'error', code: 400, message: 'description is invalid' });
     }
   }

@@ -1,34 +1,27 @@
-import nodemailer from 'nodemailer';
+import sendGrid from '@sendgrid/mail';
 import dotenv from 'dotenv';
 import { Client } from 'pg';
 
 dotenv.config();
 const connectionString = process.env.DATABASE_URL;
-
-const mailTransporter = nodemailer.createTransport({
-  service: process.env.MY_SERVICE,
-  auth: {
-    user: process.env.MY_EMAIL,
-    pass: process.env.MY_PASSWORD,
-  },
-});
+const { SENDGRID_API_KEY } = process.env;
 
 /**
  * Sends email notifications to admin and users
- * 
+ *
  * @class - The EmailSender class
  */
 class EmailSender {
   /**
    * Sends an email to a recipient
-   * 
+   *
    * @param {String} userEmail - The email address of the recipent
    * @param {String} mailSubject - The subject of the mail
    * @param {String} mailBody - The mail/message body
    */
   static async sendEmail(userEmail, mailSubject, mailBody) {
-    const mailOptions = {
-      from: 'Maintenance-Tracker.com',
+    const message = {
+      from: 'no-reply@maintenance-tracker',
       to: userEmail,
       subject: mailSubject,
       html: `<h3 style="grey: white;padding: .5em;">Maintenance Tracker</h3>
@@ -36,17 +29,14 @@ class EmailSender {
       <p style="padding: .5em;"><b>**Note if you are not subscribed to Maintenance Tracker, please ignore this mail.</p>`,
     };
 
-    mailTransporter.sendMail(mailOptions, (err) => {
-      if (err) {
-        return false;
-      }
-      return true;
-    });
+    sendGrid.setApiKey(SENDGRID_API_KEY);
+    sendGrid.send(message).then(() => true);
   }
 
   /**
-   * Constructs the message body of a user email notification, when a request is approved, disapproved or resolved
-   * 
+   * Constructs the message body of a user email notification,
+   * when a request is approved, disapproved or resolved
+   *
    * @param {Number} requestId - The request id of the modified request
    */
   static async userRequestStatus(requestId) {
@@ -70,7 +60,7 @@ class EmailSender {
 
   /**
    * Constructs the message body of an admin email notification, when a request is created
-   * 
+   *
    * @param {String} requestTitle - The title of the created request
    */
   static async userCreateRequest(requestTitle) {

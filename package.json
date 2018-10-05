@@ -24,6 +24,10 @@
     },
     "homepage": "https://github.com/chukwuemekachm/Maintenance-Tracker#readme",
     "dependencies": {
+        "@sendgrid/mail": "^6.3.1",
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-preset-env": "^1.7.0",
         "bcrypt": "^2.0.1",
         "body-parser": "^1.18.3",
         "cors": "^2.8.4",
@@ -37,9 +41,6 @@
         "pg": "^7.0.3"
     },
     "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-core": "^6.26.3",
-        "babel-preset-env": "^1.7.0",
         "chai": "^4.1.2",
         "chai-http": "^4.0.0",
         "coveralls": "^3.0.1",

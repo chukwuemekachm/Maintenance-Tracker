@@ -5,7 +5,8 @@ const signupSchema = Joi.object().keys({
   firstname: Joi.string().required().max(25),
   lastname: Joi.string().required().max(25),
   email: Joi.string().email().required().max(60)
-    .regex(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/),
+    .regex(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
+    .error(new Error('The email is not valid')),
   password: Joi.string().required().max(15),
 });
 
@@ -15,7 +16,7 @@ const loginSchema = Joi.object().keys({
 });
 
 const createRequestSchema = Joi.object().keys({
-  title: Joi.string().required().min(10).max(50),
+  title: Joi.string().required().min(3).max(50),
   type: Joi.string().required().max(15),
   description: Joi.string().required().min(10).max(150),
 });
@@ -61,7 +62,11 @@ const trimUser = (firstname, lastname, email, password, req, res, done) => {
       req.body.user = user;
       return done();
     }
-    return res.status(422).json({ status: 'error', code: 422, message: err.details[0].message });
+    return res.status(422).json({
+      status: 'error',
+      code: 422,
+      message: err.details ? err.details[0].message : err.message,
+    });
   });
 };
 

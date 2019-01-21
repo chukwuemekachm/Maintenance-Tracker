@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
 import { Client } from 'pg';
+
+import env from '../config/env';
 import EmailSender from '../extensions/emailSender';
 
-dotenv.config();
-const connectionString = process.env.DATABASE_URL;
+const connectionString = env.databaseUrl;
 
 class RequestController {
   /**

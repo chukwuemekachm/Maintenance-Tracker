@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
 import { Client } from 'pg';
 
-dotenv.config();
+import env from '../config/env';
+
 const secret = process.env.JWT_KEY;
-const connectionString = process.env.DATABASE_URL;
+const connectionString = env.databaseUrl;
 
 class UserController {
   /**

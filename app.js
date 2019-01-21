@@ -1,13 +1,13 @@
+import 'dotenv/config';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
 import cors from 'cors';
+
 import AuthRoutes from './Server/routes/authRoutes';
 import UserRoutes from './Server/routes/userRoutes';
 import AdminRoutes from './Server/routes/adminRoutes';
 
-dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -31,3 +31,4 @@ app.all('*', (req, res) => res.status(404).json({
 app.listen(port);
 
 export const server = app;
+export default app;

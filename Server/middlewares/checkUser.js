@@ -1,8 +1,8 @@
-import dotenv from 'dotenv';
 import { Client } from 'pg';
 
-dotenv.config();
-const connectionString = process.env.DATABASE_URL;
+import env from '../config/env';
+
+const connectionString = env.databaseUrl;
 
 /**
  * Checks if a user with the email already exists

@@ -1,10 +1,10 @@
 import sendGrid from '@sendgrid/mail';
-import dotenv from 'dotenv';
 import { Client } from 'pg';
 
-dotenv.config();
-const connectionString = process.env.DATABASE_URL;
+import env from '../config/env';
+
 const { SENDGRID_API_KEY } = process.env;
+const connectionString = env.databaseUrl;
 
 /**
  * Sends email notifications to admin and users

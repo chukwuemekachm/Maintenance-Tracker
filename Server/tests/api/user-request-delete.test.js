@@ -2,15 +2,14 @@ import { describe, it } from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import { server } from '../../app';
+import { server } from '../../../app';
 
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
-let userToken = '';
 let superUserToken = 'jnjsds9sjsds9dskmsd9sdmdsjdsdsk.dsdsos0sld9sdosdsmsdmssdjsnsdjisdjksd';
 
-describe('GET /requests', () => {
+describe('DELETE /users/requests/requestId', () => {
   it('should return 200 and token, when credentials are valid', (done) => {
     chai.request(server).post('/api/v1/auth/login')
       .send({
@@ -28,42 +27,23 @@ describe('GET /requests', () => {
       });
   });
 
-  it('should return 200 and token, when credentials are valid', (done) => {
-    chai.request(server).post('/api/v1/auth/login')
-      .send({
-        email: 'brighto@gmail.com',
-        password: `${process.env.USER_PASSWORD}`,
-      })
-      .end((req, res) => {
-        res.should.have.status(200);
-        res.should.be.a('object');
-        res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('User login successful');
-        res.body.should.have.property('code').eql(200);
-        userToken = res.body.token;
-        done();
-      });
-  });
-
-  it('should return 200 and requests, when token is valid and requests exists', (done) => {
+  it('should return 200 and requests, when token is valid and request was deleted', (done) => {
     chai.request(server)
-      .get('/api/v1/users/requests')
+      .delete('/api/v1/users/requests/1')
       .set('Authorization', `Bearer ${superUserToken}`)
       .end((req, res) => {
         res.should.have.status(200);
         res.should.be.a('object');
         res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('Requests retrieved successfully');
+        res.body.should.have.property('message').eql('Request deleted successfully');
         res.body.should.have.property('code').eql(200);
-        res.body.should.have.property('data');
-        res.body.data.should.be.an('array');
         done();
       });
   });
 
   it('should return 401 when token is invalid', (done) => {
     chai.request(server)
-      .get('/api/v1/users/requests')
+      .delete('/api/v1/users/requests/0')
       .set('Authorization', 'Bearer ndfkjvksdkvdjsfesfndvi.uhbvwefiuweihiew.bnrejdfjufdj')
       .end((err, res) => {
         res.should.have.status(401);
@@ -75,16 +55,42 @@ describe('GET /requests', () => {
       });
   });
 
-  it('should return 200 when no request exist for the user', (done) => {
+  it('should return 404 when request does not exist', (done) => {
     chai.request(server)
-      .get('/api/v1/users/requests')
-      .set('Authorization', `Bearer ${userToken}`)
+      .delete('/api/v1/users/requests/20')
+      .set('Authorization', `Bearer ${superUserToken}`)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(404);
         res.body.should.be.a('object');
-        res.body.should.have.property('code').eql(200);
-        res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('No request for the user');
+        res.body.should.have.property('code').eql(404);
+        res.body.should.have.property('status').eql('fail');
+        res.body.should.have.property('message').eql('Request does not exist');
+        done();
+      });
+  });
+
+  it('should return 400 when request can not be deleted', (done) => {
+    chai.request(server)
+      .delete('/api/v1/users/requests/2')
+      .set('Authorization', `Bearer ${superUserToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('code').eql(400);
+        res.body.should.have.property('status').eql('fail');
+        res.body.should.have.property('message').eql('Request can not be deleted, you can not delete an approved request');
+        done();
+      });
+  });
+
+  it('should return 400, when requestId parameter is not valid', (done) => {
+    chai.request(server)
+      .delete('/api/v1/users/requests/hs').end((req, res) => {
+        res.should.have.status(400);
+        res.should.be.a('object');
+        res.body.should.have.property('code').eql(400);
+        res.body.should.have.property('status').eql('error');
+        res.body.should.have.property('message').eql('requestId is not valid');
         done();
       });
   });

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import database from './database';
 
 const env = process.env.NODE_ENV || 'development';

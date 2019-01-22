@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import { server } from '../../app';
+import { server } from '../../../app';
 
 dotenv.config();
 chai.use(chaiHttp);

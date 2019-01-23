@@ -1,8 +1,10 @@
-import { describe, it } from 'mocha';
+import { describe, it, before } from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
+
 import { server } from '../../../app';
+import { generateToken } from '../../helpers/jwtHelper';
 
 chai.use(chaiHttp);
 chai.should();
@@ -10,39 +12,34 @@ dotenv.config();
 let token;
 
 describe('GET /account', () => {
-  it('should return 200 and request, when properties are valid', (done) => {
-    chai.request(server).post('/api/v1/auth/login')
-      .send({
-        email: 'emecus10@gmail.com',
-        password: `${process.env.JWT_KEY}`,
-      })
-      .end((req, res) => {
-        res.should.have.status(200);
-        res.should.be.a('object');
-        res.body.should.have.property('status').eql('success');
-        res.body.should.have.property('message').eql('User login successful');
-        res.body.should.have.property('code').eql(200);
-        res.body.should.have.property('token');
-        ({ token } = res.body);
-        done();
-      });
+  before(() => {
+    token = generateToken(
+      { email: 'emecus10@gmail.com', id: 1, admin: true },
+      '72h',
+    );
   });
 
-  it('should return 401, when access token is invalid', (done) => {
-    chai.request(server).get('/api/v1/auth/account')
+  it('should return 401, when access token is invalid', done => {
+    chai
+      .request(server)
+      .get('/api/v1/auth/account')
       .set('Authorization', 'Bearer badToken623bewq842j3kr')
       .end((req, res) => {
         res.should.have.status(401);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql('fail');
         res.body.should.have.property('code').eql(401);
-        res.body.should.have.property('message').eql('Invalid authorization token');
+        res.body.should.have
+          .property('message')
+          .eql('Invalid authorization token');
         done();
       });
   });
 
-  it('should return 200, when access token is valid', (done) => {
-    chai.request(server).get('/api/v1/auth/account')
+  it('should return 200, when access token is valid', done => {
+    chai
+      .request(server)
+      .get('/api/v1/auth/account')
       .set('Authorization', `Bearer ${token}`)
       .end((req, res) => {
         res.should.have.status(200);
@@ -56,7 +53,9 @@ describe('GET /account', () => {
         res.body.data.should.have.property('admin');
         res.body.data.should.have.property('createdat');
         res.body.data.should.have.property('updatedat');
-        res.body.should.have.property('message').eql('User details retrieved successfully');
+        res.body.should.have
+          .property('message')
+          .eql('User details retrieved successfully');
         done();
       });
   });

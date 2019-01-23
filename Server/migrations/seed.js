@@ -8,9 +8,11 @@ const seedSuperUser = `
     VALUES ('Chima','Emeka','emecus10@gmail.com',true,'${superUserPassword}');
 `;
 
-const seedRegularUser = `
+const seedRegularUsers = `
   INSERT INTO users (firstname,lastname,email,admin,password)
     VALUES ('Bright','Chiemela','brighto@gmail.com',false,'${regularUserPassword}');
+  INSERT INTO users (firstname,lastname,email,admin,password)
+    VALUES ('User2','User2','soulx@gmail.com',false,'${regularUserPassword}');
 `;
 
 const seedSuperUserRequests = `
@@ -24,10 +26,10 @@ const seedSuperUserRequests = `
     VALUES ('Bad Lawn','repair','Please, I have a bad Lawn',1,'pending');
 `;
 
-const seed = async (pool) => {
+const seed = async pool => {
   try {
     await pool.query(seedSuperUser);
-    await pool.query(seedRegularUser);
+    await pool.query(seedRegularUsers);
     await pool.query(seedSuperUserRequests);
     return true;
   } catch (err) {

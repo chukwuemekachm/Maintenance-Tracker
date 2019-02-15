@@ -39,21 +39,29 @@ class EmailSender {
    *
    * @param {Number} requestId - The request id of the modified request
    */
-  static async userRequestStatus(requestId) {
+  static async sendUserRequestStatus(requestId) {
     const client = new Client({
       connectionString,
     });
     client.connect();
     const queryString = {
-      text: 'SELECT requests.id, requests.title, requests.createdat, requests.status, requests.updatedat, users.lastname, users.email FROM requests INNER JOIN users ON users.id = requests.user_id WHERE requests.id = $1 LIMIT 1;',
+      text:
+        'SELECT requests.id, requests.title, requests.createdat, requests.status, requests.updatedat, users.lastname, users.email FROM requests INNER JOIN users ON users.id = requests.user_id WHERE requests.id = $1 LIMIT 1;',
       values: [requestId],
     };
     client.query(queryString, (error, result) => {
       client.end();
       const {
-        title, createdat, updatedat, status, lastname, email,
+        title,
+        createdat,
+        updatedat,
+        status,
+        lastname,
+        email,
       } = result.rows[0];
-      const messageBody = `<p>Dear <b>${lastname}</b>,</p> <p>Your request with</p> <p>Request ID: <b>${requestId}</b>, <p>Request Title: <b>${title}</p>, <p> Created on: <b>${createdat}</b>, <p> was ${status} on <b>${new Date(updatedat)}</b>.</p>`;
+      const messageBody = `<p>Dear <b>${lastname}</b>,</p> <p>Your request with</p> <p>Request ID: <b>${requestId}</b>, <p>Request Title: <b>${title}</p>, <p> Created on: <b>${createdat}</b>, <p> was ${status} on <b>${new Date(
+        updatedat,
+      )}</b>.</p>`;
       EmailSender.sendEmail(email, `Request ${status}`, messageBody);
     });
   }

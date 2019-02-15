@@ -36,7 +36,7 @@ describe('GET /requests', () => {
         res.body.should.have.property('status').eql('success');
         res.body.should.have
           .property('message')
-          .eql('Requests on the system retrieved successfully');
+          .eql('Requests retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');
@@ -55,7 +55,7 @@ describe('GET /requests', () => {
         res.body.should.have.property('status').eql('success');
         res.body.should.have
           .property('message')
-          .eql('Requests on the system retrieved successfully');
+          .eql('Requests retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');
@@ -74,7 +74,7 @@ describe('GET /requests', () => {
         res.body.should.have.property('status').eql('success');
         res.body.should.have
           .property('message')
-          .eql('Requests on the system retrieved successfully');
+          .eql('Requests retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');
@@ -93,7 +93,7 @@ describe('GET /requests', () => {
         res.body.should.have.property('status').eql('success');
         res.body.should.have
           .property('message')
-          .eql('Requests on the system retrieved successfully');
+          .eql('Requests retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');
@@ -112,7 +112,7 @@ describe('GET /requests', () => {
         res.body.should.have.property('status').eql('success');
         res.body.should.have
           .property('message')
-          .eql('Requests on the system retrieved successfully');
+          .eql('Requests retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');
@@ -131,7 +131,7 @@ describe('GET /requests', () => {
         res.body.should.have.property('status').eql('success');
         res.body.should.have
           .property('message')
-          .eql('Requests on the system retrieved successfully');
+          .eql('Requests retrieved successfully');
         res.body.should.have.property('code').eql(200);
         res.body.should.have.property('data');
         res.body.data.should.be.an('array');
